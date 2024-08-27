@@ -17,6 +17,10 @@ DEBUG = env.bool('DEBUG', default=False)  # Use environment variable
 
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['dham.up.railway.app', '127.0.0.1', 'localhost'])
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://dham.up.railway.app',  # Your Railway app domain
+]
+
 # Application definition
 INSTALLED_APPS = [
     "django.contrib.admin",
