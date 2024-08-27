@@ -15,7 +15,7 @@ SECRET_KEY = env('SECRET_KEY', default='your_default_secret_key')  # Use environ
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool('DEBUG', default=False)  # Use environment variable
 
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['your-app-name.up.railway.app', '127.0.0.1', 'localhost'])
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['dham.up.railway.app', '127.0.0.1', 'localhost'])
 
 # Application definition
 INSTALLED_APPS = [
