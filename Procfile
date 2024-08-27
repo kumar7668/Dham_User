@@ -1,1 +1,1 @@
-gunicorn dham.wsgi
+web: gunicorn dham.wsgi
