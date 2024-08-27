@@ -144,12 +144,6 @@
         <div class="row">
             <div class="col">
                 <h2 class="h2_title"><span class="h2_title_span">Home</span> Accommodations Near<span class="h2_title_span"> You</span></h2>
-                data
-                {% for city in city_data.cities %}
-                <li>Name: {{ city.name }} </li>
-                <li>Property Count: {{ city.propertyCount }}</li>
-                <li>Image: <img src="{{ city.file.Url }}" alt="{{ city.name }} image"></li>
-            {% endfor %}
             </div>
             <div class="col">
                 <p class="p-text">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
@@ -160,48 +154,17 @@
     <div class="container" data-aos="fade-up" data-aos-delay="100">  
         <div class="container near_by_home">  
             <div class="owl-carousel owl-theme">
+                {% if city_data %}
+                {% for city in city_data.cities %}
                 <div class="item">
-                    <img src="{% static 'img/toprated1.png' %}" alt="Image 1">
+                    <img src="{{ city.file.Url }}" alt="{{ city.name }}">
                     <div class="overlay">
-                        <div class="property_title">Vrindavan</div>
-                        <div class="property_desc"><i class="bi bi-houses-fill"></i> 81 Properties</div>
+                        <div class="property_title">{{ city.name }}</div>
+                        <div class="property_desc"><i class="bi bi-houses-fill"></i>{{ city.propertyCount }} Properties</div>
                     </div>
                 </div>
-                <div class="item">
-                    <img src="{% static 'img/toprated2.png' %}" alt="Image 2">
-                    <div class="overlay">
-                        <div class="property_title">Rudraprayag</div>
-                        <div class="property_desc"><i class="bi bi-houses-fill"></i> 82 Properties</div>
-                    </div>
-                </div>
-                <div class="item">
-                    <img src="{% static 'img/toprated3.png' %}"alt="Image 3">
-                    <div class="overlay">
-                        <div class="property_title">Varanasi</div>
-                        <div class="property_desc"><i class="bi bi-houses-fill"></i> 83 Properties</div>
-                    </div>
-                </div>
-                <div class="item">
-                    <img src="{% static 'img/toprated3.png' %}"alt="Image 3">
-                    <div class="overlay">
-                        <div class="property_title">Varanasi</div>
-                        <div class="property_desc"><i class="bi bi-houses-fill"></i> 84 Properties</div>
-                    </div>
-                </div>
-                <div class="item">
-                    <img src="{% static 'img/toprated3.png' %}"alt="Image 3">
-                    <div class="overlay">
-                        <div class="property_title">Varanasi</div>
-                        <div class="property_desc"><i class="bi bi-houses-fill"></i> 85 Properties</div>
-                    </div>
-                </div>
-                <div class="item">
-                    <img src="{% static 'img/toprated3.png' %}"alt="Image 3">
-                    <div class="overlay">
-                        <div class="property_title">Varanasi</div>
-                        <div class="property_desc"><i class="bi bi-houses-fill"></i> 86 Properties</div>
-                    </div>
-                </div>
+                {% endfor %}
+                {% endif %}
             </div>
         </div> 
     </div>   
