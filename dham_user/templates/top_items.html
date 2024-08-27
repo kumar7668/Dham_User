@@ -1,0 +1,198 @@
+
+{% load static %}
+
+<style>
+
+    .owl-carousel .owl-stage-outer {
+        position: relative;
+        {% comment %} */ is should have to fix */ {% endcomment %}
+        overflow: visible; 
+        -webkit-transform: translate3d(0, 0, 0);
+    }
+
+    .carousel-inner {
+        display: flex;
+        flex-wrap: nowrap;
+    }
+    
+    .carousel-item {
+        transition: transform 0.5s ease;
+        display: flex;
+        justify-content: center;
+    }
+
+    .card {
+        flex: 1 0 auto;
+        margin: 10px;
+    }
+
+    .h2_title_rated{
+        color: #FA9300;
+    } 
+    .theme_red{
+        color:var(--theme-red-color) !important;
+    }
+    .top_rated_items{
+        background: linear-gradient(180deg, #FFF44B 0%, #FFB901 100%);
+        padding-bottom: 0px;
+    }
+    .top_rated_items .container{
+        padding: 30px 0 0 0;
+        background-image : url("{% static 'img/top_items_bg.svg' %}");
+        background-repeat: no-repeat;
+        background-position: top;
+        background-size: cover;
+    }
+
+    .top_rated_items .container p{
+        font-family: Inter;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 26px;
+        text-align: left;
+    }
+    .add_cart_batn{
+        padding: 10px 0 10px 0;
+        border-radius: 20px;
+        width: 100%;
+        background: var(--theme-red-color);
+        color: #fff;
+        font-family: Inter;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 19.36px;
+    }
+    .add_cart_batn:hover{
+        background: #FA9300 !important;
+        color:#ffffff;
+    }
+    .card-title{
+        color: var(--heading-color);
+        font-family: Inter;
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 29px;
+        text-align: left;
+    }
+    .offer_price{
+        font-family: Inter;
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 29.05px;
+        text-align: left;
+        color: #FE4D00;
+    }
+    .actual_price{
+        font-family: Inter;
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 29.05px;
+        text-align: left;
+        color: #00000066;
+        text-decoration: line-through;
+        padding: 0 10px 0 10px;
+
+    }
+    .total_off{
+        font-family: Inter;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 14.52px;
+        text-align: left;
+        color: #E52B50;
+        background: #FF33331A;
+        padding: 3px 5px 3px 5px;
+        border-radius: 10px;
+    }
+    </style> 
+
+<section id="top_rated_items" class="top_rated_items" data-aos="fade-up" data-aos-delay="100">
+    <div class="container">
+        <div class=" container-fluid mb-5"  data-aos="fade-up" >
+            <div class="row">
+                <div class="col-sm-12 col-lg-7 col-md-6">
+                    <h2 class="h2_title theme_red">Top - <span class="h2_title_rated">Rated</span> Items</h2>
+                </div>
+                <div class="col-sm-12 col-lg-5 col-md-6">
+                    <p class="p-text">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
+                </div>  
+            </div>
+        </div>    
+        <div class="owl-carousel owl-theme" data-aos="fade-up" data-aos-delay="100">
+            <div class="item">
+                <div class="card" data-aos="fade-up" data-aos-delay="200">
+                    <img src="{% static 'img/loard_ganesha.png' %}" class="card-img-top" alt="Image 1" >
+                    <div class="card-body pt-5">
+                        <h4 class="card-title">Lord Ganesh Brass Statue</h4>
+                        <h4 class="card-title"><span class="offer_price">₹260</span><span class="actual_price">₹260</span><span class="total_off">-20%</span></h4>
+                        <a href="#" class="btn add_cart_batn">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="card" data-aos="fade-up" data-aos-delay="250">
+                    <img src="{% static 'img/loard_ganesha.png' %}" class="card-img-top" alt="Image 1">
+                    <div class="card-body pt-5">
+                        <h4 class="card-title">Lord Ganesh Brass Statue</h4>
+                        <h4 class="card-title"><span class="offer_price">₹260</span><span class="actual_price">₹260</span><span class="total_off">-20%</span></h4>
+                        <a href="#" class="btn add_cart_batn">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="card" data-aos="fade-up" data-aos-delay="300">
+                    <img src="{% static 'img/loard_ganesha.png' %}" class="card-img-top" alt="Image 1">
+                    <div class="card-body pt-5">
+                        <h4 class="card-title">Lord Ganesh Brass Statue</h4>
+                        <h4 class="card-title"><span class="offer_price">₹260</span><span class="actual_price">₹260</span><span class="total_off">-20%</span></h4>
+                        <a href="#" class="btn add_cart_batn">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="card" data-aos="fade-up" data-aos-delay="350">
+                    <img src="{% static 'img/loard_ganesha.png' %}" class="card-img-top" alt="Image 1">
+                    <div class="card-body pt-5">
+                        <h4 class="card-title">Lord Ganesh Brass Statue</h4>
+                        <h4 class="card-title"><span class="offer_price">₹260</span><span class="actual_price">₹260</span><span class="total_off">-20%</span></h4>
+                        <a href="#" class="btn add_cart_batn">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="card" data-aos="fade-up" data-aos-delay="400">
+                    <img src="{% static 'img/loard_ganesha.png' %}" class="card-img-top" alt="Image 1">
+                    <div class="card-body pt-5">
+                        <h4 class="card-title">Lord Ganesh Brass Statue</h4>
+                        <h4 class="card-title"><span class="offer_price">₹260</span><span class="actual_price">₹260</span><span class="total_off">-20%</span></h4>
+                        <a href="#" class="btn add_cart_batn">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function(){
+        $('.owl-carousel').owlCarousel({
+            loop: true,
+            margin: 10, // Reduce this value to decrease the gap between cards
+            nav: true,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                600: {
+                    items: 1
+                },
+                1000: {
+                    items: 3,  // Show 3 cards on desktop
+                    stagePadding: 40, // Adjust or remove to control the gap between cards
+                    margin: 10
+                }
+            }
+        });
+    });
+</script>
+

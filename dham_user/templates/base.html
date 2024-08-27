@@ -1,0 +1,152 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Index - stage for success</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static 'img/favicon.png' %}" rel="icon">
+  <link href="{% static 'img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Jomhuria&display=swap" rel="stylesheet">
+
+ <!-- owlCarousel CSS Files -->
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="{% static 'css/main.css' %}" rel="stylesheet">
+
+  <style>
+  #about h2 {
+    color: var(--accent-color);
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 56px;
+    }
+  .p-btn{
+    height: 45px;
+    width: 198px;
+    margin-top: 15px;
+  }
+  .s-btn{
+      background-color: white;
+      color: var(--accent-color);
+      border: 2px solid var(--accent-color) !important;
+      border-color: blueviolet;
+      height: 45px;
+      width: 198px;
+      margin-top: 15px;
+  }
+  .s-btn:hover{
+    background-color: var(--accent-color);
+    color: white !important;
+  }
+
+  .left-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .right-content img {
+    max-width: 100%;
+    height: auto;
+  }
+  .custom-padding {
+    padding: 20px;
+  }
+  .click-btn{
+    z-index: 1;
+  }
+  a, a:hover  {
+    color:#fff;
+  }
+  .disabled-link {
+    pointer-events: none;
+    color: #6c757d; /* Bootstrap's default disabled text color */
+  }
+  </style>
+</head>
+
+<body class="index-page">
+
+  <!-- Base Heder  -->
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+
+      <a href="{% url 'home' %}"  class="logo d-flex align-items-center me-auto">
+        <img src="{% static 'img/logo.png' %}" alt="logo">
+      </a>
+
+      <nav id="navmenu" class="navmenu me-auto">
+        <ul>
+          <li><a href="{% url 'home' %}" class="active">Accommodation</a></li>
+          <li><a href="{% url 'home' %}" class="">Guide</a></li>
+          <li><a href="#contact">Live Darshan</a></li>
+          <li><a href="{% url 'home' %}">E-Pooja</a></li>
+          <li><a href="{% url 'home' %}">E-commerce</a></li>
+          <li><a href="{% url 'home' %}">Blogs</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+      <a class=" href="#about"><img src="{% static 'img/ic_sharp-toggle-on.png' %}"></a>
+
+    </div>
+  </header>
+  <!-- Base Heder End -->
+
+
+  {% block main %} 
+   <!-- Home page  -->
+  {% include "home_page.html" %}
+  <!-- Home page End  -->
+  {% endblock %}
+
+   <!-- Footer Block  -->
+  {% include "footer.html" %}
+   <!-- Footer Block end  -->
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  {% comment %} <div id="preloader"></div> {% endcomment %}
+
+  {% block scripts %}
+  <!-- Vendor JS Files -->
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'vendor/php-email-form/validate.js' %}"></script>
+  <script src="{% static 'vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'vendor/swiper/swiper-bundle.min.js' %}"></script>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+  <!-- Main JS File -->
+  <script src="{% static 'js/main.js' %}"></script>
+
+  {% endblock %}
+
+</body>
+
+</html>
