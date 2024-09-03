@@ -151,55 +151,57 @@
                     <h2 class="h2_title theme_red">Way to <span class="h2_title_rated">Kanha ji ki Nagri</span>  vrindavan</h2>
                 </div>
             </div>
-        </div>    
-        <div class="owl-carousel owl-theme" data-aos="fade-up" data-aos-delay="100">
-            <div class="item">
-                <div class="card" data-aos="fade-up" data-aos-delay="200">
-                    <span class="badge">Tour</span>
-                    <img src="{% static 'img/car1.png' %}" class="card-img-top" alt="Image 1" >
-                    <div class="overlay">
-                        <div class="property_title">Krishna Balaram Mandir</div>
-                        <div class="tour_event_info"><i class="bi bi-calendar2-heart"></i> Starting from  Jul 19, 2024 to Jul 24, 2024</div>
+        </div>   
+        <div class="kanha_ki_ngari_calousel"> 
+            <div class="owl-carousel owl-theme" data-aos="fade-up" data-aos-delay="100">
+                <div class="item">
+                    <div class="card" data-aos="fade-up" data-aos-delay="200">
+                        <span class="badge">Tour</span>
+                        <img src="{% static 'img/car1.png' %}" class="card-img-top" alt="Image 1" >
+                        <div class="overlay">
+                            <div class="property_title">Krishna Balaram Mandir</div>
+                            <div class="tour_event_info"><i class="bi bi-calendar2-heart"></i> Starting from  Jul 19, 2024 to Jul 24, 2024</div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="item">
-                <div class="card" data-aos="fade-up" data-aos-delay="250">
-                    <span class="badge">Tour</span>
-                    <img src="{% static 'img/car1.png' %}" class="card-img-top" alt="Image 1">
-                    <div class="overlay">
-                        <div class="property_title">Krishna Balaram Mandir</div>
-                        <div class="tour_event_info"><i class="bi bi-calendar2-heart"></i> Starting from  Jul 19, 2024 to Jul 24, 2024</div>
+                <div class="item">
+                    <div class="card" data-aos="fade-up" data-aos-delay="250">
+                        <span class="badge">Tour</span>
+                        <img src="{% static 'img/car1.png' %}" class="card-img-top" alt="Image 1">
+                        <div class="overlay">
+                            <div class="property_title">Krishna Balaram Mandir</div>
+                            <div class="tour_event_info"><i class="bi bi-calendar2-heart"></i> Starting from  Jul 19, 2024 to Jul 24, 2024</div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="item">
-                <div class="card" data-aos="fade-up" data-aos-delay="300">
-                    <span class="badge">Tour</span>
-                    <img src="{% static 'img/car1.png' %}" class="card-img-top" alt="Image 1">
-                    <div class="overlay">
-                        <div class="property_title">Krishna Balaram Mandir</div>
-                        <div class="tour_event_info"><i class="bi bi-calendar2-heart"></i> Starting from  Jul 19, 2024 to Jul 24, 2024</div>
+                <div class="item">
+                    <div class="card" data-aos="fade-up" data-aos-delay="300">
+                        <span class="badge">Tour</span>
+                        <img src="{% static 'img/car1.png' %}" class="card-img-top" alt="Image 1">
+                        <div class="overlay">
+                            <div class="property_title">Krishna Balaram Mandir</div>
+                            <div class="tour_event_info"><i class="bi bi-calendar2-heart"></i> Starting from  Jul 19, 2024 to Jul 24, 2024</div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="item">
-                <div class="card" data-aos="fade-up" data-aos-delay="350">
-                    <span class="badge">Tour</span>
-                    <img src="{% static 'img/car1.png' %}" class="card-img-top" alt="Image 1">
-                    <div class="overlay">
-                        <div class="property_title">Krishna Balaram Mandir</div>
-                        <div class="tour_event_info"><i class="bi bi-calendar2-heart"></i> Starting from  Jul 19, 2024 to Jul 24, 2024</div>
+                <div class="item">
+                    <div class="card" data-aos="fade-up" data-aos-delay="350">
+                        <span class="badge">Tour</span>
+                        <img src="{% static 'img/car1.png' %}" class="card-img-top" alt="Image 1">
+                        <div class="overlay">
+                            <div class="property_title">Krishna Balaram Mandir</div>
+                            <div class="tour_event_info"><i class="bi bi-calendar2-heart"></i> Starting from  Jul 19, 2024 to Jul 24, 2024</div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="item">
-                <div class="card" data-aos="fade-up" data-aos-delay="400">
-                    <span class="badge">Tour</span>
-                    <img src="{% static 'img/car1.png' %}" class="card-img-top" alt="Image 1">
-                    <div class="overlay">
-                        <div class="property_title">Krishna Balaram Mandir</div>
-                        <div class="tour_event_info"><i class="bi bi-calendar2-heart"></i> Starting from  Jul 19, 2024 to Jul 24, 2024</div>
+                <div class="item">
+                    <div class="card" data-aos="fade-up" data-aos-delay="400">
+                        <span class="badge">Tour</span>
+                        <img src="{% static 'img/car1.png' %}" class="card-img-top" alt="Image 1">
+                        <div class="overlay">
+                            <div class="property_title">Krishna Balaram Mandir</div>
+                            <div class="tour_event_info"><i class="bi bi-calendar2-heart"></i> Starting from  Jul 19, 2024 to Jul 24, 2024</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -209,24 +211,28 @@
 
 <script>
     $(document).ready(function(){
-        $('.owl-carousel').owlCarousel({
+        $('.kanha_ki_ngari_calousel .owl-carousel').owlCarousel({
             loop: true,
-            margin: 10, // Reduce this value to decrease the gap between cards
+            margin: 10, // Adjust the gap between cards
             nav: true,
             responsive: {
                 0: {
-                    items: 1
+                    items: 1 // 1 card on mobile view (0 to 590px)
                 },
-                600: {
-                    items: 1
+                590: {
+                    items: 2 // 2 cards from 590px to 899px
                 },
-                1000: {
-                    items: 3,  // Show 3 cards on desktop
+                900: {
+                    items: 3 // 3 cards from 900px to 1199px
+                },
+                1200: {
+                    items: 4,  // 4 cards on larger screens (1200px and above)
                     stagePadding: 40, // Adjust or remove to control the gap between cards
                     margin: 10
                 }
             }
         });
     });
+    
 </script>
 

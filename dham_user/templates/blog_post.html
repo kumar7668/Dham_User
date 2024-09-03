@@ -73,9 +73,10 @@
     <div class="container pb-5">
         <h2 class="h2_title color-white">Latest Blog and News</h2>
     </div>   
-    <div class="blog-card-container container-fluid">
+    <div class="row">
+    <div class="blog-card-container container-fluid ">
         <!-- Blog Card 1 -->
-        <div class="blog-card">
+        <div class="col-sm-12 col-md-4 col-lg-4 blog-card">
             <img src="{% static 'img/blog1.png' %}" alt="Blog Post Image">
             <div class="content">
                 <div class="date-time">
@@ -93,7 +94,7 @@
         </div>
 
         <!-- Blog Card 2 -->
-        <div class="blog-card">
+        <div class="col-sm-12 col-md-4 col-lg-4  blog-card">
             <img src="{% static 'img/blog2.png' %}" alt="Blog Post Image">
             <div class="content">
                 <div class="date-time">
@@ -111,7 +112,7 @@
         </div>
 
         <!-- Blog Card 3 -->
-        <div class="blog-card">
+        <div class=" col-sm-12 col-md-4 col-lg-4  blog-card">
             <img src="{% static 'img/blog1.png' %}" alt="Blog Post Image">
             <div class="content">
                 <div class="date-time">
@@ -127,6 +128,7 @@
                 <p class="blog_dec">While not on the scale of some built by ancient kings, 6,000 temples dot the landscape, many being rebuilt with the cooperation of all communities...</p>
             </div>
         </div>
+    </div>
     </div>
 </section>
 

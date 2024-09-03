@@ -1,0 +1,202 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ room.title }} - Hotel Room Details</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #343a40;
+        }
+
+        .container {
+            margin-top: 50px;
+            background-color: #ffffff;
+            padding: 30px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #007bff;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .room-details-container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .room-images {
+            flex: 1;
+            margin-right: 30px;
+        }
+
+        .carousel-item img {
+            border-radius: 10px;
+        }
+
+        .carousel-indicators {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .carousel-indicators img {
+            height: 60px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            border: 2px solid transparent;
+        }
+
+        .carousel-indicators .active img {
+            border-color: #007bff;
+        }
+
+        .thumbnail-bar {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .thumbnail-bar img {
+            height: 60px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            border: 2px solid transparent;
+            transition: border-color 0.3s ease;
+        }
+
+        .thumbnail-bar img:hover {
+            border-color: #007bff;
+        }
+
+        .room-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding-top: 10px;
+        }
+
+        .room-info h2 {
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            color: #343a40;
+        }
+
+        .room-info p {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .room-info ul {
+            list-style-type: none;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+
+        .room-info ul li {
+            background-color: #e9ecef;
+            padding: 8px;
+            border-radius: 5px;
+            margin-bottom: 5px;
+            font-size: 1rem;
+        }
+
+        .book-now-btn {
+            font-size: 1.2rem;
+            padding: 12px 25px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .book-now-btn:hover {
+            background-color: #0056b3;
+        }
+
+        @media (max-width: 768px) {
+            .room-details-container {
+                flex-direction: column;
+            }
+
+            .room-images {
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Odisha: 22 properties found</h1>
+
+    <div class="room-details-container">
+        <!-- Room Images Section -->
+        <div id="roomCarousel" class="carousel slide room-images" data-ride="carousel">
+            <div class="carousel-inner">
+                {% for image in room.images %}
+                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                        <img src="{{ image.url }}" class="d-block w-100" alt="{{ image.alt }}">
+                    </div>
+                {% endfor %}
+            </div>
+            <a class="carousel-control-prev" href="#roomCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#roomCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+            <!-- Thumbnail Bar -->
+        <div class="thumbnail-bar">
+            {% for image in room.images %}
+                <img src="{{ image.thumbnail_url }}" alt="{{ image.alt }}" data-target="#roomCarousel" data-slide-to="{{ forloop.counter0 }}">
+            {% endfor %}
+        </div>
+
+        </div>
+
+        
+        <!-- Room Info Section -->
+        <div class="room-info">
+            <h2>{{ room.type }}</h2>
+            <p><strong>Price per night:</strong> {{ room.price_per_night }}</p>
+            <p><strong>Room Type:</strong> {{ room.type }}</p>
+            <p><strong>Room Space:</strong> {{ room.space }} sqm</p>
+            <p><strong>Facilities:</strong></p>
+            <ul>
+                {% for facility in room.facilities %}
+                    <li>{{ facility }}</li>
+                {% endfor %}
+            </ul>
+            <button class="book-now-btn">Book Now</button>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    // Make the thumbnail bar clickable and linked to the carousel
+    $('.thumbnail-bar img').on('click', function () {
+        var slideIndex = $(this).attr('data-slide-to');
+        $('#roomCarousel').carousel(parseInt(slideIndex));
+    });
+</script>
+</body>
+</html>

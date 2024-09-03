@@ -1,0 +1,489 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %} 
+<style>
+        /* General container adjustments */
+        .container-footer {
+            margin-top: 5px;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        /* Filter section styling */
+        .filter-section {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            height: max-content;
+        }
+
+        /* Sticky footer for mobile filter */
+        .sticky-footer {
+            background-color: #fff;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            z-index: 10000;
+            border-top: 1px solid #cecdcd;
+            left: 0;
+            height: 55px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+        }
+
+        /* Hotel card styling */
+        .hotel-card {
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .hotel-card:hover {
+            transform: scale(1.05);
+        }
+
+        /* Image styling within cards */
+        .img-prod img {
+            height: 100%;
+            min-height: 210px;
+            width: 100%;
+            /* height: 282px; */
+            border-radius: 12px 12px 0 0;
+            object-fit: fill;
+        }
+
+        /* Card body adjustments */
+        .hotel-card .card-body {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 184px; /* Ensures consistent card height */
+        }
+
+        /* Title and text adjustments within the card */
+        .hotel-card .card-title {
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+        }
+
+        .hotel-card .card-text {
+            font-size: 1rem;
+        }
+
+        /* Search bar styling */
+        .search-bar {
+            margin-bottom: 20px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            /* Hide desktop filter on mobile */
+            .filter-section {
+                display: none;
+            }
+
+            /* Show sticky footer on mobile */
+            .sticky-footer {
+                display: flex; /* Ensures sticky footer is visible on mobile */
+            }
+        }
+
+        @media (min-width: 769px) {
+            /* Hide mobile filter sticky footer on larger screens */
+            .sticky-footer {
+                display: none;
+            }
+        }
+
+        /* Scrollable filter body */
+        .filter-body {
+            max-height: 350px;
+            overflow-y: auto; /* Scrollbar for overflow content */
+        }
+        
+
+        /* ############################### */
+
+            .h1_ttile{
+              font-family: var(--heading-font);
+              color:#ffffff;
+              font-size: 90px;
+              font-weight: 400;
+              line-height: 63px;
+              text-align: center;
+          
+            }
+            .search_list {
+                width: 100%;
+                display: flex;
+                margin: 20px 0; 
+            }
+            .search_list ul li a{
+              font-family: var(--default-font);
+              color: var(--bs-body-bg);
+              font-size: 16px;
+              font-weight: 600;
+              line-height: 21.78px;
+              text-align: center;
+              padding: 6px 15px; 
+              display: block;
+              text-decoration: none;
+            }
+            .search_list ul li a:hover{
+              border-bottom: 3px solid var(--theme-hover-color);
+            }
+          
+          
+              .search_list ul {
+                display: flex;
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                overflow-x: auto; 
+                white-space: nowrap; 
+            }
+          
+            .search_list li {
+                margin-right: 15px; 
+            }
+          
+          
+            .search_list a.active {
+              border-bottom: 3px solid var(--theme-hover-color);
+          
+            }
+          
+          
+            .search_list ul::-webkit-scrollbar {
+                height: 6px; 
+            }
+          
+            .search_list ul::-webkit-scrollbar-thumb {
+                background-color: #007bff; 
+            }
+          
+            .search_list ul::-webkit-scrollbar-track {
+                background-color: #f1f1f1;
+            }
+            .mg-5{
+              margin: 5px;
+            }
+          
+            .owl-theme .overlay .property_desc, .owl-theme .overlay .tour_event_info{
+              font-family: Inter;
+              font-size: 14px;
+              font-weight: 400;
+              line-height: 19.36px;
+              text-align: left;
+              color:#ffffff;
+          
+            }
+            .overlay .property_title{
+              font-family: Inter;
+              font-size: 22px;
+              font-weight: 600;
+              line-height: 26px;
+              text-align: left;
+              Color:#ffffff;
+          
+          }
+          .txt_input{
+            padding: 12px 5px 12px 10px;
+            background: none;
+            border: none;
+          }
+          .rm_bd_bg{
+            font-size: 12px;
+            border: none;
+            background: none;
+          }
+          .custom_search_box{
+            max-width: 850px;
+            margin-bottom: 15px;
+            padding: 6px 0 6px 0;
+            position: relative;
+            border-radius: 50px;
+            border: 2px solid var(--theme-hover-color);
+            display: flex;
+            background-color: #ffffff;
+            transition: 0.3s;
+        }
+        .custom_search_box input[type=submit] {
+            border: 0;
+            font-weight: 500;
+            font-size: 16px;
+            padding: 14px 22px 14px 22px;
+            margin: 0 8px 0px 0px;
+            background: var(--theme-red-color);
+            color: #ffffff;
+            transition: 0.3s;
+            border-radius: 50px;
+        }
+        .custom_search_box  input[type=submit]:hover {
+            background: var(--theme-hover-color);
+        }
+        .guest-col, .room-col, .check-in-col {
+            padding: 0 0 0 0;
+            margin: 5px 0 0 0;
+            height: 43px;
+            border-left: 2px solid var(--theme-hover-color);
+        }
+        .guest-col label, .room-col label,  .check-in-col label
+        {
+            font-family: Inter;
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 14.52px;
+        
+        }
+        .room-col label {
+            margin: 0 15px 0 0px;
+
+        }
+        .check-in-col label{
+            margin: 0 0 0 0;
+        }
+        .guest-col label{
+            margin: 0 0 0 -25px;
+        }
+       
+        .base-seach-col{
+            position: absolute;
+             top: 0; 
+             right: 122px; 
+             text-align: center;
+        }
+        .check-in-col .rm_bd_bg{
+            margin: 0 -10px 0 10px;
+            padding: 0 0 0 20px;
+            cursor: pointer;
+        }
+        .room-col .rm_bd_bg{
+            padding: 0px 0px 0 15px;
+        }
+        .guest-col .rm_bd_bg{
+            padding: 0px 0px 0 15px;
+            margin: 0px 0 0 5px;
+        }
+
+        .room-col select option{
+            margin: 0 0 0px -10px;
+            padding: 0 0 0 0;
+        }
+        
+        
+</style>
+
+<!-- Hero Section -->
+<section id="hero" class="hero section">
+    <div class="hero-bg">
+      <img src="{% static 'img/hotel_listing_page_bg.png' %}" alt="hotel_listing_page_bg">
+    </div>
+
+    <div class="container text-center">
+        <div class="d-flex flex-column justify-content-center align-items-center">
+            <h1 class="h1_ttile" data-aos="zoom-out" data-aos-delay="230">Search Tours</h1>       
+            <form class="container txt-center" action="" method="post" data-aos="fade-up" data-aos-delay="110">
+                <div class="custom_search_box">
+                    <!-- Text input area for City or Hotel search -->
+                    <div class="">
+                        <input type="text" name="search" class="form-control txt_input" placeholder="Search for City or Hotel">
+                    </div>
+                    <div class="row p-0  base-seach-col">
+                        <!-- HTML5 Date Picker -->
+                        <div class="col-lg-5 col-md-6 mb-3 check-in-col">
+                            <div class="p-0 m-0 ">
+                                <label for="adults" class="">Check In/Out</label>
+                                <input type="text" class="form-control flatpickr rm_bd_bg " placeholder="Select Date">
+                            </div>
+                            <div class="p-0 m-0 d-none">
+                                <label for="adults" class="">Check Out</label>
+                                <input type="text" class="form-control flatpickr" placeholder="Select Date">
+                            </div>
+                        </div>
+
+                        <!-- Adults dropdown -->
+                        <div class="col-lg-3 col-md-6 mb-3 room-col">
+                            <label for="adults" class="">Rooms</label>
+                            <select name="" id="adults" class="form-control rm_bd_bg" fdprocessedid="nfa5qe">
+                                <option selcted value="">Select</option>
+                                <option value="">1</option>
+                                <option value="">2</option>
+                                <option value="">3</option>
+                                <option value="">4+</option>
+                            </select>
+                        </div>
+    
+                        <!-- Children dropdown -->
+                        <div class="col-lg-4 col-md-6 mb-3 guest-col">
+                            <label for="children" class="">Guests</label>
+                            <select name="" id="children" class="form-control rm_bd_bg " fdprocessedid="5xmtc9">
+                                <option selcted value="">No. of Guests</option>
+                                <option value="">1</option>
+                                <option value="">2</option>
+                                <option value="">3</option>
+                                <option value="">4+</option>
+                            </select>
+                        </div>
+                    </div>
+    
+                    <!-- Search button -->
+                    <div class="text-right" style="position: absolute;right: 0;top: 5px;">
+                        <input type="submit" class="btn btn-primary" value="Search">
+                    </div>
+                </div>
+                <div class="error-message"></div>
+            </form>
+        </div>
+    </div>
+    
+    
+
+</section>
+<!-- /Hero Section End -->
+
+<section id="hotel_listing_page" class="hotel_listing_page section">
+
+    <div class="container">
+        <div class="row">
+            <!-- Filter Section (Left Side) -->
+            <div class="col-lg-3 filter-section d-none d-lg-block">
+                <div>
+                    <h4>Filters</h4>
+                    <!-- Price Range Filter -->
+                    <div class="form-group">
+                        <label for="priceRange">Price Range</label>
+                        <input type="text" class="form-control" id="priceRange" placeholder="$0 - $500">
+                    </div>
+
+                    <!-- Facilities Filter -->
+                    <div class="form-group">
+                        <label for="facilities">Facilities</label>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="wifi">
+                            <label class="form-check-label" for="wifi">Free Wi-Fi</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="parking">
+                            <label class="form-check-label" for="parking">Free Parking</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="gym">
+                            <label class="form-check-label" for="gym">Gym</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hotel Cards (Right Side) -->
+            <div class="col-12 col-lg-9">
+                <div>
+                    <h1>{% if property_city %}{{property_city}}: {{hotel_list_data.hotel_count}} properties found{% endif %}</h1>
+                </div>
+                <div class="row">
+                    {% for hotel in hotel_list_data.hotels %}
+                        {% if hotel.status == 'active' %}
+                        <div class="col-12 col-sm-6 col-xl-4 d-flex flex-column mb-4">
+                            <div class="card hotel-card">
+                                <div class="img-prod">
+                                    <a href="#">
+                                        <img 
+                                        src="{% if hotel.first_file_url and hotel.first_file_url != '' %}{{ hotel.first_file_url }}{% else %}{% static 'img/hotel_default.png' %}{% endif %}" 
+                                        alt="Hotel Image" 
+                                        class="img-fluid" 
+                                        loading="lazy">
+                                    </a>
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ hotel.name }} {{ property_city }}</h5>
+                                    <p class="card-text">Visit the temples and the Chiang Mai Night Bazaar.</p>
+                                    <p class="card-text">
+                                        <span>{{ hotel.offerPrice }}</span>
+                                        <span>{{ hotel.price }}</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Filter Sticky Footer -->
+    <div class="sticky-footer d-md-none">
+        <div class="container-footer">
+            <div class="row">
+                <div class="col-6">
+                    <button class="btn btn-primary btn-block filter-button" data-toggle="modal" data-target="#filterModal">
+                        <i class="fa fa-filter"></i> Filter
+                    </button>
+                </div>
+                <div class="col-6 text-right">
+                    <button class="btn btn-secondary btn-block clear-button">Clear Filters</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Filter Modal for Mobile -->
+    <div class="modal fade" id="filterModal" tabindex="-1" role="dialog" aria-labelledby="filterModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="filterModalLabel">Filters</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Price Range Filter -->
+                    <div class="form-group">
+                        <label for="modalPriceRange">Price Range</label>
+                        <input type="text" class="form-control" id="modalPriceRange" placeholder="$0 - $500">
+                    </div>
+    
+                    <!-- Facilities Filter -->
+                    <div class="form-group">
+                        <label for="modalFacilities">Facilities</label>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="modalWifi">
+                            <label class="form-check-label" for="modalWifi">Free Wi-Fi</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="modalParking">
+                            <label class="form-check-label" for="modalParking">Free Parking</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="modalGym">
+                            <label class="form-check-label" for="modalGym">Gym</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Apply Filters</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>    
+
+<script>
+    flatpickr(".flatpickr", {
+        dateFormat: "m/d/Y",
+        allowInput: true
+    });
+</script>
+{% endblock %}
+
+
