@@ -135,9 +135,9 @@ h6 {
 # Global Header
 --------------------------------------------------------------*/
 .header {
+  height: 85px;
   color: var(--default-color);
   background-color: var(--background-color);
-  padding: 20px 0;
   transition: all 0.5s;
   z-index: 997;
 }
@@ -186,18 +186,40 @@ h6 {
 }
 
 @media (max-width: 1200px) {
+  
   .header .logo {
+    cursor: pointer;
+    transition: color 0.3s;
     order: 1;
   }
 
   .header .btn-getstarted {
-    order: 2;
+    cursor: pointer;
+    transition: color 0.3s;
+    order: 1;
     margin: 0 15px 0 0;
     padding: 6px 15px;
   }
 
   .header .navmenu {
+    cursor: pointer;
+    transition: color 0.3s;
+    order: 2;
+  }
+  .header .mobile-nav-toggle{
+    cursor: pointer;
+    transition: color 0.3s;
     order: 3;
+  }
+  .login_icon{
+    cursor: pointer;
+    transition: color 0.3s;
+    order: 5;
+  }
+  .cart_iocn{
+    cursor: pointer;
+    transition: color 0.3s;
+    order: 4;
   }
 }
 
@@ -208,7 +230,7 @@ h6 {
 /* Index Page Header
 ------------------------------*/
 .index-page .header {
-  --background-color: rgba(255, 255, 255, 0);
+  --background-color: #ffffff;
 }
 
 /* Index Page Header on Scroll
@@ -267,7 +289,7 @@ h6 {
   .navmenu li:hover>a,
   .navmenu .active,
   .navmenu .active:focus {
-    color: var(--nav-hover-color);
+    color: var(--theme-red-color);
   }
 
   .navmenu .dropdown ul {
@@ -374,10 +396,10 @@ h6 {
 /* Mobile Navigation */
 @media (max-width: 1199px) {
   .mobile-nav-toggle {
-    color: var(--nav-color);
-    font-size: 28px;
+    color: var(--theme-red-color);
+    font-size: 38px;
     line-height: 0;
-    margin-right: 10px;
+    margin-right: 0;
     cursor: pointer;
     transition: color 0.3s;
   }
@@ -693,7 +715,7 @@ h6 {
   right: 15px;
   bottom: -15px;
   z-index: 99999;
-  background-color: var(--accent-color);
+  background-color: var(--theme-orange-color);
   width: 44px;
   height: 44px;
   border-radius: 50px;
@@ -822,9 +844,8 @@ section,
 --------------------------------------------------------------*/
 .hero {
     height: 560px;
-    top: 84px;
+    top: 78px;
     gap: 0px;
-    opacity: 0px;
     width: 100%;
     min-height: 70vh;
     position: relative;
@@ -974,21 +995,23 @@ section,
 /*--------------------------------------------------------------
 # Featured Services Section
 --------------------------------------------------------------*/
-
+.footer .footer_iocns .bi{
+  padding: 0 5px 0 0;
+} 
 
 .footer_head .service-item {
-  max-width: 345px;
   position: relative;
-  padding-top: 20px;
   top:20px;
 }
 .service-item .temple{
-  width: 473px;
-  height: 277.32px;
+  margin: 15px 0 0 0;
+  max-width: fit-content;
+  width: 100%;
+  height: 100%;
 }
 .service-item .gpt-god{
-  width: 215px;
-  height: 240px;
+  width: 100%;
+  height: auto;
 }   
 
 .footer_head .service-item .icon {
@@ -1017,8 +1040,7 @@ section,
   font-size: 72px;
   font-weight: 400;
   line-height: 62px;
-  margin: 0 0 0 -60px;
-  top: 76px;
+  top: 91px;
   position: relative;
 }
 
@@ -1042,7 +1064,81 @@ section,
 .footer_head .service-item:hover .icon i {
   color: var(--contrast-color);
 }
+.bless_text{
+  width: 420px;
+  overflow-wrap: break-word;
+  word-break: break-word;
 
+}
+.gpt-god_div{
+  margin: -15px 0 2px 0;
+}
+@media (min-width: 768px) and (max-width: 992px) {
+  .footer_head .service-item .title{
+    font-size: 63px;
+    font-weight: 400;
+    line-height: 50px;
+    top: 91px;
+  }
+  .service-item .gpt-god {
+    width: 100%;
+    height: 370px;
+}
+.bless_text{
+  width: 421px;
+}
+
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+  .footer_head .service-item .title{
+    font-size: 58px;
+    font-weight: 400;
+    line-height: 40px;
+    top: 62px;
+  }
+  .bless_text{
+    width: 375px;
+  }
+  .service-item .gpt-god {
+    width: 100%;
+    height: auto;
+}
+}
+  
+@media (max-width: 768px) {
+  .footer_head .title-head{
+    text-align: -webkit-center;
+  }
+
+  .footer_head .service-item .title{
+    font-family: var(--heading-font);
+      color: var(--theme-red-color);
+      font-size: 58px;
+      font-weight: 400;
+      line-height: 50px;
+      top: 20px;
+      position: relative;
+      text-align: center;
+      padding-bottom: 30px;
+      margin: 0;
+  }
+    .service-item .gpt-god {
+      width: 100%;
+      height: 350px;
+      padding-bottom: 15px;
+  }
+  .bless_text{
+    width: 335px;
+
+  }
+  .gpt-god_div{
+      margin:0;
+  }
+  
+.gpt-god_div .service-item{
+    justify-content: center;
+}
+}
 /*--------------------------------------------------------------
 # About Section
 --------------------------------------------------------------*/

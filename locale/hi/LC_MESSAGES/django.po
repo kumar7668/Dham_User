@@ -1,0 +1,51 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-09-02 00:22+0530\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: hi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\dham\settings.py:116
+msgid "English"
+msgstr "अंग्रेजी"
+
+#: .\dham\settings.py:117
+msgid "Hindi"
+msgstr "हिंदी"
+
+#: .\dham_user\templates\base.html:242
+msgid "Accommodation"
+msgstr "आवास"
+
+#: .\dham_user\templates\base.html:243
+msgid "Guide"
+msgstr "मार्गदर्शिका"
+
+#: .\dham_user\templates\base.html:244
+msgid "Live Darshan"
+msgstr "लाइव दर्शन"
+
+#: .\dham_user\templates\base.html:245
+msgid "E-Pooja"
+msgstr "ई-पूजा"
+
+#: .\dham_user\templates\base.html:246
+msgid "E-commerce"
+msgstr "ई-कॉमर्स"
+
+#: .\dham_user\templates\base.html:247
+msgid "Blogs"
+msgstr "ब्लॉग्स"
