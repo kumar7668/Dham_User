@@ -1,0 +1,234 @@
+<link rel="stylesheet"href="https://unpkg.com/swiper@8/swiper-bundle.min.css"/>
+<link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.3/css/swiper.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.8.4/swiper-bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/7.4.1/swiper-bundle.min.js"></script>
+
+<section class="slider-offbeat">
+    <div class="swiper slider-presta">
+        <div class="swiper-wrapper">
+            {% if city_data %}
+                {% for city in city_data.cities %}
+                <div class="swiper-slide">
+                <a class="container-img" href='{% url 'property_by_city' property_city=city.name property_city_id=city.id %}"'>
+                    <div class="img-title">
+                    <h3 class="specialTitle">{{ city.name }}</h3>
+                    </div>
+                    <img src="{{ city.file.Url }}">
+                </a>
+                </div>
+                {% endfor %}
+                {% endif %}
+        </div>
+        <div class="swiper-button-next slider-offbeat-next">
+            <svg class="slider-button-purple" viewBox="0 0 100 100" width="79" height="79" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <circle class="bg" cx="50" cy="50" r="40" fill="#fff" />
+                <circle class="dotted-circle" cx="50" cy="50" r="33" stroke="#8C97D0" fill="none" stroke-width="1" stroke-dasharray="2 5.4" />
+                <circle class="purple-circle" cx="50" cy="50" r="27" fill="#8C97D0" />
+                <path class="arrow" d="M14.9,18.206l6.589-6.594a1.24,1.24,0,0,1,1.759,0,1.256,1.256,0,0,1,0,1.764l-7.465,7.471a1.243,1.243,0,0,1-1.717.036l-7.517-7.5a1.245,1.245,0,0,1,1.759-1.764Z" fill="#fff" transform="translate(35,65) rotate(-90)" />
+            </svg>
+        </div>
+    </div>
+</section>
+
+
+<style>
+    .swiper-slide{
+        height: 300px;
+    }
+    @media (min-width: 1024px) {
+        .specialTitle {
+            font-size: 1.82vw;
+        }
+        .slider-offbeat .swiper-slide {
+            aspect-ratio: 81/146;
+        }
+        .slider-offbeat-next {
+            margin-right: 6vw;
+            width: 4.8vw;
+        }
+    }
+    
+    @media (min-width: 1440px) {
+        .litle-orange-square {
+            width: 10px;
+            height: 10px;
+        }
+    }
+    
+    @media (min-width: 1920px) {
+        .specialTitle::before {
+            margin: 0 0 16px;
+        }
+    }
+    
+    /* Mixins converted to CSS */
+    .litle-orange-square {
+        width: 8px;
+        height: 8px;
+        transform: rotate(45deg);
+        background-color: #f7970e;
+    }
+    
+    .specialTitle::before {
+        content: '';
+        display: block;
+        width: 8px;
+        height: 8px;
+        transform: rotate(45deg);
+        background-color: #f7970e;
+        margin: 0 0 10px;
+    }
+    
+    @media (min-width: 1024px) {
+        .specialTitle::before {
+            margin: 0 0 14px;
+        }
+    }
+    
+    @media (min-width: 1920px) {
+        .specialTitle::before {
+            margin: 0 0 16px;
+        }
+    }
+    
+    /* Special title styling */
+    .specialTitle {
+        font-family: 'CabinetGrotesk-extrabold', sans-serif;
+        color: #f3f3f4;
+        margin: 0;
+    }
+    
+    /* Slider styling */
+    .slider-offbeat {
+        padding-left: var(--columnExt);
+        margin-top: 10vw;
+        margin: 0 0 0 auto;
+    }
+    
+    .slider-offbeat .swiper-slide {
+        width: 183.333px;
+        margin-right: 10px;
+        aspect-ratio: 97/150;
+        position: relative;
+        transition: margin 1.2s ease-in-out;
+        margin: 0 0 10%;
+    }
+    
+    .slider-offbeat .swiper-slide-next {
+        margin: 2% 0 0;
+    }
+    
+    .slider-offbeat .container-img {
+        height: 100%;
+    }
+    
+    .slider-offbeat .container-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    .slider-offbeat .container-img .img-title {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        padding: 5%;
+        height: 90%;
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-start;
+        padding: 5%;
+        {% comment %} background-image: linear-gradient(rgba(17, 18, 37, 0) 50%, #111225); {% endcomment %}
+        width: 90%;
+    }
+    
+    .slider-offbeat .slider-offbeat-next {
+        width: 14vw;
+        margin-right: 19vw;
+    }
+    
+    @media (min-width: 425px) {
+        .slider-offbeat .slider-offbeat-next {
+            width: 10vw;
+            margin-right: 23vw;
+        }
+    }
+    
+    @media (min-width: 1024px) {
+        .slider-offbeat .slider-offbeat-next {
+            padding: 0;
+            margin-right: 6vw;
+            width: 4.8vw;
+        }
+    }
+    
+    .slider-offbeat .slider-offbeat-next::after {
+        content: '';
+    }
+    
+    .slider-offbeat .text-container {
+        margin-bottom: 5vw;
+    }
+    
+</style>
+
+<script>
+    // basic options for all sliders
+    let defaults = {
+      spaceBetween: 15,
+      slidesPerView:5,
+      speed:1000,
+      loop: true,
+      {% comment %} autoplay: {
+       delay:1500,
+        //speed:200,
+       disableOnInteraction: false,
+     }, {% endcomment %}
+     breakpoints: {
+      320: {
+                slidesPerView:1.5,
+                spaceBetween: 15
+            },
+        // when window width is >= 320px
+        
+         640: {
+                slidesPerView: 2.3,
+                spaceBetween: 0
+            },
+        768: {
+          slidesPerView: 3,
+          spaceBetween: 30
+        },
+        // when window width is >= 480px
+        1024: {
+          slidesPerView: 4,
+          spaceBetween:30
+        },
+        // when window width is >= 640px
+        1280: {
+          slidesPerView: 4.1,
+          spaceBetween: 15,
+         
+        }
+      }
+    };
+    // call init function
+    initSwipers(defaults);
+    function initSwipers(defaults = {}, selector = ".swiper") {
+      let swipers = document.querySelectorAll(selector);
+      swipers.forEach((swiper) => {
+        // get options
+        let optionsData = swiper.dataset.swiper
+          ? JSON.parse(swiper.dataset.swiper)
+          : {};
+        // combine defaults and custom options
+        let options = {
+          ...defaults,
+          ...optionsData
+        };
+        //console.log(options);
+        // init
+        new Swiper(swiper, options);
+      });
+    }
+    </script>    

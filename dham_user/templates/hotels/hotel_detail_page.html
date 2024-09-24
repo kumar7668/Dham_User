@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Property Details</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <!-- Flatpickr CSS for Date Range Picker -->
+  <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
+  <!-- Lightbox CSS (Using Lightbox2 for Pure JS) -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
+  <style>
+    /* Custom Styles */
+    .review-rating {
+      display: flex;
+      align-items: center;
+    }
+    .review-rating .bi-star-fill {
+      color: gold;
+      margin-right: 2px;
+    }
+    .modal-body img {
+      width: 100%;
+      height: auto;
+    }
+    .carousel-item img {
+      max-height: 500px;
+      object-fit: cover;
+      width: 100%;
+    }
+    .rating-popup .stars input {
+      display: none;
+    }
+    .rating-popup .stars label {
+      font-size: 2rem;
+      color: lightgray;
+      cursor: pointer;
+    }
+    .rating-popup .stars input:checked ~ label,
+    .rating-popup .stars label:hover,
+    .rating-popup .stars label:hover ~ label {
+      color: gold;
+    }
+    .upload_images_list img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      margin-right: 5px;
+    }
+    .uploade-img-review {
+      position: relative;
+    }
+    .upload_images_list_clode_btn {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      background: rgba(0,0,0,0.5);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      padding: 2px 5px;
+    }
+    /* Responsive Adjustments */
+    @media (max-width: 576px) {
+      .search-bar .btn-search {
+        margin-top: 10px;
+      }
+      #date-range-picker-reservation {
+        width: 100%;
+      }
+    }
+    /* Additional Custom Styles */
+    .search-bar {
+      background-color: #f8f9fa;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .search-bar .form-control,
+    .search-bar .form-select {
+      border: none;
+      background-color: #fff;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .search-bar .search-icon {
+      position: absolute;
+      top: 50%;
+      left: 10px;
+      transform: translateY(-50%);
+      color: #6c757d;
+    }
+    .search-bar .input-wrapper {
+      position: relative;
+    }
+    .search-bar .btn-search {
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Review Modal -->
+<div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><strong>Write Review</strong></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Review Form -->
+        <div class="mb-3">
+          <label class="form-label">How was the experience?</label>
+          <div class="stars">
+            <input type="radio" name="rating" id="star5" value="5">
+            <label for="star5" title="Very Good">★</label>
+            <input type="radio" name="rating" id="star4" value="4">
+            <label for="star4" title="Good">★</label>
+            <input type="radio" name="rating" id="star3" value="3">
+            <label for="star3" title="OK-Ok">★</label>
+            <input type="radio" name="rating" id="star2" value="2">
+            <label for="star2" title="Bad">★</label>
+            <input type="radio" name="rating" id="star1" value="1">
+            <label for="star1" title="Very Bad">★</label>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Share Photos</label>
+          <div class="upload_images_list d-flex flex-wrap">
+            <div class="position-relative me-2 mb-2">
+              <img src="/images/d2.png" class="img-responsive uploade-img-review" alt="Uploaded Photo">
+              <button class="upload_images_list_clode_btn">&times;</button>
+            </div>
+            <div class="position-relative me-2 mb-2">
+              <img src="/images/d1.png" class="img-responsive uploade-img-review" alt="Uploaded Photo">
+              <button class="upload_images_list_clode_btn">&times;</button>
+            </div>
+            <div class="position-relative me-2 mb-2">
+              <img src="/images/d3.png" class="img-responsive uploade-img-review" alt="Uploaded Photo">
+              <button class="upload_images_list_clode_btn">&times;</button>
+            </div>
+            <div class="position-relative me-2 mb-2">
+              <img src="/images/d1.png" class="img-responsive uploade-img-review" alt="Uploaded Photo">
+              <button class="upload_images_list_clode_btn">&times;</button>
+            </div>
+            <div class="position-relative me-2 mb-2">
+              <div class="upload-area-small">
+                <input type="file" id="photo-upload-small" accept="image/*" style="display: none;">
+                <label for="photo-upload-small" class="btn btn-secondary btn-sm">+</label>
+              </div>
+            </div>
+          </div>
+          <div class="upload-area mb-3">
+            <input type="file" id="photo-upload" accept="image/*" style="display: none;">
+            <label for="photo-upload" class="btn btn-secondary">
+              <i class="bi bi-camera"></i> Upload Photo
+            </label>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="review-text" class="form-label">Write Review</label>
+          <textarea class="form-control" id="review-text" rows="4" placeholder="Please write your review"></textarea>
+        </div>
+        <button type="button" class="btn btn-primary" id="submitReview">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Property Details Section -->
+<div class="container my-5" id="property-details">
+  <div class="row">
+    <!-- Left Column: Property Images and Details -->
+    <div class="col-md-8">
+      <!-- Image Carousel -->
+      <div id="propertyCarousel" class="carousel slide mb-4" data-bs-ride="carousel">
+        <div class="carousel-inner" id="carousel-inner">
+          <!-- Carousel items will be inserted here dynamically -->
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#propertyCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#propertyCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+
+      <!-- Property Title and Location -->
+      <div class="mb-3">
+        <h2 id="property-name">Property Name</h2>
+        <h5 id="property-location">City, Country</h5>
+      </div>
+
+      <!-- Ratings -->
+      <div class="mb-3">
+        <div class="d-flex align-items-center">
+          <span id="property-rating">4.5</span>
+          <i class="bi bi-star-fill text-warning ms-1"></i>
+          <span class="ms-2" id="property-rating-count">(200 Ratings)</span>
+        </div>
+      </div>
+
+      <!-- Property Description -->
+      <div class="mb-4" id="property-description">
+        <p>Description of the property goes here.</p>
+        <p>Check In Time: 2:00 PM</p>
+        <p>Check Out Time: 11:00 AM</p>
+      </div>
+
+      <!-- Amenities -->
+      <div class="mb-4" id="amenities-section">
+        <h4>Amenities</h4>
+        <div class="row" id="amenities-list">
+          <!-- Amenities will be inserted here dynamically -->
+        </div>
+      </div>
+
+      <!-- Ratings & Reviews -->
+      <div class="mb-4">
+        <h4>Rating & Reviews <button class="btn btn-sm btn-primary ms-3" data-bs-toggle="modal" data-bs-target="#reviewModal">Write Review</button></h4>
+        <div class="d-flex align-items-center mb-3">
+          <span id="average-rating">4.5</span>
+          <i class="bi bi-star-fill text-warning ms-1"></i>
+          <span class="ms-2" id="total-ratings">(200 Ratings)</span>
+        </div>
+        <div id="rating-progress">
+          <!-- Rating progress bars will be inserted here dynamically -->
+        </div>
+        <hr>
+        <div id="reviews-list">
+          <!-- Reviews will be inserted here dynamically -->
+        </div>
+        <div class="text-end">
+          <a href="#" class="btn btn-link">Show All</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column: Reservation Sidebar -->
+    <div class="col-md-4">
+      <div class="card p-3">
+        <!-- Price Details -->
+        <div class="mb-3">
+          <h4>Price Details</h4>
+          <div class="d-flex justify-content-between">
+            <span id="price-per-night">$100 x 3 Nights</span>
+            <span id="total-price">$300</span>
+          </div>
+          <div class="d-flex justify-content-between">
+            <span>Instant Discount - 10% OFF</span>
+            <span>-$30</span>
+          </div>
+          <div class="d-flex justify-content-between">
+            <span>Tax</span>
+            <span>$30</span>
+          </div>
+          <div class="d-flex justify-content-between">
+            <span>Service Fee</span>
+            <span>$20</span>
+          </div>
+          <hr>
+          <div class="d-flex justify-content-between">
+            <strong>Payable Price</strong>
+            <strong>$320</strong>
+          </div>
+        </div>
+
+        <!-- Reservation Form -->
+        <div class="mb-3">
+          <label for="date-range-picker-reservation" class="form-label">Check In / Check Out</label>
+          <input type="text" class="form-control" id="date-range-picker-reservation" placeholder="Select dates" readonly>
+        </div>
+        <div class="mb-3">
+          <label for="guests" class="form-label">Guests</label>
+          <input type="text" class="form-control" id="guests" placeholder="Adults, Children, Infants, Rooms" readonly data-bs-toggle="dropdown" aria-expanded="false">
+          <ul class="dropdown-menu p-3" aria-labelledby="guests">
+            <li class="d-flex justify-content-between align-items-center mb-2">
+              <span>Adults</span>
+              <div>
+                <button class="btn btn-sm btn-outline-secondary me-2" onclick="updateGuest('adults', -1)">-</button>
+                <span id="adults-count">2</span>
+                <button class="btn btn-sm btn-outline-secondary ms-2" onclick="updateGuest('adults', 1)">+</button>
+              </div>
+            </li>
+            <li class="d-flex justify-content-between align-items-center mb-2">
+              <span>Children</span>
+              <div>
+                <button class="btn btn-sm btn-outline-secondary me-2" onclick="updateGuest('children', -1)">-</button>
+                <span id="children-count">0</span>
+                <button class="btn btn-sm btn-outline-secondary ms-2" onclick="updateGuest('children', 1)">+</button>
+              </div>
+            </li>
+            <li class="d-flex justify-content-between align-items-center mb-2">
+              <span>Infants</span>
+              <div>
+                <button class="btn btn-sm btn-outline-secondary me-2" onclick="updateGuest('infants', -1)">-</button>
+                <span id="infants-count">0</span>
+                <button class="btn btn-sm btn-outline-secondary ms-2" onclick="updateGuest('infants', 1)">+</button>
+              </div>
+            </li>
+            <li class="d-flex justify-content-between align-items-center mb-2">
+              <span>Rooms</span>
+              <div>
+                <button class="btn btn-sm btn-outline-secondary me-2" onclick="updateGuest('rooms', -1)">-</button>
+                <span id="rooms-count">1</span>
+                <button class="btn btn-sm btn-outline-secondary ms-2" onclick="updateGuest('rooms', 1)">+</button>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div id="availability-message" class="mb-3 text-danger"></div>
+        <button class="btn btn-primary w-100" id="reserveNowBtn">Reserve Now</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recommended Properties -->
+  <div class="row mt-5">
+    <div class="col-12">
+      <h4>Recommended Properties Nearby</h4>
+      <div class="row" id="recommended-properties">
+        <!-- Recommended properties will be inserted here dynamically -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap 5 JS and dependencies -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Flatpickr JS for Date Range Picker -->
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<!-- Lightbox2 JS for Image Lightbox -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+<script>
+  // JavaScript Code
+
+  // Sample Data (Mock Data)
+  const propertyData = {
+    id: 1,
+    name: "Beautiful Beach House",
+    country: "USA",
+    city: "Miami",
+    description: "A lovely beach house with stunning views of the ocean. Perfect for families and groups looking to relax and enjoy the sun.",
+    check_in_time: "2:00 PM",
+    check_out_time: "11:00 AM",
+    price: 150,
+    rating: 4.5,
+    ratings: 250,
+    images: [
+      { image: "https://via.placeholder.com/800x400?text=Property+Image+1" },
+      { image: "https://via.placeholder.com/800x400?text=Property+Image+2" },
+      { image: "https://via.placeholder.com/800x400?text=Property+Image+3" },
+      { image: "https://via.placeholder.com/800x400?text=Property+Image+4" },
+      { image: "https://via.placeholder.com/800x400?text=Property+Image+5" },
+    ],
+    amenities: [
+      { name: "Wi-Fi", icon: "https://via.placeholder.com/50" },
+      { name: "Pool", icon: "https://via.placeholder.com/50" },
+      { name: "Air Conditioning", icon: "https://via.placeholder.com/50" },
+      { name: "Gym", icon: "https://via.placeholder.com/50" },
+      { name: "Parking", icon: "https://via.placeholder.com/50" },
+      { name: "Breakfast Included", icon: "https://via.placeholder.com/50" },
+    ],
+    ratingstar: {
+      5: 60, // 60%
+      4: 25,
+      3: 10,
+      2: 3,
+      1: 2
+    },
+    reviews: [
+      {
+        name: "John Doe",
+        image: "https://via.placeholder.com/100",
+        rating: 5,
+        review: "Amazing place! Had a great time with my family."
+      },
+      {
+        name: "Jane Smith",
+        image: "https://via.placeholder.com/100",
+        rating: 4,
+        review: "Very good experience, the pool was fantastic."
+      },
+      {
+        name: "Mike Johnson",
+        image: "https://via.placeholder.com/100",
+        rating: 4,
+        review: "Beautiful location and great amenities."
+      },
+      {
+        name: "Emily Davis",
+        image: "https://via.placeholder.com/100",
+        rating: 5,
+        review: "Loved every moment! Will definitely come back."
+      },
+      // Add more reviews as needed
+    ],
+    recommended: [
+      {
+        id: 2,
+        name: "Cozy Mountain Cabin",
+        city: "Denver",
+        country: "USA",
+        price: 120,
+        rating: 4.7,
+        image: "https://via.placeholder.com/400x300?text=Recommended+1"
+      },
+      {
+        id: 3,
+        name: "Modern City Apartment",
+        city: "New York",
+        country: "USA",
+        price: 200,
+        rating: 4.8,
+        image: "https://via.placeholder.com/400x300?text=Recommended+2"
+      },
+      {
+        id: 4,
+        name: "Luxury Villa",
+        city: "Los Angeles",
+        country: "USA",
+        price: 350,
+        rating: 4.9,
+        image: "https://via.placeholder.com/400x300?text=Recommended+3"
+      },
+      {
+        id: 5,
+        name: "Historic Downtown Loft",
+        city: "Chicago",
+        country: "USA",
+        price: 180,
+        rating: 4.6,
+        image: "https://via.placeholder.com/400x300?text=Recommended+4"
+      },
+      // Add more recommended properties as needed
+    ]
+  };
+
+  // Initialize Property Details
+  function initializePropertyDetails() {
+    // Set Property Name and Location
+    document.getElementById('property-name').textContent = propertyData.name;
+    document.getElementById('property-location').textContent = `${propertyData.city}, ${propertyData.country}`;
+
+    // Set Property Rating
+    document.getElementById('property-rating').textContent = propertyData.rating;
+    document.getElementById('property-rating-count').textContent = `(${propertyData.ratings} Ratings)`;
+
+    // Set Property Description
+    document.getElementById('property-description').innerHTML = `
+      <p>${propertyData.description}</p>
+      <p>Check In Time: ${propertyData.check_in_time}</p>
+      <p>Check Out Time: ${propertyData.check_out_time}</p>
+    `;
+
+    // Initialize Carousel
+    const carouselInner = document.getElementById('carousel-inner');
+    propertyData.images.forEach((img, index) => {
+      const carouselItem = document.createElement('div');
+      carouselItem.className = `carousel-item ${index === 0 ? 'active' : ''}`;
+      carouselItem.innerHTML = `<a href="${img.image}" data-lightbox="property-gallery" data-title="Property Image ${index + 1}"><img src="${img.image}" class="d-block w-100" alt="Property Image ${index + 1}"></a>`;
+      carouselInner.appendChild(carouselItem);
+    });
+
+    // Set Amenities
+    const amenitiesList = document.getElementById('amenities-list');
+    propertyData.amenities.forEach(amenity => {
+      const amenityDiv = document.createElement('div');
+      amenityDiv.className = 'col-md-6 mb-2';
+      amenityDiv.innerHTML = `
+        <div class="d-flex align-items-center">
+          <img src="${amenity.icon}" alt="${amenity.name}" class="me-2" width="24" height="24">
+          <span>${amenity.name}</span>
+        </div>
+      `;
+      amenitiesList.appendChild(amenityDiv);
+    });
+
+    // Set Rating Progress Bars
+    const ratingProgress = document.getElementById('rating-progress');
+    for (let [rating, percentage] of Object.entries(propertyData.ratingstar)) {
+      const progressDiv = document.createElement('div');
+      progressDiv.className = 'd-flex align-items-center mb-2';
+      progressDiv.innerHTML = `
+        <span class="me-2">${rating} <i class="bi bi-star-fill text-warning"></i></span>
+        <div class="flex-grow-1 me-2">
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: ${percentage}%;" aria-valuenow="${percentage}" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>
+        <span>${percentage}%</span>
+      `;
+      ratingProgress.appendChild(progressDiv);
+    }
+
+    // Set Reviews
+    const reviewsList = document.getElementById('reviews-list');
+    propertyData.reviews.forEach(review => {
+      const reviewDiv = document.createElement('div');
+      reviewDiv.className = 'd-flex mb-3';
+      reviewDiv.innerHTML = `
+        <img src="${review.image}" alt="${review.name}" class="rounded-circle me-3" width="60" height="60">
+        <div>
+          <h5>${review.name} <i class="bi bi-star-fill text-warning"></i> ${review.rating}</h5>
+          <p>${review.review}</p>
+        </div>
+      `;
+      reviewsList.appendChild(reviewDiv);
+    });
+
+    // Set Recommended Properties
+    const recommendedSection = document.getElementById('recommended-properties');
+    propertyData.recommended.forEach(rec => {
+      const recDiv = document.createElement('div');
+      recDiv.className = 'col-md-6 mb-4';
+      recDiv.innerHTML = `
+        <div class="card h-100">
+          <a href="${rec.image}" data-lightbox="recommended-gallery" data-title="${rec.name}">
+            <img src="${rec.image}" class="card-img-top" alt="${rec.name}">
+          </a>
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">${rec.name}</h5>
+            <p class="card-text">${rec.city}, ${rec.country}</p>
+            <p class="card-text"><strong>$${rec.price}</strong> per night</p>
+            <p class="card-text"><i class="bi bi-star-fill text-warning"></i> ${rec.rating}</p>
+            <a href="#" class="btn btn-primary mt-auto">View Details</a>
+          </div>
+        </div>
+      `;
+      recommendedSection.appendChild(recDiv);
+    });
+  }
+
+  // Initialize Reservation Sidebar
+  let guests = {
+    adults: 2,
+    children: 0,
+    infants: 0,
+    rooms: 1
+  };
+
+  function updateGuest(type, delta) {
+    guests[type] += delta;
+    if (guests[type] < 0) guests[type] = 0;
+    if (guests[type] < 1 && (type === 'adults' || type === 'rooms')) guests[type] = 1;
+
+    document.getElementById(`${type}-count`).textContent = guests[type];
+    document.getElementById('guests').value = `${guests.adults} Adults, ${guests.children} Children, ${guests.infants} Infants, ${guests.rooms} Rooms`;
+    checkAvailability();
+  }
+
+  // Initialize Date Range Picker for Reservation Sidebar (Using Flatpickr)
+  let checkInDate = null;
+  let checkOutDate = null;
+
+  flatpickr("#date-range-picker-reservation", {
+    mode: "range",
+    dateFormat: "d M Y",
+    onClose: function(selectedDates, dateStr, instance) {
+      if (selectedDates.length === 2) {
+        [checkInDate, checkOutDate] = selectedDates;
+        document.getElementById('date-range-picker-reservation').value = `${formatDate(checkInDate)} - ${formatDate(checkOutDate)}`;
+        checkAvailability();
+      }
+    },
+    disable: [
+      function(date) {
+        // Disable all dates before today
+        return date < new Date().setHours(0,0,0,0);
+      }
+    ],
+    onReady: function(selectedDates, dateStr, instance) {
+      function adjustCalendar() {
+        if (window.innerWidth <= 481) {
+          instance.config.showMonths = 1;
+        } else {
+          instance.config.showMonths = 2;
+        }
+        instance.redraw();
+      }
+      window.addEventListener('resize', adjustCalendar);
+      adjustCalendar();
+    }
+  });
+
+  function formatDate(date) {
+    const options = { year: 'numeric', month: 'short', day: 'numeric' };
+    return new Date(date).toLocaleDateString(undefined, options);
+  }
+
+  // Check Availability (Mock Function)
+  function checkAvailability() {
+    // Example logic: property is available if check-in date is in the future
+    const today = new Date();
+    const isAvailable = checkInDate && checkInDate > today;
+
+    const messageDiv = document.getElementById('availability-message');
+    if (isAvailable) {
+      messageDiv.textContent = '';
+    } else {
+      messageDiv.textContent = 'This property is not available on the selected dates. Please choose different dates.';
+    }
+  }
+
+  // Reserve Now Button Click
+  document.getElementById('reserveNowBtn').addEventListener('click', () => {
+    // Example action: Redirect to checkout page with property details
+    // Here we simply alert the user
+    alert('Reserve Now clicked!');
+  });
+
+  // Submit Review Button Click
+  document.getElementById('submitReview').addEventListener('click', () => {
+    const selectedRating = document.querySelector('input[name="rating"]:checked')?.value;
+    const reviewText = document.getElementById('review-text').value;
+
+    if (!selectedRating) {
+      alert('Please select a rating.');
+      return;
+    }
+
+    if (!reviewText.trim()) {
+      alert('Please write a review.');
+      return;
+    }
+
+    // Submit review (Mock)
+    console.log('Submitting Review:', { rating: selectedRating, review: reviewText });
+    alert('Review submitted successfully!');
+
+    // Close the modal
+    const reviewModal = bootstrap.Modal.getInstance(document.getElementById('reviewModal'));
+    reviewModal.hide();
+
+    // Optionally, update the reviews list
+    addReviewToList(propertyData.reviews, {
+      name: "New Reviewer",
+      image: "https://via.placeholder.com/100",
+      rating: selectedRating,
+      review: reviewText
+    });
+  });
+
+  // Function to Add New Review to the Reviews List
+  function addReviewToList(reviews, newReview) {
+    reviews.push(newReview);
+    const reviewsList = document.getElementById('reviews-list');
+    const reviewDiv = document.createElement('div');
+    reviewDiv.className = 'd-flex mb-3';
+    reviewDiv.innerHTML = `
+      <img src="${newReview.image}" alt="${newReview.name}" class="rounded-circle me-3" width="60" height="60">
+      <div>
+        <h5>${newReview.name} <i class="bi bi-star-fill text-warning"></i> ${newReview.rating}</h5>
+        <p>${newReview.review}</p>
+      </div>
+    `;
+    // Prepend the new review to show it at the top
+    reviewsList.prepend(reviewDiv);
+
+    // Update average rating and ratings count
+    updateAverageRating(propertyData.reviews);
+  }
+
+  // Function to Update Average Rating and Ratings Count
+  function updateAverageRating(reviews) {
+    let total = 0;
+    reviews.forEach(review => {
+      total += parseInt(review.rating);
+    });
+    const average = (total / reviews.length).toFixed(1);
+    document.getElementById('average-rating').textContent = average;
+    document.getElementById('total-ratings').textContent = `(${reviews.length} Ratings)`;
+  }
+
+  // Initialize Property Details on Page Load
+  document.addEventListener('DOMContentLoaded', () => {
+    initializePropertyDetails();
+    document.getElementById('guests').value = `${guests.adults} Adults, ${guests.children} Children, ${guests.infants} Infants, ${guests.rooms} Rooms`;
+  });
+
+  // Handle Photo Uploads (Optional)
+  document.querySelectorAll('.upload_images_list_clode_btn').forEach(button => {
+    button.addEventListener('click', (e) => {
+      e.target.parentElement.style.display = 'none';
+    });
+  });
+
+  document.getElementById('photo-upload').addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      // Handle file upload
+      alert(`Photo uploaded: ${file.name}`);
+      // Optionally, display the uploaded photo
+    }
+  });
+
+  document.getElementById('photo-upload-small').addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      // Handle file upload
+      alert(`Photo uploaded: ${file.name}`);
+      // Optionally, display the uploaded photo
+    }
+  });
+</script>
+</body>
+</html>

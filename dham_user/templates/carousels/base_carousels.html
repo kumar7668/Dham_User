@@ -1,0 +1,143 @@
+
+{% load static %}
+    <style>
+        
+        .near_by_home .owl-carousel .item {
+            position: relative;
+            border-radius: 8px; 
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            width: auto;
+            height: 255px; /* Fixed height */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .near_by_home .owl-carousel .item img {
+            border-radius: 8px; 
+            width: 100%;
+            height: 100%; 
+            object-fit: cover; 
+        }
+
+        .overlay {
+            
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%; /* Overlay matches image size */
+            padding: 10px;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0) 67.1%, rgba(0, 0, 0, 0.59) 81.16%, #000000 106.82%);
+            color: #fff;
+            text-align: center;
+            border-radius: 0 0 8px 8px; /* Round the bottom corners */
+            z-index: 1; /* Ensure overlay is on top */
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end; /* Align text at the bottom */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Bottom box shadow */
+        }
+
+    
+        .overlay .property_title{
+            font-family: Inter;
+            font-size: 22px;
+            font-weight: 600;
+            line-height: 26px;
+            text-align: left;
+            Color:#ffffff;
+
+        }
+
+        @media (max-width: 992px) {
+            /* Styles for tablets */
+            .near_by_home .owl-carousel .item {
+                width: 100%;
+                margin: 0 auto;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .near_by_home .owl-carousel .owl-item {
+                flex: 0 0 auto;
+                margin-right: 5px; /* Reduce gap between items */
+            }
+        }
+
+        .near_by_home .owl-carousel .owl-stage {
+            padding-left: 0px !important;
+            padding-right: 0px !important;
+        }
+        
+        {% comment %} .h2_title_span{
+            color:var(--theme-red-color);
+            font-family: Jomhuria;
+            font-size: 56px;
+            font-weight: 400;
+            line-height: 40px;
+            text-align: left;
+
+        } {% endcomment %}
+        {% comment %} .h2_title{
+            max-width: 350px;
+            letter-spacing: 1px;
+            font-family: Jomhuria;
+            font-size: 56px;
+            font-weight: 400;
+            line-height: 40px;
+            text-align: left;
+            color: #FA9300 !important;
+        } {% endcomment %}
+       
+    </style>
+
+
+<div class="owl-carousel owl-theme base_carousel">
+    {% if city_data %}
+    {% for city in city_data.cities %}
+    <a href="{% url 'property_by_city' property_city=city.name property_city_id=city.id %}" class="clsmanage">
+        <div class="item">
+            <img src="{{ city.file.Url }}" alt="{{ city.name }}">
+            <div class="overlay">
+                <div class="property_title">{{ city.name }}</div>
+                <div class="property_desc"><i class="bi bi-houses-fill"></i>{{ city.propertyCount }} Properties</div>
+            </div>
+        </div>
+    </a>
+    {% endfor %}
+    {% endif %}
+</div>
+
+<script>
+    $(document).ready(function(){
+        $('.near_by_home .owl-carousel').owlCarousel({
+            loop: true,
+            margin: 15,
+            nav: true,
+            items:  1,  
+            responsive: {
+                0: {
+                    items: 2,
+                    margin: 15,
+                },
+                500: {
+                    items: 2,
+                    margin: 15,
+                },
+                999: {
+                    items: 3,  // Show 2 images on large screens
+                    stagePadding: 0,  // Adjust stage padding for large screens
+                    margin: 15,
+                },
+                1280:{
+                    items: 4,  // Show 2 images on large screens
+                    stagePadding:0,  // Adjust stage padding for large screens
+                    margin: 15,
+                }
+                
+                
+            }
+        });
+    });
+</script>

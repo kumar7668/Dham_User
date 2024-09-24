@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-02 00:22+0530\n"
+"POT-Creation-Date: 2024-09-23 00:47+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,34 +18,38 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\dham\settings.py:116
+#: .\dham\settings.py:120
 msgid "English"
 msgstr "अंग्रेजी"
 
-#: .\dham\settings.py:117
+#: .\dham\settings.py:121
 msgid "Hindi"
 msgstr "हिंदी"
 
-#: .\dham_user\templates\base.html:242
+#: .\dham_user\templates\base.html:314
 msgid "Accommodation"
 msgstr "आवास"
 
-#: .\dham_user\templates\base.html:243
+#: .\dham_user\templates\base.html:315
 msgid "Guide"
 msgstr "मार्गदर्शिका"
 
-#: .\dham_user\templates\base.html:244
+#: .\dham_user\templates\base.html:316
 msgid "Live Darshan"
 msgstr "लाइव दर्शन"
 
-#: .\dham_user\templates\base.html:245
+#: .\dham_user\templates\base.html:317
 msgid "E-Pooja"
 msgstr "ई-पूजा"
 
-#: .\dham_user\templates\base.html:246
+#: .\dham_user\templates\base.html:318
 msgid "E-commerce"
 msgstr "ई-कॉमर्स"
 
-#: .\dham_user\templates\base.html:247
+#: .\dham_user\templates\base.html:319
 msgid "Blogs"
 msgstr "ब्लॉग्स"
+
+#: .\dham_user\templates\base.html:320
+msgid "Contact"
+msgstr "संपर्क"

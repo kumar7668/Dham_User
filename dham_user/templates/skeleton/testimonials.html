@@ -1,0 +1,264 @@
+{% extends "base.html" %}
+{% load static i18n %}
+{% block content %}
+
+    <style>
+        .testimonial-section {
+            position: relative;
+            padding-top: 60px; /* Space for the title */
+        }
+
+        /* Title fixed at the top */
+        .testimonial-section h1 {
+            position: relative;
+            top: 10;
+            left: 0;
+            right: 0;
+            text-align: center;
+            margin: 0;
+            font-size: 4em;
+            color: #E7562D;
+        }
+
+        .testimonial-swiper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            margin: 30px auto;
+            width: 95%;
+        }
+
+        .swiper-wrapper {
+            display: flex;
+            transition: transform 0.3s ease-in-out;
+            width: 100%;
+        }
+
+        .testimonial-slide {
+            flex: 0 0 310px;
+            padding: 10px;
+            text-align: initial;
+        }
+
+        .client-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
+
+        .read-more {
+            color: #ff5722;
+            cursor: pointer;
+        }
+
+        .read-more:focus {
+            outline: 2px solid #000;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            margin: 15% auto;
+            width: 50%;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* Button centered at the bottom */
+        .testimonial-button {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+    </style>
+
+    {% block title%}Testimonial - Dham{%endblock%}
+
+    <section id="testimonial-section section" class="testimonial-section section" >
+        <h1>Testimonials</h1> <!-- Fixed title -->
+
+        <div class="testimonial-swiper" aria-live="polite" aria-roledescription="carousel">
+            <div class="swiper-wrapper" id="testimonialWrapper" role="group" aria-label="Testimonials list">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-slide" role="group" aria-roledescription="slide" aria-label="Testimonial from Oregon">
+                    <img src="{% static 'img/x.png' %}" alt="German Shepherd - Oregon" class="client-img">
+                    <h3 id="testimonial1-title">German Shepherd - Oregon -1</h3>
+                    <p>My wife and I bought an AKC German Shepherd three months ago and named her Roxi... 
+                        <span class="read-more" tabindex="0" aria-expanded="false" aria-controls="testimonial1-content" data-id="testimonial1">Read more</span>
+                    </p>
+                </div>
+                <!-- Testimonial 2 -->
+                <div class="testimonial-slide" role="group" aria-roledescription="slide" aria-label="Testimonial from California/Arizona">
+                    <img src="{% static 'img/x.png' %}" alt="Bichon Frise - California/Arizona" class="client-img">
+                    <h3 id="testimonial2-title">Bichon Frise - California/Arizona -2</h3>
+                    <p>Bo, our male Bichon Frise, was rescued from a family who could not contend with his... 
+                        <span class="read-more" tabindex="0" aria-expanded="false" aria-controls="testimonial2-content" data-id="testimonial2">Read more</span>
+                    </p>
+                </div>
+                <!-- Testimonial 3 -->
+                <div class="testimonial-slide" role="group" aria-roledescription="slide" aria-label="Testimonial from Texas">
+                    <img src="{% static 'img/x.png' %}" alt="Labrador Retriever - Texas" class="client-img">
+                    <h3 id="testimonial3-title">Labrador Retriever - Texas -3</h3>
+                    <p>We adopted a Labrador Retriever from a local breeder and the experience has been great... 
+                        <span class="read-more" tabindex="0" aria-expanded="false" aria-controls="testimonial3-content" data-id="testimonial3">Read more</span>
+                    </p>
+                </div>
+                <!-- Testimonial 1 -->
+                <div class="testimonial-slide" role="group" aria-roledescription="slide" aria-label="Testimonial from Oregon">
+                    <img src="{% static 'img/x.png' %}" alt="German Shepherd - Oregon" class="client-img">
+                    <h3 id="testimonial1-title">German Shepherd - Oregon -4</h3>
+                    <p>My wife and I bought an AKC German Shepherd three months ago and named her Roxi... 
+                        <span class="read-more" tabindex="0" aria-expanded="false" aria-controls="testimonial1-content" data-id="testimonial1">Read more</span>
+                    </p>
+                </div>
+                <!-- Testimonial 2 -->
+                <div class="testimonial-slide" role="group" aria-roledescription="slide" aria-label="Testimonial from California/Arizona">
+                    <img src="{% static 'img/x.png' %}" alt="Bichon Frise - California/Arizona" class="client-img">
+                    <h3 id="testimonial2-title">Bichon Frise - California/Arizona -5</h3>
+                    <p>Bo, our male Bichon Frise, was rescued from a family who could not contend with his... 
+                        <span class="read-more" tabindex="0" aria-expanded="false" aria-controls="testimonial2-content" data-id="testimonial2">Read more</span>
+                    </p>
+                </div>
+                <!-- Testimonial 3 -->
+                <div class="testimonial-slide" role="group" aria-roledescription="slide" aria-label="Testimonial from Texas">
+                    <img src="{% static 'img/x.png' %}" alt="Labrador Retriever - Texas" class="client-img">
+                    <h3 id="testimonial3-title">Labrador Retriever - Texas -6</h3>
+                    <p>We adopted a Labrador Retriever from a local breeder and the experience has been great... 
+                        <span class="read-more" tabindex="0" aria-expanded="false" aria-controls="testimonial3-content" data-id="testimonial3">Read more</span>
+                    </p>
+                </div>
+                <!-- Testimonial 1 -->
+                <div class="testimonial-slide" role="group" aria-roledescription="slide" aria-label="Testimonial from Oregon">
+                    <img src="{% static 'img/x.png' %}" alt="German Shepherd - Oregon" class="client-img">
+                    <h3 id="testimonial1-title">German Shepherd - Oregon -7</h3>
+                    <p>My wife and I bought an AKC German Shepherd three months ago and named her Roxi... 
+                        <span class="read-more" tabindex="0" aria-expanded="false" aria-controls="testimonial1-content" data-id="testimonial1">Read more</span>
+                    </p>
+                </div>
+                <!-- Testimonial 2 -->
+                <div class="testimonial-slide" role="group" aria-roledescription="slide" aria-label="Testimonial from California/Arizona">
+                    <img src="{% static 'img/x.png' %}" alt="Bichon Frise - California/Arizona" class="client-img">
+                    <h3 id="testimonial2-title">Bichon Frise - California/Arizona-8</h3>
+                    <p>Bo, our male Bichon Frise, was rescued from a family who could not contend with his... 
+                        <span class="read-more" tabindex="0" aria-expanded="false" aria-controls="testimonial2-content" data-id="testimonial2">Read more</span>
+                    </p>
+                </div>
+                <!-- Testimonial 3 -->
+                <div class="testimonial-slide" role="group" aria-roledescription="slide" aria-label="Testimonial from Texas">
+                    <img src="{% static 'img/x.png' %}" alt="Labrador Retriever - Texas" class="client-img">
+                    <h3 id="testimonial3-title">Labrador Retriever - Texas -9</h3>
+                    <p>We adopted a Labrador Retriever from a local breeder and the experience has been great... 
+                        <span class="read-more" tabindex="0" aria-expanded="false" aria-controls="testimonial3-content" data-id="testimonial3">Read more</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Button fixed at bottom center -->
+        <div class="testimonial-button">
+            <button type="button" class="btn btn-primary">View All Testimonials</button>
+        </div>
+
+        <!-- Modal for full text -->
+        <div id="testimonialModal" class=" modal" aria-hidden="true" aria-labelledby="modal-heading" role="dialog">
+            <div class="modal-content" role="document">
+                <button class="close" aria-label="Close modal">&times;</button>
+                <h2 id="modal-heading">Full Testimonial</h2>
+                <div id="modal-text"></div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.testimonial-slide');
+            const wrapper = document.getElementById('testimonialWrapper');
+            const slideWidth = 300; // Slide width (including padding)
+            let currentIndex = 0;
+            const intervalTime = 4500; // Interval time for auto-scroll (in milliseconds)
+        
+            // Clone the first slide and append it at the end for seamless transition
+            const firstClone = slides[0].cloneNode(true);
+            wrapper.appendChild(firstClone);
+        
+            // Auto-scroll functionality
+            const autoScroll = setInterval(() => {
+                currentIndex++;
+        
+                // If we've reached the cloned slide (after the last original one)
+                if (currentIndex > slides.length-4) {
+                    // Instantly reset to the first slide (without transition)
+                    wrapper.style.transition = 'none';
+                    wrapper.style.transform = `translateX(0px)`;
+                    currentIndex = 0; // Reset to the first actual slide after clone
+        
+                    // Allow smooth transition again after resetting
+                    setTimeout(() => {
+                        wrapper.style.transition = 'transform 0.3s ease-in-out';
+                        wrapper.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+                    }, 50);
+                } else {
+                    // Normal scrolling with smooth transition
+                    wrapper.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+                }
+            }, intervalTime);
+        
+            // Modal functionality for "Read more"
+            const modal = document.getElementById('testimonialModal');
+            const modalText = document.getElementById('modal-text');
+            const closeModal = document.querySelector('.modal .close');
+        
+            document.querySelectorAll('.read-more').forEach(readMore => {
+                readMore.addEventListener('click', (e) => {
+                    const testimonialId = e.target.getAttribute('data-id');
+                    const fullText = getFullText(testimonialId);
+                    modalText.innerHTML = fullText;
+                    modal.setAttribute('aria-hidden', 'false');
+                    modal.style.display = 'block';
+                });
+            });
+        
+            closeModal.addEventListener('click', () => {
+                modal.setAttribute('aria-hidden', 'true');
+                modal.style.display = 'none';
+            });
+        
+            // Function to get the full text for testimonials
+            function getFullText(id) {
+                if (id === 'testimonial1') {
+                    return 'Full testimonial text for German Shepherd - Oregon.';
+                } else if (id === 'testimonial2') {
+                    return 'Full testimonial text for Bichon Frise - California/Arizona.';
+                } else if (id === 'testimonial3') {
+                    return 'Full testimonial text for Labrador Retriever - Texas.';
+                }
+                return '';
+            }
+        });
+        
+    </script>
+{% endblock %}

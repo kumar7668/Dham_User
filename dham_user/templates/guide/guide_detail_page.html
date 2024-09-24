@@ -1,0 +1,753 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %} 
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <style>
+    .profile-img {
+      width: 155px;
+      height: 155px;
+      border-radius: 5px;
+      object-fit: cover;
+      margin-right: 20px;
+  }
+
+  .profile-info {
+      flex-grow: 1;
+  }
+
+  .profile-rating {
+      font-size: 16px;
+      color: #f1c40f;
+  }
+  .rating_digit{
+    font-size: 11px;
+    color:#919191;
+  }
+
+  .guide_name {
+      margin: 10px 0 0 0;
+      font-family: var(--default-font);
+      font-size: 24px;
+      font-weight: 600;
+      line-height: 36px;
+      text-align: left;
+      color: var(--theme-secondary-color);
+  }
+
+  .guide_city {
+      font-family: var(--default-font);
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 25px;
+      text-align: left;
+      color: var(--Gray, #919191);
+      margin: 0 0 5px 0px;
+  }
+
+  .guide_price {
+      font-family: var(--default-font);
+      font-size: 22px;
+      font-weight: 600;
+      line-height: 26px;
+      text-align: left;
+      color: var(--theme-red-color);
+  }
+  .booking_guide_price{
+    font-family: var(--default-font);
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 26px;
+    text-align: left;
+    color: var(--theme-red-color);
+  }
+  
+
+  .guide_price_hours {
+      font-family: var(--default-font);
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 26px;
+      text-align: left;
+      color: var(--theme-secondary-color);
+  }
+  .booking_guide_price_hours
+  {
+    font-family: var(--default-font);
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 26px;
+    text-align: left;
+    color: var(--theme-secondary-color);
+  }
+    .profile-card {
+      background: #FBFBFB;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+    .profile-info {
+      flex-grow: 1;
+    }
+
+    .guid_about, .guide_lang, .guide_act{
+      font-family: var(--default-font);
+      color: var(--theme-secondary-color);
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 29.05px;
+      text-align: left;
+    }
+    
+    .guide_detail_page_title{
+      font-family: var(--default-font);
+      color: var(--theme-secondary-color);
+      font-size: 28px;
+      font-weight: 600;
+      line-height: 30.05px;
+      padding: 5px 5px 20px 5px;
+    }
+    .review-card_title{
+      font-family: var(--default-font);
+      color: var(--theme-secondary-color);
+      font-size: 22px;
+      font-weight: 600;
+      line-height: 28.05px;
+      padding: 5px 5px 20px 5px;
+    }
+    .profile-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .review-card_title_div{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .review-card_title_div .dropdown{
+      text-align:end;
+    }
+    .profile-header h4 {
+      margin: 0;
+    }
+
+    .profile-rating {
+      color: #f1c40f;
+    }
+
+    .about-section, .languages, .activities {
+      margin-top: 20px;
+    }
+    .about-section p {
+      line-height: 25px;
+      color: #919191;
+      font-size: 16px;
+      font-family: var(--default-font);
+      
+    }
+    .languages, .activities {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+    }
+    .languages .txt, .activities .txt{
+      color: #919191;
+      font-size: 16px;
+      font-family: var(--default-font);
+      line-height: 25px;
+    }
+
+
+    .booking-card {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .booking-card h5, .form_head_txt {
+      font-family: var(--default-font);
+      color: var(--theme-secondary-color);
+      font-size: 18px;
+
+    }
+
+    .booking-price {
+      color: var(--theme-red-color);
+      font-size: 24px;
+      font-weight: bold;
+      font-family: var(--default-font);
+
+    }
+
+    .booking-total, .gst-section, .total-section {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 5px;
+      font-family: var(--default-font);
+      color: var(--theme-secondary-color);
+
+    }
+    .total-section {
+      font-weight:600;
+    }
+    .book-btn {
+      font-family: var(--default-font);
+      font-size: 16px;
+      font-weight: 600;
+      margin-top: 20px;
+      width: 100%;
+      padding: 10px;
+      background-color: var(--theme-red-color);
+      color: white;
+      border: none;
+      border-radius: 30px;
+    }
+    .book_guide_from #from-date, .book_guide_from #to-date, .book_guide_from #hours{
+      border:none;
+      color: var(--theme-secondary-color);
+    }
+    .form-control:focus {
+      color: none;
+      background-color: none;
+      border-bottom-color: #86b7fe;
+      outline: 0; 
+      box-shadow: none;
+  }
+    .book_guide_from hr, .booking-card hr{
+      color: #919191 !important;
+      margin: 1rem 0;
+      border: 0;
+      border-top: var(--bs-border-width) solid;
+      opacity: 1.25;
+    }
+    .from_date, .to_date, .form-label{
+      font-weight: 600;
+      font-size: 16px;
+      color: var(--theme-secondary-color);
+    }
+
+    .custom-select-wrapper {
+      position: relative;
+      width: 100%;
+      margin-bottom: 15px;
+    }
+    
+    .custom-select {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+    }
+    
+    .non-refund{
+      font-size: 14px;
+    }
+    .custom-select i {
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+      pointer-events: none; /* Make sure the icon doesn't interfere with the select dropdown */
+      font-size: 14px;
+      color: #333;
+    }
+    .form_head_txt{
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* Adjust for mobile devices */
+
+    @media (min-width: 592px) and (max-width: 991px) {
+      .profile-img {
+        width: 140px;
+        height: 140px;
+      }
+    }
+
+    /* Make profile image responsive */
+    @media (max-width: 767px) {
+      
+      .profile-img {
+        width: 100px;
+        height: 100px;
+      }
+      .profile-info {
+        margin-top: 0px;
+        text-align: left;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .guide_detail_page_title{
+        font-size: 22px;
+      }
+      .profile-card, .booking-card {
+        padding: 15px;
+      }
+
+      .booking-price {
+        font-size: 20px;
+      }
+
+      .book-btn {
+        padding: 8px;
+      }
+
+      .booking-total {
+        font-size: 14px;
+      }
+
+     .profile-info h4 {
+        font-size: 18px;
+        line-height: 30px;
+        
+      }
+      .booking_guide_price {
+        font-size: 22px;
+      }
+      .booking_guide_price_hours {
+        font-size: 16px;
+
+      }
+      .review-card_title {
+        font-size: 20px;
+
+      }
+      .review-card .card_title{
+        font-size: 14px !important;
+      }
+      .review-card p{
+        font-size:12px !important;
+        line-height:20px !important;
+
+      }
+
+      .profile-info p{
+        font-size: 14px;
+        line-height: 20px;
+      }
+      .profile-rating {
+        font-size: 14px;
+      }
+      .about-section p {
+        color: #919191;
+        font-size: 14px;
+        font-family: var(--default-font);
+      }
+      .languages .txt, .activities .txt {
+        font-size: 14px;
+      }
+      .guide_price { 
+          font-size: 17px;
+          font-weight: 600;
+          line-height: 10px;
+      }
+      .guide_price_hours {
+        font-size: 11px;
+      }
+    }
+
+    /* swiper-container  */
+    
+    .swiper-container {
+      width: 100vw; /* Full width of the viewport */
+      padding: 5px 5px 5px 5px;
+      overflow: hidden; /* Hide overflow */
+      position: relative; /* Ensure absolute positioning inside works */
+    }
+    
+    .swiper-wrapper {
+      display: flex;
+    }
+    
+    .swiper-slide {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      {% comment %} box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); {% endcomment %}
+      width: calc(80% - 20px); /* Adjust the width */
+      margin-right: 20px; /* Space between slides */
+    }
+    
+    .review-card {
+      padding-bottom: 0 !important;
+      padding: 15px;
+      text-align: left;
+    }
+    
+    .reviewer-img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin-bottom: 10px;
+    }
+  
+    .review-card p{
+      padding: 0;
+      letter-spacing: 0.5px;
+      font-family: var(--default-font);
+      color:#919191;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 24px;
+      text-align: left;
+    }
+    .review-card .card_title{
+      font-family: var(--default-font);
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 29.05px;
+      text-align: left;
+      margin-left: 20px;
+    }
+    .card_title span{
+      padding: 0;
+      letter-spacing: 0.5px;
+      font-family: var(--default-font);
+      color:#919191;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 24px;
+      text-align: left;
+    }
+
+    /* Custom icon styling */
+    .btn-light .dropdown-toggle::after {
+      display: none; 
+    }
+    
+    #dropdown-icon {
+      margin-left: 5px;
+    }
+    .dropdown-toggle::after{
+      display: none !important;
+    }
+    .dropdown-menu{
+      width: 100%;
+    }
+    .dropdown .dropdown-toggle{
+      padding: 10px 15px 10px 15px;
+      background: none;
+      font-size: 16px;
+      border: 1px solid #E0E0E0;
+  }
+  
+  .btn.show, .btn:first-child:active, :not(.btn-check)+.btn:active {
+    color: var(--theme-red-color);
+    background-color: #fff;
+  }
+  .review-card_title_div #selected-option{
+    font-weight:bold;
+  }
+  .show-more-review{
+    border-radius: 30px;
+    padding: 10px 20px 10px 20px;
+    background: none;
+    font-weight:bold;
+    font-size: 16px;
+    border: 2px solid var(--theme-secondary-color);;
+  }
+  .show-more-review:active, .show-more-review:hover{
+    color: var(--theme-red-color);
+    background-color: #fff;
+    border: 2px solid var(--theme-red-color);
+  }
+  </style>
+
+<section id="guide_detail class_for_all_sections mt-5" class=" class_for_all_sectionsguide_detail section"> 
+  <div class="container mt-5">
+    <div class="row">
+      <div>
+        <h1 class="guide_detail_page_title">Find your selected guide detail here.</h1>
+      </div>  
+      <!-- Profile Card -->
+      <div class="col-lg-8 col-md-12 mb-4">
+        <div class="profile-card">
+          <div class="profile-header">
+            <div class="d-flex align-items-center">
+              <img src="{% static 'img/guide.png' %}" alt="Employee Photo" alt="Guide Photo" class="profile-img">
+              <div class="profile-info">
+                <h4 class="guide_name">Wilson Schleifer</h4>
+                <p class="guide_city">Jaipur, India</p>
+                <div class="d-block d-lg-none d-md-none d-sm-block guide_price">
+                  ₹ 290/<span class="guide_price_hours">hour</span>
+                </div>
+                <div class="profile-rating">
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-half"></i>
+                  <span class="rating_digit">4.3/5</span>
+                </div>
+              </div>
+            </div>
+            <div class="d-block d-lg-block d-md-block d-none  d-sm-none guide_price">
+              ₹ 290/<span class="guide_price_hours">hour</span>
+            </div>
+          </div>
+          <div class="about-section">
+            <h5 class="guid_about">About</h5>
+            <p>A wonderful serenity has taken possession of my entire soul, like these sweet mornings 
+              of spring which I enjoy with my whole heart. I am alone, and feel the charm of existence 
+              in this spot, which was created for the bliss of souls like mine. I am so happy, my dear 
+              friend, so absorbed in the exquisite sense of mere tranquil existence, that I neglect 
+              my talents.</p>
+              <p>Lorem Ipsum decided to leave for the far World of Grammar. The Big Oxmox advised 
+                her not to do so, because there were thousands of bad Comma wild Question Marks
+                and devious Semikoli, but the Little Blind Text didn’t listen. She packed her seven 
+                versalia, put her initial into the belt and made herself on the way. When she reached
+                the first hills.</p>
+          </div>
+          <div class="languages row">
+            <div class="guide_lang">Languages:</div>
+            <div class="col txt">
+              <i><img src="{% static 'img/hindi-l.svg' %}" alt="icon"></i>Hindi
+              <i style="margin-right: 5px;"><img style="margin-left: 10px;" src="{% static 'img/english-l.svg' %}" alt="icon"></i>English
+              <i style="margin-right: 5px;"><img  style="margin-left: 10px;" src="{% static 'img/raj-l.svg' %}" alt="icon"></i>Rajasthani
+            </div> 
+      
+          </div>
+          <div class="activities row d-none">
+            <div class="guide_act">Activities:</div>
+            <div class="col txt">
+              <i class="bi bi-water"></i>Swimming pool,
+              <i class="bi bi-building"></i> Art & Museums, 
+              <i class="bi bi-sun"></i> Hot Water
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Booking Card -->
+      <div class="col-lg-4 col-md-12 pb-5">
+        <div class="booking-card">
+          <div class="form_head_txt">
+            <h5 class="form_price_txt">Price</h5><span class="non-refund">Non-Refundable</span>
+          </div>  
+          <p class="booking_guide_price">₹ 290/<span class="booking_guide_price_hours">hour</span></p>
+          <hr>
+          <form class="book_guide_from">
+            {% csrf_token %}
+            <div class="row ">
+              <div class="col-6 ">
+                <label for="from-date" class="form-label from_date">From</label>
+                <input type="date" class="form-control p-0" id="from-date">
+                <hr>
+              </div>
+              <div class=" col-6 ">
+                <label for="to-date" class="form-label to_date">To</label>
+                <input type="date" class="form-control p-0" id="to-date">
+                <hr>
+              </div>
+            </div>
+            <div class="custom-select-wrapper">
+              <label for="hours" class="form-label">Hours</label>
+              <div class="custom-select">
+                <select class="form-control" id="hours">
+                  <option value="2">2 hours</option>
+                  <option value="3">3 hours</option>
+                  <option value="4">4 hours</option>
+                </select>
+                <i class="bi bi-caret-down-fill"></i> <!-- Bootstrap Icon -->
+              </div>
+              <hr>
+            </div>         
+            <div class="booking-total">
+              <span>₹290 x 2 hours</span><span>₹ 580.00</span>
+            </div>
+            <div class="gst-section">
+              <span>GST (18%)</span>
+              <span id="gst">₹ 104.4</span>
+            </div>
+            <div class="total-section">
+              <span>Total (incl. taxes)</span>
+              <span id="total">₹ 684.4</span>
+            </div>
+            <button type="submit" class="book-btn">Book this Now</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="review-card_title_div">
+        <h1 class="review-card_title">From Our Guests: Reviews of Our Outstanding Guides</h1>
+        <div class="dropdown d-lg-block d-md-block d-none d-sm-none ">
+          <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+            Sort by: <span id="selected-option">Most Relevant</span> <span id="dropdown-icon">▼</span>
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <li><a class="dropdown-item" href="#" onclick="setSortOption('Most Relevant')">Most Relevant</a></li>
+            <li><a class="dropdown-item" href="#" onclick="setSortOption('Newest First')">Newest First</a></li>
+            <li><a class="dropdown-item" href="#" onclick="setSortOption('Oldest First')">Oldest First</a></li>
+            <li><a class="dropdown-item" href="#" onclick="setSortOption('Highest Rated')">Highest Rated</a></li>
+          </ul>
+        </div>        
+      </div> 
+      <div class="container p-0 pt-2">
+        <div class="swiper-container">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <div class="review-card">
+                <div>
+                  <sapn class="d-flex">
+                    <img src="{% static 'img/guide.png' %}" alt="Reviewer" class="reviewer-img">
+                    <h4 class="card_title">Kierra Ekstrom Bothman<br><span>5 years on</span></h4>
+                  </span>
+                </div>
+                <p>Lorem Ipsum decided to leave for the far World of Grammar. The 
+                  Big Oxmox advised her not to do so, because there were thousands 
+                  of bad Comma wild Question Marksand devious Semikoli, but the 
+                  Little Blind Text didn’t listen. She packed her seven versalia, put her 
+                  initial into the belt and made herself on the way. </p>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="review-card">
+                <div>
+                  <sapn class="d-flex">
+                    <img src="{% static 'img/guide.png' %}" alt="Reviewer" class="reviewer-img">
+                    <h4 class="card_title">Kierra Ekstrom Bothman<br><span>5 years on</span></h4>
+                  </span>
+                </div>
+                <p>Lorem Ipsum decided to leave for the far World of Grammar. The 
+                  Big Oxmox advised her not to do so, because there were thousands 
+                  of bad Comma wild Question Marksand devious Semikoli, but the 
+                  Little Blind Text didn’t listen. She packed her seven versalia, put her 
+                  initial into the belt and made herself on the way. </p>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="review-card">
+                <div>
+                  <sapn class="d-flex">
+                    <img src="{% static 'img/guide.png' %}" alt="Reviewer" class="reviewer-img">
+                    <h4 class="card_title">Kierra Ekstrom Bothman<br><span>5 years on</span></h4>
+                  </span>
+                </div>
+                <p>Lorem Ipsum decided to leave for the far World of Grammar. The 
+                  Big Oxmox advised her not to do so, because there were thousands 
+                  of bad Comma wild Question Marksand devious Semikoli, but the 
+                  Little Blind Text didn’t listen. She packed her seven versalia, put her 
+                  initial into the belt and made herself on the way. </p>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="review-card">
+                <div>
+                  <sapn class="d-flex">
+                    <img src="{% static 'img/guide.png' %}" alt="Reviewer" class="reviewer-img">
+                    <h4 class="card_title">Kierra Ekstrom Bothman<br><span>5 years on</span></h4>
+                  </span>
+                </div>
+                <p>Lorem Ipsum decided to leave for the far World of Grammar. The 
+                  Big Oxmox advised her not to do so, because there were thousands 
+                  of bad Comma wild Question Marksand devious Semikoli, but the 
+                  Little Blind Text didn’t listen. She packed her seven versalia, put her 
+                  initial into the belt and made herself on the way. </p>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="review-card">
+                <div>
+                  <sapn class="d-flex">
+                    <img src="{% static 'img/guide.png' %}" alt="Reviewer" class="reviewer-img">
+                    <h4 class="card_title">Kierra Ekstrom Bothman<br><span>5 years on</span></h4>
+                  </span>
+                </div>
+                <p>Lorem Ipsum decided to leave for the far World of Grammar. The 
+                  Big Oxmox advised her not to do so, because there were thousands 
+                  of bad Comma wild Question Marksand devious Semikoli, but the 
+                  Little Blind Text didn’t listen. She packed her seven versalia, put her 
+                  initial into the belt and made herself on the way. </p>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="review-card">
+                <div>
+                  <sapn class="d-flex">
+                    <img src="{% static 'img/guide.png' %}" alt="Reviewer" class="reviewer-img">
+                    <h4 class="card_title">Kierra Ekstrom Bothman<br><span>5 years on</span></h4>
+                  </span>
+                </div>
+                <p>Lorem Ipsum decided to leave for the far World of Grammar. The 
+                  Big Oxmox advised her not to do so, because there were thousands 
+                  of bad Comma wild Question Marksand devious Semikoli, but the 
+                  Little Blind Text didn’t listen. She packed her seven versalia, put her 
+                  initial into the belt and made herself on the way. </p>
+              </div>
+            </div>
+            <!-- Add more slides as needed -->
+          </div>
+        </div>
+      </div> 
+      <div class="container text-center pt-5">
+        <button class="btn show-more-review" type="button" id="show-more-review" aria-expanded="false">
+           <span id="selected-option">Read all reviews</span> 
+        </button> 
+    </div>
+      
+  </div>
+</section>  
+
+
+<script>
+  var dropdownButton = document.getElementById("dropdownMenuButton");
+  var icon = document.getElementById("dropdown-icon");
+
+  // Event listener to change icon on show
+  dropdownButton.addEventListener('show.bs.dropdown', function () {
+    icon.innerText = "▲";  // Change to up arrow when open
+  });
+
+  // Event listener to change icon on hide
+  dropdownButton.addEventListener('hide.bs.dropdown', function () {
+    icon.innerText = "▼";  // Change to down arrow when closed
+  });
+
+  function setSortOption(option) {
+    document.getElementById("selected-option").innerText = option;
+  }
+
+
+  var swiper = new Swiper('.swiper-container', {
+    slidesPerView: 1.25,  // Mobile: 1 full slide and 15% of the next
+    spaceBetween: 20,    // Space between slides
+    centeredSlides: false,  // Align slides to the left
+    loop: true,  // Infinite looping
+    autoplay: {
+      delay: 3000,  // Auto-slide every 3 seconds
+      disableOnInteraction: false,  // Keep autoplay after interaction
+    }, 
+    speed: 800,  // Transition speed
+    breakpoints: {
+      768: {  // Tablet: 1 full slide and 30% of the next
+        slidesPerView: 1.6,
+      },
+      991: {  // Desktop: 2 full slides and 65% of the next
+        slidesPerView: 2.65,
+      },
+      1099: {  // Extra large screens: 3 full slides and 60% of the next
+        slidesPerView: 2.80,
+      },
+      1299: {  // Extra large screens: 3 full slides and 60% of the next
+        slidesPerView: 2.80,
+      },
+    },
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+});
+
+  
+</script>  
+{% endblock %} 

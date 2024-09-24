@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load static i18n %}
+{% block content %} 
+
+    <!-- About Us-> Template with Accessibility and SEO Enhancements -->
+
+    {% block title %}About Us - Dham{% endblock %}
+    
+    <!-- About Us Section -->
+    <section aria-labelledby="about-us-header">
+        <div class="container">
+            <!-- Header -->
+            <header>
+                <h1 id="about-us-header">About Dham</h1>
+            </header>
+            
+            <!-- Our Mission -->
+            <h2 id="our-mission">Our Mission</h2>
+            <p>
+                At Dham, our mission is to provide enriching cultural experiences through guided historical tours, comfortable room bookings, and a variety of services tailored to enhance your journey. We are dedicated to preserving and sharing the rich heritage and traditions that make each destination unique.
+            </p>
+            
+            <!-- Who We Are -->
+            <h2 id="who-we-are">Who We Are</h2>
+            <p>
+                Dham was founded by a group of passionate history enthusiasts and travel experts who believe in the transformative power of cultural immersion. With years of experience in the tourism industry, our team is committed to delivering exceptional service and creating memorable experiences for every traveler.
+            </p>
+            
+            <!-- What We Offer -->
+            <h2 id="what-we-offer">What We Offer</h2>
+            <ul>
+                <li><strong>Guided Historical Tours:</strong> Explore iconic landmarks and hidden gems with our knowledgeable guides.</li>
+                <li><strong>Room Bookings:</strong> Comfortable and conveniently located accommodations to suit your needs.</li>
+                <li><strong>Cultural Services:</strong> Enhance your journey with specialized services such as local cuisine experiences, traditional performances, and more.</li>
+            </ul>
+            
+            <!-- Why Choose Dham? -->
+            <h2 id="why-choose-dham">Why Choose Dham?</h2>
+            <p>
+                <strong>Expert Guides:</strong> Our guides are well-versed in the history and culture of each destination, ensuring an informative and engaging tour.<br>
+                <strong>Personalized Services:</strong> We tailor our offerings to meet the unique preferences and requirements of our clients.<br>
+                <strong>Commitment to Quality:</strong> From accommodations to tour experiences, we maintain high standards to guarantee your satisfaction.<br>
+                <strong>Sustainable Tourism:</strong> We prioritize eco-friendly practices to preserve the beauty and integrity of the places we visit.
+            </p>
+            
+            <!-- Join Us on a Cultural Journey -->
+            <h2 id="join-us">Join Us on a Cultural Journey</h2>
+            <p>
+                Whether you're a history buff, a curious traveler, or someone seeking a deeper connection with different cultures, Dham is your trusted partner. Let us guide you through unforgettable experiences that celebrate the past, present, and future of our diverse world.
+            </p>
+            
+            <!-- Call to Action -->
+            <p>
+                Ready to embark on a cultural journey? <a href="{% url 'contact_us' %}" class="cta-button" aria-label="Book your tour now">Book Now</a>
+            </p>
+            
+            <!-- Social Media Links -->
+            <p>
+                Follow us on 
+                <a href="https://www.facebook.com/dham" aria-label="Follow Dham on Facebook">Facebook</a>, 
+                <a href="https://www.twitter.com/dham" aria-label="Follow Dham on Twitter">Twitter</a>, and 
+                <a href="https://www.instagram.com/dham" aria-label="Follow Dham on Instagram">Instagram</a>.
+            </p>
+        </div>
+    </section>
+    
+{% endblock %} 

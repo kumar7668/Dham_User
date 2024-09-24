@@ -1,0 +1,61 @@
+
+<!-- *********__home page content__************* -->
+{% load static custom_filters %}
+<style>
+ #blog_list_base, .blog_list_home {
+    background: linear-gradient(180deg, #E52B50 19.82%, #FFFFFF 97.14%);
+ }
+ .pd-blog{padding: 20px;}
+
+ @media (max-width: 600px) {
+    .pd-blog{padding: 5px;}
+ }
+</style>
+
+
+{% if blogs_data %}
+    <section class="section_blog blog_list blog_list_home class_for_all_sections mt-5" data-aos="fade-up" data-aos-delay="100" id="blog_list_base  blog_list class_for_all_sections">
+        <div class="container pb-5">
+            <h2 class="h2_title color-white">Latest Blog and News</h2>
+        </div>   
+        <div class="row">
+            <div class="blog-card-container container-fluid pd-blog">
+                <!-- Blog container -->
+                <div class="container blog-container">
+                    {% if blogs_data %}
+                    {% for blog in blogs_data.updatedBlogs %}
+                        <div class="blog-post">
+                            <a href="{% url 'blog_detail_page' blog_loc=blog.cityId.name blog_id=blog.id %}" class="clsmanage">
+                                    <div class="remder p-0">
+                                    {% if blog.first_file_url %}
+                                    <img src="{{ blog.first_file_url }}" alt="Blog Image">
+                                    {% else %}
+                                    <img src="{% static 'img/blog1.png' %}" alt="Blog Cover">
+                                    {% endif %}
+                                </div>
+                            </a>
+                            <div class="blog-post-content">
+                                <div class="date_cat d-flex">
+                                    <div class="title">{{ blog.title }}</div>
+                                    <div class="date">{{ blog.formatted_date }}</div>
+                                </div>
+                                <h3 class="blog-text blog-shortNote-text">{{ blog.shortNote }}</h3>
+                                <a href="{% url 'blog_detail_page' blog_loc=blog.cityId.name blog_id=blog.id %}" class="clsmanage">
+                                    <div id="content">
+                                        {{ blog.content|add_class_to_p_tag|safe }}
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    {% endif %}
+                </div>   
+            </div>
+        </div>
+        <div class="container p-5 text-center pt-4" >
+            <div class="row justify-content-center">
+                <a class="read_more_blog big_thmeme_btn" role="button" href="{% url 'blogs' %}">Read More Blogs</a>
+            </div>
+        </div>    
+    </section>
+{% endif %}

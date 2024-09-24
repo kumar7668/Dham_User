@@ -1,0 +1,83 @@
+
+{% load static %}
+
+<style>
+    .top-destinations .container {
+        background-image: url("{% static 'img/upcomming_event_bg.svg' %}");
+        
+    }
+</style> 
+{% if top_destinations_data %}
+    <section id="top-destinations class_for_all_sections" class="class_for_all_sections comman_car_list top-destinations" data-aos="fade-up" data-aos-delay="100" >
+        <div class="container">
+            <div class=" container-fluid mb-5"  data-aos="fade-up" >
+                <div class="row">
+                    <div class="col-sm-12 col-lg-7 col-md-6 p-0">
+                        <h2 class="h2_title" style=" color:#ffffff !important;">Top Destinations for your  <span class="h2_title_rated"  style=" color:yellow; !important;">Next Holiday</span></h2>
+                    </div>
+                </div>
+            </div>    
+            <div class="owl-carousel owl-theme" data-aos="fade-up" data-aos-delay="100">
+                {% for data in top_destinations_data.TopDestinations %}
+                    <div class="item">
+                        <div class="card" data-aos="fade-up" data-aos-delay="200">
+                            <span class="badge">{% if data.type == 'tour' %}Tour{% endif %}</span>
+                            
+                            {% for url in data.files %}
+                                {% if forloop.first %}
+                                    <img src="{{ url.Url }}" class="card-img-top" alt="{{ data.title }}">
+                                {% endif %}
+                            {% endfor %}
+                            
+                            <div class="overlay">
+                                <div class="property_title">{{data.title}}</div>
+                                <div class="tour_event_info"><i class="bi bi-calendar2-heart"></i> Starting from {{data.formatted_start_from}} to {{data.formatted_end_at}}</div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <script>
+        //this will handel all carousel
+        $(document).ready(function(){
+            $('.comman_car_list .owl-carousel').owlCarousel({
+                loop: true,
+                margin: 5, 
+                autoplay: true, // Enable auto-loop
+                autoplayTimeout: 3000, // Time between each auto-slide (in milliseconds, e.g., 3000ms = 3 seconds)
+                autoplayHoverPause: true, // Pause on hover
+                responsive: {
+                    0: {
+                        items: 1.5, // 2 cards on small screens (phones)
+                        stagePadding: 0, // Show part of the next card
+                    },
+                    449: {
+                        items: 1.8, // 2 cards on small screens (phones)
+                        stagePadding: 5, // Show part of the next card
+                    },
+                    689: {
+                        items: 2.5, // 3 cards on small tablets
+                        stagePadding: 10 // Show part of the next card
+                    },
+                    992: {
+                        items: 3, // 4 cards on tablets
+                        stagePadding: 20 // Show part of the next card
+                    },
+                    1200: {
+                        items: 4, // 5 cards on large screens (desktops)
+                        stagePadding: 2, // Show part of the next card
+                        margin: 5, // Margin between cards
+                    },
+                    1300: {
+                        items: 4.4, // 5 cards on large screens (desktops)
+                        stagePadding: 40, // Show part of the next card
+                        margin: 5, // Margin between cards
+                    }
+                }
+            });
+        });
+    </script>
+{%endif%}

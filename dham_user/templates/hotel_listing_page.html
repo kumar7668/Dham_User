@@ -2,488 +2,753 @@
 {% load static %}
 {% block content %} 
 <style>
-        /* General container adjustments */
-        .container-footer {
-            margin-top: 5px;
-        }
-
-        .container {
-            margin-top: 50px;
-        }
-
-        /* Filter section styling */
-        .filter-section {
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
-            height: max-content;
-        }
-
-        /* Sticky footer for mobile filter */
-        .sticky-footer {
-            background-color: #fff;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            z-index: 10000;
-            border-top: 1px solid #cecdcd;
-            left: 0;
-            height: 55px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px;
-        }
-
-        /* Hotel card styling */
-        .hotel-card {
-            border-radius: 12px;
-            overflow: hidden;
-            transition: transform 0.2s ease-in-out;
-        }
-
-        .hotel-card:hover {
-            transform: scale(1.05);
-        }
-
-        /* Image styling within cards */
-        .img-prod img {
-            height: 100%;
-            min-height: 210px;
-            width: 100%;
-            /* height: 282px; */
-            border-radius: 12px 12px 0 0;
-            object-fit: fill;
-        }
-
-        /* Card body adjustments */
-        .hotel-card .card-body {
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            height: 184px; /* Ensures consistent card height */
-        }
-
-        /* Title and text adjustments within the card */
-        .hotel-card .card-title {
-            font-size: 1.25rem;
-            margin-bottom: 10px;
-        }
-
-        .hotel-card .card-text {
-            font-size: 1rem;
-        }
-
-        /* Search bar styling */
-        .search-bar {
-            margin-bottom: 20px;
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            /* Hide desktop filter on mobile */
-            .filter-section {
-                display: none;
-            }
-
-            /* Show sticky footer on mobile */
-            .sticky-footer {
-                display: flex; /* Ensures sticky footer is visible on mobile */
-            }
-        }
-
-        @media (min-width: 769px) {
-            /* Hide mobile filter sticky footer on larger screens */
-            .sticky-footer {
-                display: none;
-            }
-        }
-
-        /* Scrollable filter body */
-        .filter-body {
-            max-height: 350px;
-            overflow-y: auto; /* Scrollbar for overflow content */
-        }
-        
-
-        /* ############################### */
-
-            .h1_ttile{
-              font-family: var(--heading-font);
-              color:#ffffff;
-              font-size: 90px;
-              font-weight: 400;
-              line-height: 63px;
-              text-align: center;
-          
-            }
-            .search_list {
-                width: 100%;
-                display: flex;
-                margin: 20px 0; 
-            }
-            .search_list ul li a{
-              font-family: var(--default-font);
-              color: var(--bs-body-bg);
-              font-size: 16px;
-              font-weight: 600;
-              line-height: 21.78px;
-              text-align: center;
-              padding: 6px 15px; 
-              display: block;
-              text-decoration: none;
-            }
-            .search_list ul li a:hover{
-              border-bottom: 3px solid var(--theme-hover-color);
-            }
-          
-          
-              .search_list ul {
-                display: flex;
-                list-style: none;
-                padding: 0;
-                margin: 0;
-                overflow-x: auto; 
-                white-space: nowrap; 
-            }
-          
-            .search_list li {
-                margin-right: 15px; 
-            }
-          
-          
-            .search_list a.active {
-              border-bottom: 3px solid var(--theme-hover-color);
-          
-            }
-          
-          
-            .search_list ul::-webkit-scrollbar {
-                height: 6px; 
-            }
-          
-            .search_list ul::-webkit-scrollbar-thumb {
-                background-color: #007bff; 
-            }
-          
-            .search_list ul::-webkit-scrollbar-track {
-                background-color: #f1f1f1;
-            }
-            .mg-5{
-              margin: 5px;
-            }
-          
-            .owl-theme .overlay .property_desc, .owl-theme .overlay .tour_event_info{
-              font-family: Inter;
-              font-size: 14px;
-              font-weight: 400;
-              line-height: 19.36px;
-              text-align: left;
-              color:#ffffff;
-          
-            }
-            .overlay .property_title{
-              font-family: Inter;
-              font-size: 22px;
-              font-weight: 600;
-              line-height: 26px;
-              text-align: left;
-              Color:#ffffff;
-          
-          }
-          .txt_input{
-            padding: 12px 5px 12px 10px;
-            background: none;
-            border: none;
-          }
-          .rm_bd_bg{
-            font-size: 12px;
-            border: none;
-            background: none;
-          }
-          .custom_search_box{
-            max-width: 850px;
-            margin-bottom: 15px;
-            padding: 6px 0 6px 0;
-            position: relative;
-            border-radius: 50px;
-            border: 2px solid var(--theme-hover-color);
-            display: flex;
-            background-color: #ffffff;
-            transition: 0.3s;
-        }
-        .custom_search_box input[type=submit] {
-            border: 0;
-            font-weight: 500;
-            font-size: 16px;
-            padding: 14px 22px 14px 22px;
-            margin: 0 8px 0px 0px;
-            background: var(--theme-red-color);
-            color: #ffffff;
-            transition: 0.3s;
-            border-radius: 50px;
-        }
-        .custom_search_box  input[type=submit]:hover {
-            background: var(--theme-hover-color);
-        }
-        .guest-col, .room-col, .check-in-col {
-            padding: 0 0 0 0;
-            margin: 5px 0 0 0;
-            height: 43px;
-            border-left: 2px solid var(--theme-hover-color);
-        }
-        .guest-col label, .room-col label,  .check-in-col label
-        {
-            font-family: Inter;
-            font-size: 13px;
-            font-weight: 600;
-            line-height: 14.52px;
-        
-        }
-        .room-col label {
-            margin: 0 15px 0 0px;
-
-        }
-        .check-in-col label{
-            margin: 0 0 0 0;
-        }
-        .guest-col label{
-            margin: 0 0 0 -25px;
-        }
-       
-        .base-seach-col{
-            position: absolute;
-             top: 0; 
-             right: 122px; 
-             text-align: center;
-        }
-        .check-in-col .rm_bd_bg{
-            margin: 0 -10px 0 10px;
-            padding: 0 0 0 20px;
-            cursor: pointer;
-        }
-        .room-col .rm_bd_bg{
-            padding: 0px 0px 0 15px;
-        }
-        .guest-col .rm_bd_bg{
-            padding: 0px 0px 0 15px;
-            margin: 0px 0 0 5px;
-        }
-
-        .room-col select option{
-            margin: 0 0 0px -10px;
-            padding: 0 0 0 0;
-        }
-        
-        
+      
 </style>
 
-<!-- Hero Section -->
-<section id="hero" class="hero section">
-    <div class="hero-bg">
-      <img src="{% static 'img/hotel_listing_page_bg.png' %}" alt="hotel_listing_page_bg">
-    </div>
 
-    <div class="container text-center">
-        <div class="d-flex flex-column justify-content-center align-items-center">
-            <h1 class="h1_ttile" data-aos="zoom-out" data-aos-delay="230">Search Tours</h1>       
-            <form class="container txt-center" action="" method="post" data-aos="fade-up" data-aos-delay="110">
-                <div class="custom_search_box">
-                    <!-- Text input area for City or Hotel search -->
-                    <div class="">
-                        <input type="text" name="search" class="form-control txt_input" placeholder="Search for City or Hotel">
-                    </div>
-                    <div class="row p-0  base-seach-col">
-                        <!-- HTML5 Date Picker -->
-                        <div class="col-lg-5 col-md-6 mb-3 check-in-col">
-                            <div class="p-0 m-0 ">
-                                <label for="adults" class="">Check In/Out</label>
-                                <input type="text" class="form-control flatpickr rm_bd_bg " placeholder="Select Date">
-                            </div>
-                            <div class="p-0 m-0 d-none">
-                                <label for="adults" class="">Check Out</label>
-                                <input type="text" class="form-control flatpickr" placeholder="Select Date">
-                            </div>
-                        </div>
-
-                        <!-- Adults dropdown -->
-                        <div class="col-lg-3 col-md-6 mb-3 room-col">
-                            <label for="adults" class="">Rooms</label>
-                            <select name="" id="adults" class="form-control rm_bd_bg" fdprocessedid="nfa5qe">
-                                <option selcted value="">Select</option>
-                                <option value="">1</option>
-                                <option value="">2</option>
-                                <option value="">3</option>
-                                <option value="">4+</option>
-                            </select>
-                        </div>
-    
-                        <!-- Children dropdown -->
-                        <div class="col-lg-4 col-md-6 mb-3 guest-col">
-                            <label for="children" class="">Guests</label>
-                            <select name="" id="children" class="form-control rm_bd_bg " fdprocessedid="5xmtc9">
-                                <option selcted value="">No. of Guests</option>
-                                <option value="">1</option>
-                                <option value="">2</option>
-                                <option value="">3</option>
-                                <option value="">4+</option>
-                            </select>
-                        </div>
-                    </div>
-    
-                    <!-- Search button -->
-                    <div class="text-right" style="position: absolute;right: 0;top: 5px;">
-                        <input type="submit" class="btn btn-primary" value="Search">
-                    </div>
-                </div>
-                <div class="error-message"></div>
-            </form>
+    <!-- Hero Section -->
+    <section id="hero" class="hero section">
+        <div class="hero-bg">
+        <img src="{% static 'img/hotel_listing_page_bg.png' %}" alt="hotel_listing_page_bg">
         </div>
-    </div>
-    
-    
 
-</section>
-<!-- /Hero Section End -->
+        <div class="container text-center">
+            <div class="d-flex flex-column justify-content-center align-items-center">
+                <h1 class="h1_ttile" data-aos="zoom-out" data-aos-delay="230">Search Hotel</h1>       
+                <form class="container txt-center" action="" method="post" data-aos="fade-up" data-aos-delay="110">
+                    {% csrf_token %}
+                    <div class="custom_search_box">
+                        <!-- Text input area for City or Hotel search -->
+                        <div class="">
+                            <input type="text" name="search" class="form-control txt_input" placeholder="Search for City or Hotel">
+                        </div>
+                        {% comment %} <div class="row p-0  base-seach-col">
+                            <!-- HTML5 Date Picker -->
+                            <div class="col-lg-5 col-md-6 mb-3 check-in-col">
+                                <div class="p-0 m-0 ">
+                                    <label for="adults" class="">Check In/Out</label>
+                                    <input type="text" class="form-control flatpickr rm_bd_bg " placeholder="Select Date">
+                                </div>
+                                <div class="p-0 m-0 d-none">
+                                    <label for="adults" class="">Check Out</label>
+                                    <input type="text" class="form-control flatpickr" placeholder="Select Date">
+                                </div>
+                            </div>
 
-<section id="hotel_listing_page" class="hotel_listing_page section">
-
-    <div class="container">
-        <div class="row">
-            <!-- Filter Section (Left Side) -->
-            <div class="col-lg-3 filter-section d-none d-lg-block">
-                <div>
-                    <h4>Filters</h4>
-                    <!-- Price Range Filter -->
-                    <div class="form-group">
-                        <label for="priceRange">Price Range</label>
-                        <input type="text" class="form-control" id="priceRange" placeholder="$0 - $500">
+                            <!-- Adults dropdown -->
+                            <div class="col-lg-3 col-md-6 mb-3 room-col">
+                                <label for="adults" class="">Rooms</label>
+                                <select name="" id="adults" class="form-control rm_bd_bg" fdprocessedid="nfa5qe">
+                                    <option selcted value="">Select</option>
+                                    <option value="">1</option>
+                                    <option value="">2</option>
+                                    <option value="">3</option>
+                                    <option value="">4+</option>
+                                </select>
+                            </div>
+        
+                            <!-- Children dropdown -->
+                            <div class="col-lg-4 col-md-6 mb-3 guest-col">
+                                <label for="children" class="">Guests</label>
+                                <select name="" id="children" class="form-control rm_bd_bg " fdprocessedid="5xmtc9">
+                                    <option selcted value="">No. of Guests</option>
+                                    <option value="">1</option>
+                                    <option value="">2</option>
+                                    <option value="">3</option>
+                                    <option value="">4+</option>
+                                </select>
+                            </div>
+                        </div> {% endcomment %}
+        
+                        <!-- Search button -->
+                        <div class="text-right" style="position: absolute;right: 0;top: 5px;">
+                            <input type="submit" class="btn btn-primary" value="Search">
+                        </div>
                     </div>
-
-                    <!-- Facilities Filter -->
-                    <div class="form-group">
-                        <label for="facilities">Facilities</label>
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="wifi">
-                            <label class="form-check-label" for="wifi">Free Wi-Fi</label>
-                        </div>
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="parking">
-                            <label class="form-check-label" for="parking">Free Parking</label>
-                        </div>
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="gym">
-                            <label class="form-check-label" for="gym">Gym</label>
-                        </div>
-                    </div>
-                </div>
+                    <div class="error-message"></div>
+                </form>
             </div>
+        </div>
 
-            <!-- Hotel Cards (Right Side) -->
-            <div class="col-12 col-lg-9">
-                <div>
-                    <h1>{% if property_city %}{{property_city}}: {{hotel_list_data.hotel_count}} properties found{% endif %}</h1>
-                </div>
+    </section>
+    <!-- /Hero Section End -->
+
+        <section id="hotel_listing_page class_for_all_sections mt-5" class="hotel_listing_page class_for_all_sections">
+            <div class="container">
                 <div class="row">
-                    {% for hotel in hotel_list_data.hotels %}
-                        {% if hotel.status == 'active' %}
-                        <div class="col-12 col-sm-6 col-xl-4 d-flex flex-column mb-4">
-                            <div class="card hotel-card">
-                                <div class="img-prod">
-                                    <a href="#">
-                                        <img 
-                                        src="{% if hotel.first_file_url and hotel.first_file_url != '' %}{{ hotel.first_file_url }}{% else %}{% static 'img/hotel_default.png' %}{% endif %}" 
-                                        alt="Hotel Image" 
-                                        class="img-fluid" 
-                                        loading="lazy">
-                                    </a>
+                    <!-- Filter Section (Left Side - Desktop) -->
+                    <div class="col-lg-3 filter-section d-none d-lg-block p-3">
+                        <div class="filters-all">
+                            <div class="filter-div">
+                                <div class="filter-head d-flex justify-content-between">
+                                    <h4 class="filter-text"><i class="bi bi-filter"></i> Filter by:</h4>
+                                    <p class="clear-filter"><a id="clearFilters" role="button" class="btn-secondary">Clear</a></p>
                                 </div>
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ hotel.name }} {{ property_city }}</h5>
-                                    <p class="card-text">Visit the temples and the Chiang Mai Night Bazaar.</p>
-                                    <p class="card-text">
-                                        <span>{{ hotel.offerPrice }}</span>
-                                        <span>{{ hotel.price }}</span>
-                                    </p>
+                                 <!-- Selected Filters Badges (Desktop) -->
+                                <div class="selected-filters my-3">
+                                    <div id="filterBadgesDesktop" class="filterBadges d-flex flex-wrap">
+                                        <!-- Badges will be appended here dynamically -->
+                                    </div>
                                 </div>
                             </div>
+                            <hr>
                         </div>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-                
-            </div>
-        </div>
-    </div>
-
-    <!-- Mobile Filter Sticky Footer -->
-    <div class="sticky-footer d-md-none">
-        <div class="container-footer">
-            <div class="row">
-                <div class="col-6">
-                    <button class="btn btn-primary btn-block filter-button" data-toggle="modal" data-target="#filterModal">
-                        <i class="fa fa-filter"></i> Filter
-                    </button>
-                </div>
-                <div class="col-6 text-right">
-                    <button class="btn btn-secondary btn-block clear-button">Clear Filters</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Filter Modal for Mobile -->
-    <div class="modal fade" id="filterModal" tabindex="-1" role="dialog" aria-labelledby="filterModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="filterModalLabel">Filters</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <!-- Price Range Filter -->
-                    <div class="form-group">
-                        <label for="modalPriceRange">Price Range</label>
-                        <input type="text" class="form-control" id="modalPriceRange" placeholder="$0 - $500">
+                        <div class="filters-all">
+                            <!-- Price Range Filter -->
+                            <div class="form-group">     
+                                <label class="filter-div-head">Price per night</label>
+                                {% for price_range in formattedPriceRangeCounts %}
+                                <div class="price-range-group d-flex justify-content-between">
+                                    <div class="price-wraper p-0">
+                                        <input type="checkbox" class="form-check-input filter-checkbox" id="selectPrice{{ forloop.counter }}" name="selectPrice" value="{{ price_range.value }}" {% if price_range.count == 0 %} disabled {% endif %}>
+                                        <label class="form-check-label" for="selectPrice{{ forloop.counter }}"><span>{{ price_range.display }}</span></label>
+                                    </div>
+                                    <div class="price-count-wraper p-0"><span class="{% if price_range.count == 0  %}count-disabled{% endif %}">({{price_range.count}})</span></div>
+                                </div>
+                                {% endfor %}
+                                <div class="fprice-range-group mt-2">
+                                    <label class="filter-div-head" for="priceRange">Your budget :</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control priceRange" id="priceRange" placeholder="₹0 - ₹500">
+                                        <button id="applyPriceFilter" class="btn btn-primary apply-btn d-none">Apply</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <!-- Amenities Filter -->
+                            <div class="form-group">
+                                <label class="filter-div-head" for="amenities">Amenities</label>
+                                {% for amenity in amenities.amenities %}
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input filter-checkbox" id="amenity{{ amenity.id }}" value="{{ amenity.id }}"
+                                            {% if amenity.id in selected_amenities %}checked{% endif %}>
+                                        <label class="form-check-label" for="amenity{{ amenity.id }}">{{ amenity.name }}</label>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <hr>
+                            <!-- Property Types Filter -->
+                            <div class="form-group">
+                                <label class="filter-div-head" for="propertyTypes">Property Types</label>
+                                {% for property_type in property_types.propertyType %}
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input filter-checkbox" id="propertyType{{ property_type.id }}" value="{{ property_type.id }}"
+                                            {% if property_type.id in selected_property_types %}checked{% endif %}>
+                                        <label class="form-check-label" for="propertyType{{ property_type.id }}">{{ property_type.name }}</label>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <hr>
+                            <!-- Star Rating Filter -->
+                            <div class="form-group Star-Rating">
+                                <label class="filter-div-head">Star Rating</label>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input filter-checkbox" disabled>
+                                        <label class="form-check-label">&#9733; &#9733; &#9733; &#9733; &#9733;</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input filter-checkbox" disabled>
+                                        <label class="form-check-label">&#9733; &#9733; &#9733; &#9733;</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input filter-checkbox" disabled>
+                                        <label class="form-check-label">&#9733; &#9733; &#9733;</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input filter-checkbox" disabled>
+                                        <label class="form-check-label">&#9733; &#9733; </label>
+                                    </div>
+                            </div>
+                        </div>
                     </div>
     
-                    <!-- Facilities Filter -->
-                    <div class="form-group">
-                        <label for="modalFacilities">Facilities</label>
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="modalWifi">
-                            <label class="form-check-label" for="modalWifi">Free Wi-Fi</label>
+                    <!-- Hotel Cards (Right Side) -->
+                    <div class="col-12 col-lg-9 listing-side  ">
+                        <div class="propertyCount">
+                            <h2 id="propertyCount">{% if property_city %}{{property_city}}: {{hotel_list_data.hotel_count}} properties found{% endif %}</h2>
+                            <p class="p-0">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
                         </div>
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="modalParking">
-                            <label class="form-check-label" for="modalParking">Free Parking</label>
+                         
+                        <div class="row position-relative p-md-3 p-lg-3" id="hotelList">
+                            {% for hotel in hotel_list_data.hotels %}
+                                {% if hotel.status == 'active' %}
+                                <div class="col-12 col-sm-6 col-xl-4 d-flex flex-column mb-4">
+                                    <div class="card hotel-card" style="height: 100%;">
+                                        <div class="img-prod">
+                                            <a href="#">
+                                                <img 
+                                                src="{% if hotel.first_file_url and hotel.first_file_url != '' %}{{ hotel.first_file_url }}{% else %}{% static 'img/hotel_default.png' %}{% endif %}" 
+                                                alt="Hotel Image" 
+                                                class="img-fluid">
+                                            </a>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between">
+                                                <h5 class="card-title">{{ hotel.name }}</h5>
+                                                <p class="ratting-no-hotel">&#9733; <span class="ratting-no-hotel-text">4.8<span class="ratting-no-hotel-text-no">(21)</span></span></p>
+                                            </div>
+                                            <p class="card-text">Visit the temples and the Chiang Mai Night Bazaar.</p>
+                                            <p class="card-text price-tag">
+                                                <span class="offerPrice">₹ {{ hotel.offerPrice }} /night</span>
+                                                <span class="eslePrice">₹ {{ hotel.price }}</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endif %}
+                            {% endfor %}
                         </div>
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="modalGym">
-                            <label class="form-check-label" for="modalGym">Gym</label>
+                    </div>
+                    <!-- Loader HTML -->
+                    <div id="loader d-sm-none" style="display: none;">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Loading...</span>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Apply Filters</button>
+            </div>
+            
+            <!-- Mobile Filter Sticky Footer -->
+            <div class="sticky-footer d-md-none d-lg-none">
+                <div class="mob-container-footer">
+                    <div class="row w-100">
+                        <div class="col-6">
+                            <button class="btn btn-primary btn-block filter-button" data-bs-toggle="modal" data-bs-target="#filterModal">
+                                <i class="fa fa-filter"></i> Filter
+                            </button>
+                        </div>
+                        <div class="col-6 text-right">
+                            <button id="clearFiltersMobile" class="btn btn-secondary btn-block">Clear Filters</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</section>    
+            
+            <!-- Filter Modal for Mobile -->
+            <div class="modal fade d-md-none" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="filterModalLabel">Filters</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Selected Filters Badges (Mobile Modal) -->
+                            <div class="selected-filters my-3 d-none">
+                                <div id="filterBadgesMobile" class="filterBadges d-flex flex-wrap d-none">
+                                    <!-- Badges will be appended here dynamically -->
+                                </div>
+                            </div>
+                            <!-- Price Range Filter -->
+                            {% for price_range in formattedPriceRangeCounts %}
+                            <div class="form-group price-range-group d-flex justify-content-between">
+                                <div class="price-wraper p-0">
+                                    <input type="checkbox" class="form-check-input filter-checkbox" id="selectPriceModal{{ forloop.counter }}" name="selectPrice" value="{{ price_range.value }}" {% if price_range.count == 0 %} disabled {% endif %}>
+                                    <label class="form-check-label" for="selectPriceModal{{ forloop.counter }}"><span>{{ price_range.display }}</span></label>
+                                </div>
+                                <div class="price-count-wraper p-0"><span class="{% if price_range.count == 0  %}count-disabled{% endif %}">({{price_range.count}})</span></div>
+                            </div>
+                            {% endfor %}
+                            <div class="form-group mt-2">
+                                <label for="modalPriceRange">Price Range</label>
+                                <input type="text" class="form-control priceRange modalPriceRange" id="modalPriceRange" placeholder="₹0 - ₹500">
+                                <button id="applyPriceFilterModal" class="btn btn-primary apply-btn d-none mt-2">Apply</button>
+                            </div>
+    
+                            <!-- Amenities Filter -->
+                            <div class="form-group mt-3">
+                                <label for="modalAmenities">Amenities</label>
+                                {% for amenity in amenities.amenities %}
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input filter-checkbox" id="modalAmenity{{ amenity.id }}" value="{{ amenity.id }}"
+                                            {% if amenity.id in selected_amenities %}checked{% endif %}>
+                                        <label class="form-check-label" for="modalAmenity{{ amenity.id }}">{{ amenity.name }}</label>
+                                    </div>
+                                {% endfor %}
+                            </div>
+    
+                            <!-- Property Types Filter -->
+                            <div class="form-group mt-3">
+                                <label for="modalPropertyTypes">Property Types</label>
+                                {% for property_type in property_types.propertyType %}
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input filter-checkbox" id="modalPropertyType{{ property_type.id }}" value="{{ property_type.id }}"
+                                            {% if property_type.id in selected_property_types %}checked{% endif %}>
+                                        <label class="form-check-label" for="modalPropertyType{{ property_type.id }}">{{ property_type.name }}</label>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <!-- Optionally, add an 'Apply Filters' button here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    
+   
+        <script>
+            $(document).ready(function() {
+                // ===========================
+                // Loader Functions
+                // ===========================
+                function showLoader() {
+                    $('#loader').fadeIn(200);
+                    $('.listing-side').addClass('listing-side-blur');
+                }
+        
+                function hideLoader() {
+                    $('#loader').fadeOut(200);
+                    $('.listing-side').removeClass('listing-side-blur');
+                }
+        
+                // ===========================
+                // Debounce Function
+                // ===========================
+                let debounceTimer;
+                function debounceApplyFilters() {
+                    clearTimeout(debounceTimer);
+                    debounceTimer = setTimeout(applyFilters, 300);
+                }
+        
+                // ===========================
+                // Badge Management Functions
+                // ===========================
+        
+                // Function to add a badge to both desktop and mobile containers
+                function addBadge(type, value, displayName) {
+                    // Prevent duplicate badges
+                    if ($(`#badge-${type}-${value}`).length === 0) {
+                        const badgeHtml = `
+                            <div class="filter-badge me-2 mb-2" id="badge-${type}-${value}">
+                                <span class="badge d-flex align-items-center">
+                                    ${displayName}
+                                    <span class="ms-2 remove-filter" data-type="${type}" data-value="${value}" style="cursor: pointer;">&times;</span>
+                                </span>
+                            </div>
+                        `;
+                        $('#filterBadgesDesktop').append(badgeHtml);
+                        $('#filterBadgesMobile').append(badgeHtml);
+                    }
+                }
+        
+                // Function to remove a badge from both desktop and mobile containers
+                function removeBadge(type, value) {
+                    const badgeSelector = `#badge-${type}-${value}`;
+                    if ($(badgeSelector).length) {
+                        // Add a fading out effect
+                        $(badgeSelector).fadeOut(300, function() {
+                            $(this).remove();
+                        });
+                    }
+                }
+        
+                // Function to toggle bold label for checked checkboxes
+                function toggleLabelBold(checkbox) {
+                    const $label = $(checkbox).next('label');
+                    if ($(checkbox).is(':checked')) {
+                        $label.addClass('label-bold');
+                    } else {
+                        $label.removeClass('label-bold');
+                    }
+                }
+        
+                // ===========================
+                // Initialization Functions
+                // ===========================
+        
+                // Initialize badges based on pre-selected filters
+                function initializeBadges() {
+                    $('.filter-checkbox:checked').each(function() {
+                        let type, value, displayName;
+                        const checkbox = $(this);
+        
+                        if (checkbox.attr('id').startsWith('amenity') || checkbox.attr('id').startsWith('modalAmenity')) {
+                            type = 'amenity';
+                            value = checkbox.val();
+                            displayName = checkbox.siblings('label').text().trim();
+                        } else if (checkbox.attr('id').startsWith('propertyType') || checkbox.attr('id').startsWith('modalPropertyType')) {
+                            type = 'propertyType';
+                            value = checkbox.val();
+                            displayName = checkbox.siblings('label').text().trim();
+                        } else if (checkbox.attr('id').startsWith('selectPrice') || checkbox.attr('id').startsWith('selectPriceModal')) {
+                            type = 'price';
+                            value = checkbox.attr('id');
+                            displayName = checkbox.siblings('label').text().trim();
+                        }
+        
+                        // **Modification Start**
+                        // Skip adding badges for selectPrice filters
+                        if (type === 'price' && (checkbox.attr('id').startsWith('selectPrice') || checkbox.attr('id').startsWith('selectPriceModal'))) {
+                            // Do not add badge for selectPrice
+                        } else if (type && value && displayName) {
+                            addBadge(type, value, displayName);
+                        }
+                        // **Modification End**
+                    });
+        
+                    // Initialize custom price badge if applicable
+                    const priceRange = $('#priceRange').val() || $('#modalPriceRange').val();
+                    if (priceRange) {
+                        addBadge('customPrice', priceRange, `Custom Price: ₹${priceRange}`);
+                    }
+                }
+        
+                // Call initializeBadges on page load
+                initializeBadges();
+        
+                // ===========================
+                // Event Listeners
+                // ===========================
+        
+                // Handle checkbox changes for both desktop and mobile
+                $('.filter-checkbox').on('change', function() {
+                    const checkbox = $(this);
+                    const isChecked = checkbox.is(':checked');
+                    let type, value, displayName;
+        
+                    if (checkbox.attr('id').startsWith('amenity') || checkbox.attr('id').startsWith('modalAmenity')) {
+                        type = 'amenity';
+                        value = checkbox.val();
+                        displayName = checkbox.siblings('label').text().trim();
+                    } else if (checkbox.attr('id').startsWith('propertyType') || checkbox.attr('id').startsWith('modalPropertyType')) {
+                        type = 'propertyType';
+                        value = checkbox.val();
+                        displayName = checkbox.siblings('label').text().trim();
+                    } else if (checkbox.attr('id').startsWith('selectPrice') || checkbox.attr('id').startsWith('selectPriceModal')) {
+                        type = 'price';
+                        value = checkbox.attr('id');
+                        displayName = checkbox.siblings('label').text().trim();
+                    }
+        
+                    // **Modification Start**
+                    // Skip adding badges for selectPrice filters
+                    if (type === 'price' && (checkbox.attr('id').startsWith('selectPrice') || checkbox.attr('id').startsWith('selectPriceModal'))) {
+                        // Do not add or remove badge for selectPrice
+                        // However, you might want to handle synchronization or other logic here if necessary
+                    } else if (type && value && displayName) {
+                        if (isChecked) {
+                            addBadge(type, value, displayName);
+                        } else {
+                            removeBadge(type, value);
+                        }
+                    }
+                    // **Modification End**
+        
+                    // Synchronize the corresponding checkbox in the other view
+                    synchronizeCheckbox(checkbox, isChecked);
+        
+                    debounceApplyFilters();
+                });
+        
+                // Handle Apply Price Filter (Desktop)
+                $('#applyPriceFilter').on('click', function() {
+                    const priceRange = $('#priceRange').val().trim();
+                    if (priceRange) {
+                        addBadge('customPrice', priceRange, `Custom Price: ₹${priceRange}`);
+                        // Clear the input and hide the apply button
+                        $('#priceRange').val('');
+                        $(this).addClass('d-none');
+                        // Synchronize mobile input
+                        $('#modalPriceRange').val('');
+                        $('#applyPriceFilterModal').addClass('d-none');
+                        debounceApplyFilters();
+                    }
+                });
+        
+                // Handle Apply Price Filter (Mobile)
+                $('#applyPriceFilterModal').on('click', function() {
+                    const priceRange = $('#modalPriceRange').val().trim();
+                    if (priceRange) {
+                        addBadge('customPrice', priceRange, `Custom Price: ₹${priceRange}`);
+                        // Clear the input and hide the apply button
+                        $('#modalPriceRange').val('');
+                        $(this).addClass('d-none');
+                        // Synchronize desktop input
+                        $('#priceRange').val('');
+                        $('#applyPriceFilter').addClass('d-none');
+                        // Close the modal
+                        $('#filterModal').modal('hide');
+                        debounceApplyFilters();
+                    }
+                });
+        
+                // Handle removing badges from both desktop and mobile
+                $('#filterBadgesDesktop, #filterBadgesMobile').on('click', '.remove-filter', function() {
+                    const type = $(this).data('type');
+                    const value = $(this).data('value');
+        
+                    if (type === 'customPrice') {
+                        // Clear custom price inputs in both desktop and mobile
+                        $('#priceRange').val('');
+                        $('#modalPriceRange').val('');
+                        $('#applyPriceFilter').addClass('d-none');
+                        $('#applyPriceFilterModal').addClass('d-none');
+                    } else {
+                        // Uncheck the corresponding checkboxes in both desktop and mobile
+                        $(`#amenity${value}, #modalAmenity${value}`).prop('checked', false);
+                        $(`#propertyType${value}, #modalPropertyType${value}`).prop('checked', false);
+                        // $(`#selectPrice"${value}, #selectPriceModal${value}`).prop('checked', false); // No badges for selectPrice, so no need to handle
+                    }
+        
+                    // Remove the badge from both containers
+                    removeBadge(type, value);
+        
+                    debounceApplyFilters();
+                });
+        
+                // Handle Apply button visibility for desktop price range input
+                $('#priceRange').on('input', function() {
+                    const value = $(this).val().trim();
+                    if (value) {
+                        $('#applyPriceFilter').removeClass('d-none');
+                    } else {
+                        $('#applyPriceFilter').addClass('d-none');
+                    }
+                });
+        
+                // Handle Apply button visibility for mobile price range input
+                $('#modalPriceRange').on('input', function() {
+                    const value = $(this).val().trim();
+                    if (value) {
+                        $('#applyPriceFilterModal').removeClass('d-none');
+                    } else {
+                        $('#applyPriceFilterModal').addClass('d-none');
+                    }
+                });
+        
+                // Event listener for Clear Filters (Desktop)
+                $('#clearFilters').on('click', function() {
+                    clearFilters();
+                });
+        
+                // Event listener for Clear Filters (Mobile)
+                $('#clearFiltersMobile').on('click', function() {
+                    clearFilters();
+                    $('#filterModal').modal('hide');
+                });
+        
+                // ===========================
+                // Synchronization Function
+                // ===========================
+        
+                function synchronizeCheckbox(checkbox, isChecked) {
+                    const checkboxId = checkbox.attr('id');
+                    let correspondingCheckboxId = '';
+        
+                    if (checkboxId.startsWith('modal')) {
+                        // If the changed checkbox is in the mobile modal, find the desktop checkbox
+                        correspondingCheckboxId = checkboxId.replace('modal', '');
+                    } else {
+                        // If the changed checkbox is in the desktop, find the mobile checkbox
+                        correspondingCheckboxId = 'modal' + checkboxId;
+                    }
+        
+                    if (correspondingCheckboxId) {
+                        $(`#${correspondingCheckboxId}`).prop('checked', isChecked);
+                        toggleLabelBold($(`#${correspondingCheckboxId}`));
+                    }
+                }
+        
+                // ===========================
+                // Apply Filters Function (AJAX)
+                // ===========================
+                function applyFilters() {
+                    showLoader(); // Show the loader
+        
+                    // Gather filter values
+                    let amenities = [];
+                    let propertyTypes = [];
+                    let selectPrice = [];
+                    let minPrice = '';
+                    let maxPrice = '';
+                    let customPrice = '';
+                    let priceRange = $('#priceRange').val().trim() || $('#modalPriceRange').val().trim();
+        
+                    // Parse custom price range
+                    if (priceRange) {
+                        let range = priceRange.split('-');
+                        if (range.length === 2) {
+                            minPrice = parseInt(range[0].replace(/[^0-9]/g, '')) || 0;
+                            maxPrice = parseInt(range[1].replace(/[^0-9]/g, '')) || 0;
+                            customPrice = priceRange;
+                        }
+                    }
+        
+                    // Collect checked filter values
+                    $('input.filter-checkbox:checked').each(function() {
+                        const checkbox = $(this);
+                        if (checkbox.attr('id').startsWith('amenity') || checkbox.attr('id').startsWith('modalAmenity')) {
+                            amenities.push(checkbox.val());
+                        } else if (checkbox.attr('id').startsWith('propertyType') || checkbox.attr('id').startsWith('modalPropertyType')) {
+                            propertyTypes.push(checkbox.val());
+                        } else if (checkbox.attr('id').startsWith('selectPrice') || checkbox.attr('id').startsWith('selectPriceModal')) {
+                            selectPrice.push(checkbox.val());
+                        }
+                    });
+        
+                    // Prepare data for the request
+                    let filters = {
+                        amenities: amenities,
+                        propertyTypes: propertyTypes,
+                        min_price: minPrice,
+                        max_price: maxPrice,
+                        selectPrice: selectPrice,
+                        custom_price: customPrice
+                    };
+        
+                    // Send AJAX request to apply filters
+                    $.ajax({
+                        url: window.location.href, // Replace with your filter endpoint if different
+                        method: 'GET', // Change to 'POST' if your backend expects POST requests
+                        data: filters,
+                        success: function(response) {
+                            // Assuming response contains a 'hotels' array
+                            updateHotelList(response.hotels);
+                            updatePropertyCount(response.hotels.length);
+                            hideLoader(); // Hide the loader after successful response
+                        },
+                        error: function() {
+                            hideLoader(); // Hide the loader even if there's an error
+                            alert("Error applying filters. Please try again.");
+                        }
+                    });
+                }
+        
+                // ===========================
+                // Update Hotel List Function
+                // ===========================
+                function updateHotelList(hotels) {
+                    let hotelListHtml = '';
+                    hotels.forEach(function(hotel) {
+                        if (hotel.status === 'active') {
+                            hotelListHtml += `
+                                <div class="col-12 col-sm-6 col-xl-4 d-flex flex-column mb-4">
+                                    <div class="card hotel-card h-100">
+                                        <div class="img-prod">
+                                            <a href="#">
+                                                <img 
+                                                src="${hotel.first_file_url && hotel.first_file_url !== '' ? hotel.first_file_url : '{% static "img/hotel_default.png" %}'}" 
+                                                alt="Hotel Image" 
+                                                class="img-fluid">
+                                            </a>
+                                        </div>
+                                        <div class="card-body d-flex flex-column">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <h5 class="card-title mb-0">${hotel.name}</h5>
+                                                <p class="ratting-no-hotel mb-0">&#9733; <span class="ratting-no-hotel-text"><span class="ratting-no-hotel-text-no">(4.8)</span></span></p>
+                                            </div>
+                                            <p class="card-text mt-2">${hotel.description}</p>
+                                            <div class="mt-auto">
+                                                <p class="card-text price-tag">
+                                                    <span class="offerPrice">₹ ${hotel.offerPrice} /night</span>
+                                                    <span class="eslePrice">₹ ${hotel.price}</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                        }
+                    });
+                    $('#hotelList').html(hotelListHtml);
+                }
+        
+                // ===========================
+                // Update Property Count Function
+                // ===========================
+                function updatePropertyCount(count) {
+                    const propertyCity = "{{ property_city|escapejs }}"; // Ensure proper escaping
+                    $('#propertyCount').text(`${propertyCity}: ${count} properties found`);
+                }
+        
+                // ===========================
+                // Clear Filters Function
+                // ===========================
+                function clearFilters() {
+                    // Uncheck all checkboxes
+                    $('input.filter-checkbox').prop('checked', false);
+        
+                    // Clear price range inputs
+                    $('#priceRange').val('');
+                    $('#modalPriceRange').val('');
+        
+                    // Hide apply buttons
+                    $('#applyPriceFilter').addClass('d-none');
+                    $('#applyPriceFilterModal').addClass('d-none');
+        
+                    // Remove all badges with animation
+                    $('#filterBadgesDesktop, #filterBadgesMobile').find('.filter-badge').fadeOut(300, function() {
+                        $(this).remove();
+                    });
+        
+                    debounceApplyFilters();
+                }
+        
+                // ===========================
+                // Initial Label Bolding
+                // ===========================
+                $('.filter-checkbox').each(function() {
+                    toggleLabelBold(this);
+                });
+        
+                // Handle label bolding on checkbox change
+                $('.filter-checkbox').on('change', function() {
+                    toggleLabelBold(this);
+                });
+        
+                // ===========================
+                // Optional: Initialize Plugins
+                // ===========================
+                // If you are using Flatpickr or other plugins, initialize them here
+                // Example:
+                // flatpickr(".priceRange", {
+                //     enableTime: false,
+                //     dateFormat: "m/d/Y",
+                //     allowInput: true
+                // });
+            });
+        
+            $(window).on('resize', function() {
+                if ($(window).width() <= 768) { // Assuming desktop view is >= 768px
+                    // You can add any mobile-specific resize logic here if needed
+                }
+            });
+        
+            $(window).on('resize', function() {
+                if ($(window).width() >= 768) { // Assuming desktop view is >= 768px
+                    // Check if the modal is open
+                    if ($('#filterModal').hasClass('show')) { 
+                        $('#filterModal').modal('hide'); // Close the modal
+                        
+                        // Uncheck all checkboxes in both desktop and mobile
+                        $('input[type="checkbox"]').prop('checked', false);
+                        $('input[name="selectPrice"]').prop('checked', false);
+                        
+                        // Clear custom price inputs in both desktop and mobile
+                        $('#priceRange').val('');
+                        $('#modalPriceRange').val('');
+                        $('#applyPriceFilter').addClass('d-none');
+                        $('#applyPriceFilterModal').addClass('d-none');
+                        
+                        // Remove badges
+                        $('#filterBadgesDesktop .remove-filter, #filterBadgesMobile .remove-filter').each(function() {
+                            const type = $(this).data('type');
+                            const value = $(this).data('value');
+                            removeBadge(type, value);
+                        });
+                        
+                        debounceApplyFilters();
+                    }
+                }
+            });
+        </script>
+        
+        
 
-<script>
-    flatpickr(".flatpickr", {
-        dateFormat: "m/d/Y",
-        allowInput: true
-    });
-</script>
+    
 {% endblock %}
 
 

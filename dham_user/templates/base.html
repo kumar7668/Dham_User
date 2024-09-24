@@ -1,4 +1,4 @@
-{% load static %}
+{% load static i18n %}
 {% load i18n %}
 <!DOCTYPE html>
 <html lang="en">
@@ -6,7 +6,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>{% block title %}Radhe-Radhe - stage for success{% endblock %}</title>
+  <title>{% block title %}Radhe-Radhe - Way of success{% endblock %}</title>
 
   <meta content="" name="description">
   <meta content="" name="keywords">
@@ -43,9 +43,15 @@
 
   <!-- Main CSS File -->
   <link href="{% static 'css/main.css' %}" rel="stylesheet">
+  <link href="{% static 'css/costom_pages.css' %}" rel="stylesheet">
+
+  
 
 </head>
 <style>
+
+
+
     #about h2 {
       color: var(--accent-color);
       font-size: 48px;
@@ -86,9 +92,7 @@
     .click-btn{
       z-index: 1;
     }
-    a, a:hover  {
-      color:#fff;
-    }
+   
     .disabled-link {
       pointer-events: none;
       color: #6c757d; /* Bootstrap's default disabled text color */
@@ -239,7 +243,64 @@
     background: url('{% static 'img/login_img.png' %}')
     background-type:fill;
   }
+
+
+
+/* For mobile view */
+/* General styling for the header */
+{% comment %} .header {
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 10px 20px;
+  z-index: 1000;
+  width: 100%;
+} {% endcomment %}
+
+
+@media (max-width: 768px) {
+  /* Hide the hamburger menu */
+  .mobile-nav-toggle {
+    display: none;
+  }
+  
+  .footer_copyright{
+     padding: 0 0 70px 0;
+  }
+
+  /* Mobile nav menu in bottom bar */
+  .mobile-nav-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    border-top: 1px solid #ddd;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    {% comment %} box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1); {% endcomment %}
+    z-index: 1000;
+  }
+
+  .mobile-nav-bar a {
+    text-align: center;
+    flex-grow: 1;
+    font-size: 14px;
+    color: var(--theme-red-color);
+    display: inline-grid;
+  }
+
+  .mobile-nav-bar a img {
+    width: 24px;
+    height: 24px;
+    display: block;
+    margin: 0 auto 5px;
+  }
+  
+}
 </style>
+
+
 <body class="index-page">
 
   <!-- Base Heder  -->
@@ -252,16 +313,17 @@
 
       <nav id="navmenu" class="navmenu me-auto">
         <ul>
-          <li><a href="{% url 'home' %}" class="active">{% trans "Accommodation" %}</a></li>
-          <li><a href="{% url 'home' %}" class="">{% trans "Guide" %}</a></li>
-          <li><a href="#contact">{% trans "Live Darshan" %}</a></li>
-          <li><a href="{% url 'home' %}">{% trans "E-Pooja" %}</a></li>
-          <li><a href="{% url 'home' %}">{% trans "E-commerce" %}</a></li>
-          <li><a href="{% url 'home' %}">{% trans "Blogs" %}</a></li>
+          <li><a href="{% url 'accommodation' %}" class="{% if request.resolver_match.url_name == 'accommodation' %}active{% endif %}">{% trans "Accommodation" %}</a></li>
+          <li><a href="{% url 'guide' %}" class="{% if request.resolver_match.url_name == 'guide' %}active{% endif %}">{% trans "Guide" %}</a></li>
+          <li><a href="{% url 'live_darshan' %}" class="{% if request.resolver_match.url_name == 'live_darshan' %}active{% endif %}">{% trans "Live Darshan" %}</a></li>
+          <li><a href="{% url 'e_pooja' %}" class="{% if request.resolver_match.url_name == 'e_pooja' %}active{% endif %}">{% trans "E-Pooja" %}</a></li>
+          <li><a href="https://demo.swadeshidiwali.com/" target="_blank" class="{% if request.resolver_match.url_name == 'https://demo.swadeshidiwali.com/' %}active{% endif %}">{% trans "E-commerce" %}</a></li>
+          <li><a href="{% url 'blogs' %}" class="{% if request.resolver_match.url_name == 'blogs' %}active{% endif %}">{% trans "Blogs" %}</a></li>
+          <li><a href="{% url 'contact_us' %}" class="{% if request.resolver_match.url_name == 'contact' %}active{% endif %}">{% trans "Contact" %}</a></li>
+    
           {% comment %} <a href="{% url 'set_language' %}?language=hi">Switch to Hindi</a>
           <a href="{% url 'set_language' %}?language=en">Switch to English</a> {% endcomment %}
           {% comment %} <input type="checkbox" id="language-toggle" /> {% endcomment %}
-
 
         </ul>
       </nav>
@@ -274,12 +336,35 @@
       <a  class="login_icon d-flex align-items-center" role="button" data-toggle="modal" data-target="#loginModal">
         <img src="{% static 'img/login.svg' %}" alt="login_icon">
       </a>
-      <a   class="cart_iocn d-flex align-items-center">
+      <a  href="https://demo.swadeshidiwali.com/cart/" class="cart_iocn d-flex align-items-center">
         <img src="{% static 'img/cart.svg' %}" alt="cart_iocn">
       </a>
     </div>
   </header>
   <!-- Base Heder End -->
+
+<!-- Mobile Bottom Navigation -->
+  <nav class="mobile-nav-bar d-xl-none">
+    <a href="{% url 'accommodation' %}">
+      <span> <i class="bi bi-house-check-fill"></i></span>
+      <span>Accommodation</span>
+    </a>
+    <a href="{% url 'guide' %}">
+      <span> <i class="bi bi-person-raised-hand"></i></span>
+      <span>Guide</span>
+    </a>
+    <a href="{% url 'live_darshan' %}">
+      <span> <i class="i bi-eye-fill"></i></span>
+      <span>Darshan</span>
+    </a>
+    <a href="https://demo.swadeshidiwali.com/">
+      <span> <i class="bi bi-basket2-fill"></i></span>
+      <span>Shop</span>
+    </a>
+  </nav>
+  <!-- Mobile Bottom Navigation End -->
+
+
   <main class="main">
 
     {% block content %} 
@@ -289,44 +374,44 @@
     {% endblock %}
 
 
-<!-- Login Modal -->
-  <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-      <div class="modal-content">
-        <div class="modal-body p-0">
-          <div class="row no-gutters">
-            <!-- Left Side: Image for Desktop -->
-            <div class="col-md-6 d-none d-md-block">
-              <img src="{% static 'img/login_img.png' %}" class="img-fluid" alt="Login Image">
-            </div>
-            <!-- Left Side: Image for Mobile -->
-            <div class="col-12 d-block d-md-none">
-              <img src="{% static 'img/login_pop_mob_img.png' %}" class="img-fluid" alt="Login Image">
-            </div>
-            <!-- Right Side: Login Form -->
-            <div class="col-md-6 col-12">
-              <div class="p-4">
-                <!-- Close Button (X) -->
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="position: absolute; top: 10px; right: 10px;">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-                <h5 class="modal-title mb-4" id="loginModalLabel">Log in or Sign up</h5>
-                <h2 class="mb-4">Welcome to Dham</h2>
-                <form>
-                  <div class="form-group">
-                    <label class="p-1" for="emailPhone">Mobile Number</label>
-                    <input type="text" class="form-control" id="emailPhone" placeholder="Enter email or phone">
-                  </div>
-                  <button type="submit" class="btn btn-primary btn-block py-2">Login</button>
-                </form>
+  <!-- Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-body p-0">
+            <div class="row no-gutters">
+              <!-- Left Side: Image for Desktop -->
+              <div class="col-md-6 d-none d-md-block">
+                <img src="{% static 'img/login_img.png' %}" class="img-fluid" alt="Login Image">
+              </div>
+              <!-- Left Side: Image for Mobile -->
+              <div class="col-12 d-block d-md-none">
+                <img src="{% static 'img/login_pop_mob_img.png' %}" class="img-fluid" alt="Login Image">
+              </div>
+              <!-- Right Side: Login Form -->
+              <div class="col-md-6 col-12">
+                <div class="p-4">
+                  <!-- Close Button (X) -->
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="position: absolute; top: 10px; right: 10px;">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  <h5 class="modal-title mb-4" id="loginModalLabel">Log in or Sign up</h5>
+                  <h2 class="mb-4">Welcome to Dham</h2>
+                  <form>
+                    <div class="form-group">
+                      <label class="p-1" for="emailPhone">Mobile Number</label>
+                      <input type="text" class="form-control" id="emailPhone" placeholder="Enter email or phone">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block py-2">Login</button>
+                  </form>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-<!-- Login Modal End -->
+  <!-- Login Modal End -->
 
 
 
@@ -339,6 +424,10 @@
 
     <!-- Preloader -->
     {% comment %} <div id="preloader"></div> {% endcomment %}
+    <div id="preloader">
+      <i class="bi bi-bell"></i>
+    </div>
+    
 
     <!-- jQuery and Owl Carousel -->
     {% comment %} <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -346,12 +435,15 @@
 
     <!-- Vendor JS Files -->
     <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-    <script src="{% static 'vendor/php-email-form/validate.js' %}"></script>
     <script src="{% static 'vendor/aos/aos.js' %}"></script>
     <script src="{% static 'vendor/glightbox/js/glightbox.min.js' %}"></script>
     <script src="{% static 'vendor/swiper/swiper-bundle.min.js' %}"></script>
     <!-- Main JS File -->
     <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/comman_pages.js' %}"></script>
+
+    
+
     <script>
       document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('language-toggle-base').addEventListener('change', function() {
@@ -361,7 +453,8 @@
           window.location.href = newUrl;
         });
       });
-    </script>    
+    </script>  
+
   </main>
 
 </body>

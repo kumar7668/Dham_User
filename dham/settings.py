@@ -138,9 +138,10 @@ USE_TZ = True
 
 # Ensure STATIC_ROOT and STATIC_URL are set correctly
 STATIC_URL = "/static/"
-STATIC_ROOT = BASE_DIR / "staticfiles"
+#fo dev
+# STATIC_ROOT = BASE_DIR / "staticfiles"
 #for local
-# STATIC_ROOT = BASE_DIR /"static"
+STATIC_ROOT = BASE_DIR /"static"
 STATICFILES_DIRS = [ 'dham_user/static',]
 
 # Enable GZip compression for static files

@@ -87,7 +87,7 @@ h6 {
 .txt-center{
   text-align: -webkit-center;
 }
-.newsletter-form {
+.home_search_form {
   max-width: 725px;
   margin-bottom: 15px;
   padding: 6px 0 6px 0;
@@ -99,11 +99,11 @@ h6 {
   transition: 0.3s;
 }
 
-.footer .footer-newsletter .newsletter-form:focus-within {
+.footer .footer-newsletter .home_search_form:focus-within {
   border-color: var(--accent-color);
 }
 
- .newsletter-form input[type=email] {
+ .home_search_form input[type=email] {
   border: 0;
   padding: 4px 10px;
   width: 100%;
@@ -111,11 +111,11 @@ h6 {
   color: var(--default-color);
 }
 
- .newsletter-form input[type=email]:focus-visible {
+ .home_search_form input[type=email]:focus-visible {
   outline: none;
 }
 
- .newsletter-form input[type=submit] {
+ .home_search_form input[type=submit] {
   border: 0;
   font-weight: 500;
   font-size: 16px;
@@ -127,7 +127,7 @@ h6 {
   border-radius: 50px;
 }
 
- .newsletter-form input[type=submit]:hover {
+ .home_search_form input[type=submit]:hover {
   background: var(--theme-hover-color);
  }
 

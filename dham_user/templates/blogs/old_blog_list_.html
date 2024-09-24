@@ -1,0 +1,130 @@
+<style>
+       
+    .blog-card-container {
+       display: flex;
+       gap: 20px; /* Space between cards */
+       flex-wrap: wrap;
+       justify-content: center;
+   }
+
+   .blog-card {
+       border: 1px solid #FFEBEF;
+       background: #fff;
+       border-radius: 10px;
+       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+       overflow: hidden;
+       width: 422px;
+       margin-bottom: 20px;
+   }
+
+   .blog-card img {
+       width: 100%;
+       height: 290px;
+       object-fit: cover;
+   }
+
+   .blog-card .content {
+       padding: 20px;
+   }
+
+   .blog_info{
+       font-family: Inter;
+       font-size: 12px;
+       font-weight: 500;
+       line-height: 20px;
+       text-align: left;
+       margin: 0 1px 0 -15px;
+       color: #FA9300;
+
+   }
+   .blog_info ul{
+       display: flex;
+   }
+   .blog-card .blog_dec{
+       color: var(--heading-color);
+       font-family: Inter;
+       font-size: 14px;
+       font-weight: 400;
+       line-height: 20px;
+       text-align: left;
+
+   }
+   .blog-card .blog_title{
+       font-family: Inter;
+       font-size: 18px;
+       font-weight: 600;
+       line-height: 26px;
+       text-align: left;
+       color: var(--heading-color);
+
+   }
+   .section_blog{
+       background: linear-gradient(180deg, #E52B50 16.82%, #FFFFFF 75.14%);
+   }
+   .color-white{
+       color: #FFFFFF !important;
+   }
+</style>
+</head>
+<section class="section_blog" data-aos="fade-up" data-aos-delay="100">
+<div class="container pb-5">
+   <h2 class="h2_title color-white">Latest Blog and News</h2>
+</div>   
+<div class="row p-2">
+<div class="blog-card-container container-fluid ">
+   <!-- Blog Card 1 -->
+   <div class="col-sm-12 col-md-4 col-lg-4 blog-card">
+       <img src="{% static 'img/blog1.png' %}" alt="Blog Post Image">
+       <div class="content">
+           <div class="date-time">
+               <div id="blog_info" class="blog_info">
+                   <ul>
+                   <li>July 1, 2024</li>
+                   <li style="margin: 0 0 0 24px;">Temples & Pilgrimage</li>
+                   </ul>
+                 </div> 
+           </div>
+           <h3 class="blog_title">Kashmir’s Temples Emerge from Difficult 
+               Times Stronger than Ever</h3>
+           <p class="blog_dec">While not on the scale of some built by ancient kings, 6,000 temples dot the landscape, many being rebuilt with the cooperation of all communities...</p>
+       </div>
+   </div>
+
+   <!-- Blog Card 2 -->
+   <div class="col-sm-12 col-md-4 col-lg-4  blog-card">
+       <img src="{% static 'img/blog2.png' %}" alt="Blog Post Image">
+       <div class="content">
+           <div class="date-time">
+               <div id="blog_info" class="blog_info">
+                   <ul>
+                   <li>July 1, 2024</li>
+                   <li style="margin: 0 0 0 24px;">Temples & Pilgrimage</li>
+                   </ul>
+                 </div> 
+           </div>
+           <h3 class="blog_title">Kashmir’s Temples Emerge from Difficult 
+               Times Stronger than Ever</h3>
+           <p class="blog_dec">While not on the scale of some built by ancient kings, 6,000 temples dot the landscape, many being rebuilt with the cooperation of all communities...</p>
+       </div>
+   </div>
+
+   <!-- Blog Card 3 -->
+   <div class=" col-sm-12 col-md-4 col-lg-4  blog-card">
+       <img src="{% static 'img/blog1.png' %}" alt="Blog Post Image">
+       <div class="content">
+           <div class="date-time">
+               <div id="blog_info" class="blog_info">
+                   <ul>
+                   <li>July 1, 2024</li>
+                   <li style="margin: 0 0 0 24px;">Temples & Pilgrimage</li>
+                   </ul>
+                 </div> 
+           </div>
+           <h3 class="blog_title">Kashmir’s Temples Emerge from Difficult 
+               Times Stronger than Ever</h3>
+           <p class="blog_dec">While not on the scale of some built by ancient kings, 6,000 temples dot the landscape, many being rebuilt with the cooperation of all communities...</p>
+       </div>
+   </div>
+</div>
+</div>
+</section>
