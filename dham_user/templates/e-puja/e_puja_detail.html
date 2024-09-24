@@ -1,0 +1,163 @@
+
+
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<style>
+
+
+.puja-section .container {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.puja-section {
+    margin: 30px 0;
+}
+
+.left-content, .right-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.left-content {
+    flex: 2;
+    margin-right: 20px;
+}
+
+.right-content {
+    flex: 1;
+    min-width: 300px;
+}
+
+.puja-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+/* Styling the form */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+form input, form textarea {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+form textarea {
+    resize: none;
+}
+
+form button {
+    padding: 12px;
+    background-color: #ff4a4a;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+form button:hover {
+    background-color: #e84343;
+}
+
+/* Price box styles */
+.price-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.price-box span {
+    font-size: 18px;
+    color: #666;
+}
+
+.price-box h2 {
+    color: #ff4a4a;
+    font-size: 24px;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .puja-section .container {
+        flex-direction: column;
+    }
+
+    .left-content {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+
+    .right-content {
+        min-width: 100%;
+    }
+}
+</style>
+
+
+    <section class="puja-section" style="margin-top:50px;">
+        <div class="container">
+            <!-- Left Side Content -->
+            <div class="left-content">
+                <h1>Gathbandhan Puja from Baba Baidyanath</h1>
+                <p class="location"><i class="icon-location"></i> Deoghar</p>
+                <img src="{% static 'img/kedarnath-cover.jpg' %}" alt="Baba Baidyanath Image" class="puja-image">
+                
+                <h2>About the Baba Baidyanath</h2>
+                <p>Lorem Ipsum decided to leave for the far World of Grammar...</p>
+
+                <h3>Benefits of Gathbandhan Puja:</h3>
+                <ul>
+                    <li>Lorem Ipsum decided to leave for the far World of Grammar...</li>
+                    <li>Lorem Ipsum decided to leave for the far World of Grammar...</li>
+                    <li>Lorem Ipsum decided to leave for the far World of Grammar...</li>
+                </ul>
+            </div>
+
+            <!-- Right Side Form -->
+            <div class="right-content">
+                <div class="price-box">
+                    <span>Price</span>
+                    <h2>₹ 1,200</h2>
+                </div>
+                <form>
+                    {% csrf_token %}
+                    <label for="date">Date</label>
+                    <input type="date" id="date" name="date" value="2024-08-23">
+
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" placeholder="Full Name">
+
+                    <label for="gotra">Gotra</label>
+                    <input type="text" id="gotra" name="gotra" placeholder="Person Gotra">
+
+                    <label for="note">Note</label>
+                    <textarea id="note" name="note" placeholder="Write Note"></textarea>
+
+                    <button type="submit">Book this Now</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

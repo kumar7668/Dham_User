@@ -1,0 +1,467 @@
+{% extends "base.html" %}
+{% load static i18n %}
+{% block content %}
+
+<style>
+    .testimonial-section {
+        position: relative;
+        padding-top: 60px; /* Space for the title */
+    }
+
+    /* Title fixed at the top */
+    .testimonial-section h1 {
+        position: relative;
+        top: 10px;
+        left: 0;
+        right: 0;
+        text-align: center;
+        margin: 0;
+        font-size: 4em;
+        color: #E7562D;
+    }
+
+    .testimonial-swiper {
+        display: flex;
+        justify-content: flex-start; /* Align items to the start */
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+        margin: 30px auto;
+        width: 95%;
+    }
+
+    .swiper-wrapper {
+        display: flex;
+        transition: transform 0.3s ease-in-out;
+        width: 100%;
+    }
+
+    .testimonial-slide {
+        flex: 0 0 31%; /* Default for desktop: 3 slides */
+        padding: 10px;
+        box-sizing: border-box;
+        text-align: initial;
+    }
+
+    /* Button centered at the bottom */
+    .testimonial-button {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .profile-card {
+        background: #FBFBFB;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        padding: 12px;
+        margin: 0px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+    }
+  
+    .profile-card:hover {
+        transform: scale(1.05);
+    }
+  
+    .profile-img {
+        width: 155px;
+        height: 155px;
+        border-radius: 5px;
+        object-fit: cover;
+        margin-right: 25px;
+    }
+  
+    .profile-info {
+        flex-grow: 1;
+    }
+  
+    .profile-rating {
+        font-size: 16px;
+        color: #f1c40f;
+    }
+  
+    .guide_name {
+        margin: 10px 0 0 0;
+        font-family: var(--default-font);
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 26px;
+        text-align: left;
+        color: var(--theme-secondary-color);
+    }
+  
+    .guide_city {
+        font-family: var(--default-font);
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 20px;
+        text-align: left;
+        color: var(--Gray, #919191);
+        margin: 0 0 5px 0px;
+    }
+  
+    .guide_price {
+        margin: 10px 0 5px 0px;
+        font-family: var(--default-font);
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 26px;
+        text-align: left;
+        color: var(--theme-red-color);
+    }
+  
+    .guide_price_hours {
+        font-family: var(--default-font);
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 26px;
+        text-align: left;
+        color: var(--theme-secondary-color);
+    }
+  
+    .card-base {
+        padding: 15px;
+    }
+  
+    /* Media queries for responsiveness */
+    @media (max-width: 1200px) {
+        .testimonial-slide {
+            flex: 0 0 31%; /* Adjust if needed for larger tablets */
+        }
+    }
+
+    @media (max-width: 991px) {
+        .testimonial-slide {
+            flex: 0 0 47.5%; /* For tablet: 2 slides with 5% partial */
+        }
+        .guide_name {
+            margin: 5px 0 0 0;
+            font-size: 14px;
+            line-height: 22px;
+        }
+        .guide_price {
+            margin: 8px 0 5px 0px;
+            font-size: 14px;
+        }
+        .profile-rating {
+            font-size: 13px;
+        }
+        .profile-img {
+            width: 140px;
+            height: 140px;
+            margin-right: 20px;
+        }
+    }
+
+    @media (max-width: 767px) {
+        /* Cards should shrink but stay in a row */
+        .testimonial-slide {
+            flex: 0 0 47.5%; /* For smaller tablets */
+        }
+        .profile-card {
+            padding: 10px;
+            margin: 10px 0;
+        }
+  
+        .profile-img {
+            width: 125px;
+            height: 125px;
+            margin-right: 15px;
+        }
+  
+        .guide_price {
+            font-size: 16px;
+        }
+  
+        .guide_name {
+            font-size: 16px;
+        }
+    }
+  
+    @media (max-width: 576px) {
+        .testimonial-slide {
+            flex: 0 0 95%; /* For mobile: 1 slide with 5% partial */
+        }
+        .profile-rating {
+            font-size: 14px;
+        }
+        .profile-img {
+            width: 100px;
+            height: 100px;
+            margin-right: 18px;
+        }
+  
+        .guide_name {
+            font-size: 14px;
+        }
+  
+        .guide_price {
+            font-size: 14px;
+        }
+    }
+</style>
+
+
+    {% block title%}Testimonial - Dham{%endblock%}
+
+    <section id="testimonial-section class_for_all_sections" class="testimonial-section class_for_all_sections" >
+        <div class="container">
+            <h1>Testimonials</h1> <!-- Fixed title -->
+
+            <div class="testimonial-swiper" aria-live="polite" aria-roledescription="carousel">
+                <div class="swiper-wrapper" id="testimonialWrapper" role="group" aria-label="Testimonials list">
+                    <!-- Testimonial 1 -->
+                    <!-- Testimonial 1 -->
+                    <div class="testimonial-slide" role="group" aria-roledescription="slide" aria-label="Testimonial from Oregon">
+                        <div class="profile-card d-flex">
+                            <img src="{% static 'img/guide.png' %}" alt="Employee Photo" class="profile-img">
+                            <div class="profile-info">
+                                <h4 class="guide_name">Jane Smith</h4>
+                                <p class="guide_city">Jaipur, India</p>
+                                <p class="guide_price">₹ 290/<span class="guide_price_hours"> hour</span></p>
+                                <p class="guide_rating">
+                                <span class="profile-rating">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-half"></i>
+                                </span>
+                                </p>
+                            </div>
+                        </div>
+                    </div><!-- Testimonial 1 -->
+                    <div class="testimonial-slide" role="group" aria-roledescription="slide" aria-label="Testimonial from Oregon">
+                        <div class="profile-card d-flex">
+                            <img src="{% static 'img/guide.png' %}" alt="Employee Photo" class="profile-img">
+                            <div class="profile-info">
+                                <h4 class="guide_name">Jane Smith</h4>
+                                <p class="guide_city">Jaipur, India</p>
+                                <p class="guide_price">₹ 290/<span class="guide_price_hours"> hour</span></p>
+                                <p class="guide_rating">
+                                <span class="profile-rating">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-half"></i>
+                                </span>
+                                </p>
+                            </div>
+                        </div>
+                    </div><!-- Testimonial 1 -->
+                    <div class="testimonial-slide" role="group" aria-roledescription="slide" aria-label="Testimonial from Oregon">
+                        <div class="profile-card d-flex">
+                            <img src="{% static 'img/guide.png' %}" alt="Employee Photo" class="profile-img">
+                            <div class="profile-info">
+                                <h4 class="guide_name">Jane Smith</h4>
+                                <p class="guide_city">Jaipur, India</p>
+                                <p class="guide_price">₹ 290/<span class="guide_price_hours"> hour</span></p>
+                                <p class="guide_rating">
+                                <span class="profile-rating">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-half"></i>
+                                </span>
+                                </p>
+                            </div>
+                        </div>
+                    </div><!-- Testimonial 1 -->
+                    <div class="testimonial-slide" role="group" aria-roledescription="slide" aria-label="Testimonial from Oregon">
+                        <div class="profile-card d-flex">
+                            <img src="{% static 'img/guide.png' %}" alt="Employee Photo" class="profile-img">
+                            <div class="profile-info">
+                                <h4 class="guide_name">Jane Smith</h4>
+                                <p class="guide_city">Jaipur, India</p>
+                                <p class="guide_price">₹ 290/<span class="guide_price_hours"> hour</span></p>
+                                <p class="guide_rating">
+                                <span class="profile-rating">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-half"></i>
+                                </span>
+                                </p>
+                            </div>
+                        </div>
+                    </div><!-- Testimonial 1 -->
+                    <div class="testimonial-slide" role="group" aria-roledescription="slide" aria-label="Testimonial from Oregon">
+                        <div class="profile-card d-flex">
+                            <img src="{% static 'img/guide.png' %}" alt="Employee Photo" class="profile-img">
+                            <div class="profile-info">
+                                <h4 class="guide_name">Jane Smith</h4>
+                                <p class="guide_city">Jaipur, India</p>
+                                <p class="guide_price">₹ 290/<span class="guide_price_hours"> hour</span></p>
+                                <p class="guide_rating">
+                                <span class="profile-rating">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-half"></i>
+                                </span>
+                                </p>
+                            </div>
+                        </div>
+                    </div><!-- Testimonial 1 -->
+                    <div class="testimonial-slide" role="group" aria-roledescription="slide" aria-label="Testimonial from Oregon">
+                        <div class="profile-card d-flex">
+                            <img src="{% static 'img/guide.png' %}" alt="Employee Photo" class="profile-img">
+                            <div class="profile-info">
+                                <h4 class="guide_name">Jane Smith</h4>
+                                <p class="guide_city">Jaipur, India</p>
+                                <p class="guide_price">₹ 290/<span class="guide_price_hours"> hour</span></p>
+                                <p class="guide_rating">
+                                <span class="profile-rating">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-half"></i>
+                                </span>
+                                </p>
+                            </div>
+                        </div>
+                    </div><!-- Testimonial 1 -->
+                    <div class="testimonial-slide" role="group" aria-roledescription="slide" aria-label="Testimonial from Oregon">
+                        <div class="profile-card d-flex">
+                            <img src="{% static 'img/guide.png' %}" alt="Employee Photo" class="profile-img">
+                            <div class="profile-info">
+                                <h4 class="guide_name">Jane Smith</h4>
+                                <p class="guide_city">Jaipur, India</p>
+                                <p class="guide_price">₹ 290/<span class="guide_price_hours"> hour</span></p>
+                                <p class="guide_rating">
+                                <span class="profile-rating">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-half"></i>
+                                </span>
+                                </p>
+                            </div>
+                        </div>
+                    </div><!-- Testimonial 1 -->
+                    <div class="testimonial-slide" role="group" aria-roledescription="slide" aria-label="Testimonial from Oregon">
+                        <div class="profile-card d-flex">
+                            <img src="{% static 'img/guide.png' %}" alt="Employee Photo" class="profile-img">
+                            <div class="profile-info">
+                                <h4 class="guide_name">Jane Smith</h4>
+                                <p class="guide_city">Jaipur, India</p>
+                                <p class="guide_price">₹ 290/<span class="guide_price_hours"> hour</span></p>
+                                <p class="guide_rating">
+                                <span class="profile-rating">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-half"></i>
+                                </span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Button fixed at bottom center -->
+            <div class="testimonial-button">
+                <button type="button" class="btn btn-primary">View All Testimonials</button>
+            </div>
+        </div> 
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.testimonial-slide');
+            const wrapper = document.getElementById('testimonialWrapper');
+            let currentIndex = 0;
+            const intervalTime = 10000; // Interval time for auto-scroll (in milliseconds)
+            let slideWidth;
+    
+            // Function to calculate slide width based on viewport
+            const calculateSlideWidth = () => {
+                const slide = slides[0];
+                const style = window.getComputedStyle(slide);
+                const width = slide.offsetWidth;
+                const marginRight = parseFloat(style.marginRight);
+                return width + marginRight;
+            };
+    
+            // Update slideWidth on load and on resize
+            const updateSlideWidth = () => {
+                slideWidth = calculateSlideWidth();
+                // Reset the transform to align correctly after resize
+                wrapper.style.transition = 'none';
+                wrapper.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+                setTimeout(() => {
+                    wrapper.style.transition = 'transform 0.3s ease-in-out';
+                }, 50);
+            };
+    
+            updateSlideWidth();
+            window.addEventListener('resize', updateSlideWidth);
+    
+            // Clone the first few slides based on the number of visible slides for seamless transition
+            const getVisibleSlides = () => {
+                if (window.innerWidth <= 576) return 1;
+                if (window.innerWidth <= 991) return 2;
+                return 3;
+            };
+    
+            const cloneSlides = () => {
+                const visibleSlides = getVisibleSlides();
+                for (let i = 0; i < visibleSlides; i++) {
+                    const clone = slides[i].cloneNode(true);
+                    wrapper.appendChild(clone);
+                }
+            };
+    
+            cloneSlides();
+    
+            // Auto-scroll functionality
+            const autoScroll = setInterval(() => {
+                currentIndex++;
+                wrapper.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+    
+                // When reaching the cloned slides, reset to the original slides
+                if (currentIndex >= slides.length) {
+                    setTimeout(() => {
+                        wrapper.style.transition = 'none';
+                        currentIndex = 0;
+                        wrapper.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+                        setTimeout(() => {
+                            wrapper.style.transition = 'transform 0.3s ease-in-out';
+                        }, 50);
+                    }, 300); // Match the CSS transition duration
+                }
+            }, intervalTime);
+    
+            // Optional: Pause auto-scroll on hover
+            wrapper.addEventListener('mouseenter', () => clearInterval(autoScroll));
+            wrapper.addEventListener('mouseleave', () => {
+                autoScroll = setInterval(() => {
+                    currentIndex++;
+                    wrapper.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+    
+                    if (currentIndex >= slides.length) {
+                        setTimeout(() => {
+                            wrapper.style.transition = 'none';
+                            currentIndex = 0;
+                            wrapper.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+                            setTimeout(() => {
+                                wrapper.style.transition = 'transform 0.3s ease-in-out';
+                            }, 50);
+                        }, 300);
+                    }
+                }, intervalTime);
+            });
+        });
+    </script>
+    
+    
+{% endblock %}

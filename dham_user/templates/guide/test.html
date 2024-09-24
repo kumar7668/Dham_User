@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Guide</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .banner {
+            background-image: url('your-image-path.jpg'); /* Replace with the actual image path */
+            background-size: cover;
+            background-position: center;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+
+        .banner::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+            z-index: 1;
+        }
+
+        .banner h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            z-index: 2;
+        }
+
+        .search-container {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 900px;
+            margin-top: 20px;
+        }
+
+        .search-box {
+            z-index: 2;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 50px;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+        }
+
+        .search-box input {
+            border: none;
+            outline: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            border-radius: 50px;
+            flex-grow: 1;
+            margin-right: 10px;
+        }
+
+        .search-box input::placeholder {
+            color: #888;
+        }
+
+        .search-box .search-icon {
+            color: #ff5851;
+            margin-right: 10px;
+        }
+
+        .search-box button {
+            background-color: #ff5851;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .search-box button:hover {
+            background-color: #ff3b30;
+        }
+
+        .search-box .divider {
+            width: 1px;
+            height: 30px;
+            background-color: #ddd;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="banner">
+        <h1>Search Guide</h1>
+        <div class="search-container">
+            <div class="search-box">
+                <input type="text" placeholder="Location" aria-label="Location">
+                <button type="submit">Search</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css">
+</body>
+</html>

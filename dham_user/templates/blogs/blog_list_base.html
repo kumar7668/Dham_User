@@ -1,0 +1,86 @@
+<!-- *********__Blog List Page__************* -->
+{% extends "base.html" %}
+{% load static custom_filters %}
+{% block content %}
+<style>
+    /* comman hero txt banner style */
+    .comman_hero_txt_banner {
+       position: relative;
+       background-image: url('{% static 'img/home_banner.png' %}'); 
+       background-size: cover;
+       background-position: center;
+       height: 355px; /* Adjust this height */
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       color: white;
+   }
+   
+   /* Mobile responsive adjustments */
+   @media (max-width: 768px) {
+       .comman_hero_txt_banner h1 {
+           font-size: 2rem;
+       }
+   
+       .comman_hero_txt_banner {
+           height: 220px; /* Reduce height for mobile */
+       }
+   }
+   .section .theme-h1, .theme-h1 {
+    letter-spacing: 1px;
+    color: #ffffff;
+    font-family: var(--heading-font);
+    font-size: 99px;
+    font-weight: 400;
+    line-height: 63px;
+    text-align: center;
+}
+</style>  
+
+<section class="section_blog blog_list" id="blog_list">   
+    <div class="comman_hero_txt_banner container-fluid p-0">
+        <h1 class="theme-h1"  data-aos="fade-up" data-aos-delay="100" >Blogs</h1>
+      </div>
+    <div class="row p-2 mt-5">
+        <div class="blog-card-container container-fluid p-0 ">
+            <!-- Blog container -->
+            <div class="container blog-container p-0">
+                {% if blogs_data %}
+                {% for blog in blogs_data.updatedBlogs %}
+                    <div class="blog-post">
+                        <a href="{% url 'blog_detail_page' blog_loc=blog.cityId.name blog_id=blog.id %}" class="clsmanage">
+                                <div class="remder p-0">
+                                {% if blog.first_file_url %}
+                                <img src="{{ blog.first_file_url }}" alt="Blog Image">
+                                {% else %}
+                                <img src="{% static 'img/blog1.png' %}" alt="Blog Cover">
+                                {% endif %}
+                            </div>
+                        </a>
+                        <div class="blog-post-content">
+                            <div class="date_cat d-flex">
+                                <div class="title">{{ blog.title }}</div>
+                                <div class="date">{{ blog.formatted_date }}</div>
+                            </div>
+                            <h3 class="blog-text blog-shortNote-text">{{ blog.shortNote }}</h3>
+                            <a href="{% url 'blog_detail_page' blog_loc=blog.cityId.name blog_id=blog.id %}" class="clsmanage">
+                                <div id="content">
+                                    {{ blog.content|add_class_to_p_tag|safe }}
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+                {% endif %}
+            </div>   
+        </div>
+    </div>
+    <div class="container pt-4 text-center">
+        <div class="row justify-content-center">
+            <a class="read_more_blog big_thmeme_btn" role="button" href="{% url 'blogs' %}">Load More</a>
+        </div>
+    </div>    
+</section>
+
+
+{% endblock %}

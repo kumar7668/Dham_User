@@ -1,0 +1,41 @@
+
+{% load static %}
+<style>
+    .upcoming_tours_events_data {
+        background-image: url("{% static '/img/holiday_bg.svg' %}"); 
+    }
+</style>
+{% if upcoming_tours_events_data %}
+    <section id="upcoming_tours_events_data class_for_all_sections" class="class_for_all_sections comman_car_list upcoming_tours_events_data" data-aos="fade-up" data-aos-delay="100">
+        <div class="container">
+            <div class=" container-fluid mb-5"  data-aos="fade-up" >
+                <div class="row">
+                    <div class="col-sm-12 col-lg-7 col-md-6 p-0">
+                        <h2 class="h2_title theme_red">Upcoming <span class="h2_title_rated" style="color: var(--theme-orange-color);">Tours or Events</span> Book Now</h2>
+                    </div>
+                </div>
+            </div>    
+            <div class="owl-carousel owl-theme" data-aos="fade-up" data-aos-delay="100">
+                {% for data in upcoming_tours_events_data.upcommingToursAndEvent %}
+                <div class="item">
+                    <div class="card" data-aos="fade-up" data-aos-delay="200">
+                        <span class="badge">{% if data.type == 'tour' %}Tour{% endif %}</span>
+                        
+                        {% for url in data.files %}
+                            {% if forloop.first %}
+                                <img src="{{ url.Url }}" class="card-img-top" alt="{{ data.title }}">
+                            {% endif %}
+                        {% endfor %}
+                        
+                        <div class="overlay">
+                            <div class="property_title">{{data.title}}</div>
+                            <div class="tour_event_info"><i class="bi bi-calendar2-heart"></i> Starting from {{data.formatted_start_from}} to {{data.formatted_end_at}}</div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>            
+        </div>
+    </section>
+{%endif%}
+

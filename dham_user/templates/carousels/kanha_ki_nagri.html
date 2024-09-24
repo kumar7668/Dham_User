@@ -1,0 +1,88 @@
+
+{% load static %}
+<style>
+    .kanha_ki_ngari {
+        background-image: url("{% static '\img\kanha_ki_ngari_bg.svg' %}");
+    }
+</style>
+{% if kanha_jiki_nagri %}
+    <section id="kanha_ki_ngari class_for_all_sections" class=" comman_car_list kanha_ki_ngari class_for_all_sections" data-aos="fade-up" data-aos-delay="100">
+        <div class="container">
+            <div class=" container-fluid mb-5"  data-aos="fade-up" >
+                <div class="row">
+                    <div class="col-sm-12 col-lg-7 col-md-6">
+                        <h2 class="h2_title theme_red">Way to <span class="h2_title_rated" style="color: var(--theme-orange-color);">Kanha ji ki Nagri</span>  Vrindavan</h2>
+                    </div>
+                </div>
+            </div>   
+            <div class="kanha_ki_ngari_calousel"> 
+                <div class="owl-carousel owl-theme" data-aos="fade-up" data-aos-delay="100">
+                    {% for data in kanha_jiki_nagri.CityTours %}
+                    <div class="item">
+                        <div class="card" data-aos="fade-up" data-aos-delay="200">
+                            <span class="badge">{% if data.type == 'tour' %}Tour{% endif %}</span>
+                            
+                            {% for url in data.files %}
+                                {% if forloop.first %}
+                                    <img src="{{ url.Url }}" class="card-img-top" alt="{{ data.title }}">
+                                {% endif %}
+                            {% endfor %}
+                            
+                            <div class="overlay">
+                                <div class="property_title">{{data.title}}</div>
+                                <div class="tour_event_info"><i class="bi bi-calendar2-heart"></i> Starting from {{data.formatted_start_from}} to {{data.formatted_end_at}}</div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    
+    {% comment %} <script>
+        $(document).ready(function(){
+            $('.kanha_ki_ngari_calousel .owl-carousel').owlCarousel({
+                loop: true,
+                margin: 10, // Adjust the gap between cards
+                autoplay: true, // Enable auto-loop
+                autoplayTimeout: 3000, // Time between each auto-slide (in milliseconds, e.g., 3000ms = 3 seconds)
+                autoplayHoverPause: true, // Pause on hover
+                responsive: {
+                    0: {
+                        items: 1.5, // 2 cards on small screens (phones)
+                        stagePadding: 0, // Show part of the next card
+                    },
+                    449: {
+                        items: 1.8, // 2 cards on small screens (phones)
+                        stagePadding: 5, // Show part of the next card
+                    },
+                    689: {
+                        items: 2.5, // 3 cards on small tablets
+                        stagePadding: 10 // Show part of the next card
+                    },
+                    992: {
+                        items: 3, // 4 cards on tablets
+                        stagePadding: 20 // Show part of the next card
+                    },
+                    1200: {
+                        items: 4, // 5 cards on large screens (desktops)
+                        stagePadding: 2, // Show part of the next card
+                        margin: 5, // Margin between cards
+                    },
+                    1300: {
+                        items: 4.4, // 5 cards on large screens (desktops)
+                        stagePadding: 40, // Show part of the next card
+                        margin: 10, // Margin between cards
+                    }
+                }
+            });
+        });
+    </script> {% endcomment %}
+   
+
+{% endif %}
+
