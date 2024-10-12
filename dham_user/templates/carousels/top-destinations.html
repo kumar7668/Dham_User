@@ -1,19 +1,16 @@
 
 {% load static %}
-
-<style>
-    .top-destinations .container {
-        background-image: url("{% static 'img/upcomming_event_bg.svg' %}");
-        
-    }
-</style> 
 {% if top_destinations_data %}
     <section id="top-destinations class_for_all_sections" class="class_for_all_sections comman_car_list top-destinations" data-aos="fade-up" data-aos-delay="100" >
-        <div class="container">
-            <div class=" container-fluid mb-5"  data-aos="fade-up" >
-                <div class="row">
-                    <div class="col-sm-12 col-lg-7 col-md-6 p-0">
-                        <h2 class="h2_title" style=" color:#ffffff !important;">Top Destinations for your  <span class="h2_title_rated"  style=" color:yellow; !important;">Next Holiday</span></h2>
+        <div class="container ">
+            <div class=" container-fluid mb-5 p-0"  data-aos="fade-up">
+                <div class="d-dm-flex d-lg-flex justify-content-between title-h2-div">
+                    <div class="p-0">
+                        <h2 class="h2_title">Plan your best experience ever !</h2>
+                        <p class="p-text">Making the Most of Your Travel Experience in 2024</p>
+                    </div>
+                    <div class="view_all_div text-center">
+                        <a href="{% url 'home' %}" class="view_all_btn"> View All Destination </a>
                     </div>
                 </div>
             </div>    
@@ -45,36 +42,41 @@
         $(document).ready(function(){
             $('.comman_car_list .owl-carousel').owlCarousel({
                 loop: true,
-                margin: 5, 
+                margin: 10, 
                 autoplay: true, // Enable auto-loop
                 autoplayTimeout: 3000, // Time between each auto-slide (in milliseconds, e.g., 3000ms = 3 seconds)
                 autoplayHoverPause: true, // Pause on hover
                 responsive: {
                     0: {
                         items: 1.5, // 2 cards on small screens (phones)
-                        stagePadding: 0, // Show part of the next card
+                        stagePadding: 10, // Show part of the next card
+                        margin: 10,
+                        
                     },
                     449: {
                         items: 1.8, // 2 cards on small screens (phones)
-                        stagePadding: 5, // Show part of the next card
+                        stagePadding: 10, // Show part of the next card
+                        margin: 10,
                     },
                     689: {
                         items: 2.5, // 3 cards on small tablets
-                        stagePadding: 10 // Show part of the next card
+                        stagePadding: 10,// Show part of the next card
+                        margin: 10,
                     },
                     992: {
                         items: 3, // 4 cards on tablets
-                        stagePadding: 20 // Show part of the next card
+                        stagePadding: 20, // Show part of the next card
+                        margin: 10,
                     },
                     1200: {
                         items: 4, // 5 cards on large screens (desktops)
-                        stagePadding: 2, // Show part of the next card
-                        margin: 5, // Margin between cards
+                        stagePadding: 20, // Show part of the next card
+                        margin: 10, // Margin between cards
                     },
                     1300: {
                         items: 4.4, // 5 cards on large screens (desktops)
-                        stagePadding: 40, // Show part of the next card
-                        margin: 5, // Margin between cards
+                        stagePadding: 20, // Show part of the next card
+                        margin: 10, // Margin between cards
                     }
                 }
             });

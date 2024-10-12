@@ -69,42 +69,8 @@
             padding-right: 0px !important;
         }
        
-        {% comment %} .h2_title_span{
-            color:var(--theme-red-color);
-            font-family: Jomhuria;
-            font-size: 56px;
-            font-weight: 400;
-            line-height: 40px;
-            text-align: left;
-
-        } {% endcomment %}
-        {% comment %} .h2_title{
-            max-width: 350px;
-            letter-spacing: 1px;
-            font-family: Jomhuria;
-            font-size: 56px;
-            font-weight: 400;
-            line-height: 40px;
-            text-align: left;
-            color: #FA9300 !important;
-        } {% endcomment %}
-       
-
-        /* Left SVG Background */
-        #section_top_reated::before {
-          
-            background: url("{% static 'img/top_item_left_hand_bg.svg' %}") no-repeat left top;
-        }
-
-        /* Right SVG Background */
-        #section_top_reated::after {
-            background: url("{% static 'img/top_item_right_hand_bg.svg.svg' %}") no-repeat right top;
-           
-        }
-
     </style>
 
-{% block title %}Radhe-Radhe - stage for success{% endblock %}
 {% if city_data %}
 <section id="section_top_reated" class="section_top_reated near_by_home_top_car" data-aos="fade-up" data-aos-delay="100" >
 

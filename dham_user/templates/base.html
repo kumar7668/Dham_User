@@ -101,14 +101,7 @@
 
 
 
-    .knobs,
-    .layer {
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-    }
+  
     
     .button {
       position: relative;
@@ -116,24 +109,6 @@
       width: 77px;
       height: 35px;
     
-    }
-    
-    .button.r,
-    .button.r .layer {
-      border-radius: 100px;
-      background: #E52B50;
-      
-    }
-    
-    .checkbox {
-      top: 4px;
-      height: 28px;
-      width: 73px;
-      position: relative;
-      padding: 0;
-      opacity: 0;
-      cursor: pointer;
-      z-index: 3;
     }
     
     .knobs,
@@ -154,7 +129,7 @@
   .button.r,
   .button.r .layer {
     border-radius: 100px;
-    background: #E52B50;
+    background: #3A86FF;
   }
 
   .checkbox {
@@ -195,6 +170,7 @@
     background-color: #fff;
     border-radius: 20px;
     transition: 0.3s cubic-bezier(1, 0.97, 0.06, 0.03) all;
+    box-shadow: 0px 0px 1px 1px #afe70e99;
   }
 
   #button-1 .knobs:after {
@@ -212,6 +188,7 @@
     padding: 6px 0;
     border-radius: 20px;
     transition: 0.3s cubic-bezier(1, 0.97, 0.06, 0.03) all;
+    box-shadow: 0px 0px 4px 1px #30262626;
   }
 
   #button-1 .checkbox:checked + .knobs:before {
@@ -236,7 +213,7 @@
   .login_icon, .cart_iocn{
     cursor: pointer;
     transition: color 0.3s;
-    padding:0 8px 0 8px;
+    padding:0 0 0 10px;
   }
   
   .modal-left-img{
@@ -298,6 +275,14 @@
   }
   
 }
+#header .cart_iocn, #header .login_icon{
+  filter: drop-shadow(0px 0px 3px var(--theme-red-color));
+}
+
+#header .btn-translate {
+  filter: drop-shadow(0px 0px 1px var(--theme-red-color));
+}
+
 </style>
 
 
@@ -308,7 +293,7 @@
     <div class="container-fluid container-xl position-relative d-flex align-items-center">
 
       <a href="{% url 'home' %}"  class="logo d-flex align-items-center me-auto">
-        <img src="{% static 'img/logo.png' %}" alt="logo">
+        <img src="{% static 'img/base_logo.png' %}" alt="logo">
       </a>
 
       <nav id="navmenu" class="navmenu me-auto">
@@ -328,23 +313,23 @@
         </ul>
       </nav>
       <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-      <div class="button r btn-getstarted d-md-block d-none d-sm-none" id="button-1">
+      <div class="button r btn-translate d-md-block d-none d-sm-none" id="button-1">
         <input type="checkbox" class="checkbox" id="language-toggle-base" />
         <div class="knobs"></div>
         <div class="layer"></div>
       </div>
-      <a  class="login_icon d-flex align-items-center" role="button" data-toggle="modal" data-target="#loginModal">
-        <img src="{% static 'img/login.svg' %}" alt="login_icon">
-      </a>
       <a  href="https://demo.swadeshidiwali.com/cart/" class="cart_iocn d-flex align-items-center">
         <img src="{% static 'img/cart.svg' %}" alt="cart_iocn">
+      </a>
+      <a class="login_icon d-flex align-items-center" role="button" data-toggle="modal" data-target="#loginModal">
+        <img src="{% static 'img/login.svg' %}" alt="login_icon">
       </a>
     </div>
   </header>
   <!-- Base Heder End -->
 
 <!-- Mobile Bottom Navigation -->
-  <nav class="mobile-nav-bar d-xl-none">
+  <nav class="mobile-nav-bar d-xl-none d-md-none">
     <a href="{% url 'accommodation' %}">
       <span> <i class="bi bi-house-check-fill"></i></span>
       <span>Accommodation</span>
@@ -420,7 +405,7 @@
     <!-- Footer Block end  -->
 
     <!-- Scroll Top -->
-    <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+    <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center d-none"><i class="bi bi-arrow-up-short"></i></a>
 
     <!-- Preloader -->
     {% comment %} <div id="preloader"></div> {% endcomment %}

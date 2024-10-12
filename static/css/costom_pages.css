@@ -1,3 +1,4 @@
+
 .section .theme-h1, .theme-h1{
     letter-spacing: 1px;
     color: #ffffff;
@@ -448,9 +449,6 @@
     color: #ffffff;
 }
 
-.h2_title {
-    max-width: 412px;
-}
 
 .upcoming_tours_events_data {
     padding-bottom: 0;
@@ -719,15 +717,6 @@
     }
 
     /* ############################### */
-
-    .h1_ttile{
-        font-family: var(--heading-font);
-        color:#ffffff;
-        font-size: 90px;
-        font-weight: 400;
-        line-height: 63px;
-        text-align: center;
-    }
 
     .search_list {
         width: 100%;

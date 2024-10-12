@@ -3,7 +3,7 @@
 import requests
 
 # Define your API endpoints here
-BASE_URI = "http://13.127.11.0/backend/api/v1"
+BASE_URI = "https://bharatkedham.com/backend/api/v1"
 # BASE_URI = "https://dham-backend.onrender.com/backend/api/v1"
 
 API_ENDPOINTS = {

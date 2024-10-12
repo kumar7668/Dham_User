@@ -31,40 +31,7 @@
         max-width: 100%; 
       }
 
-      .search_list ul::-webkit-scrollbar {
-          height: 20px; /* Adjust the height of the scrollbar */
-          background-color:var(--theme-red-color); 
-      }
-
-      .search_list ul::-webkit-scrollbar-thumb {
-          background-color: var(--theme-red-color); 
-          border-radius: 10px; /* Rounded corners for the scrollbar thumb */
-      }
-
-      .search_list ul::-webkit-scrollbar-thumb:hover {
-          background-color: var(--theme-red-color); 
-      }
-
-      .search_list ul {
-          scrollbar-width: thin;
-          scrollbar-color: var(--theme-red-color); 
-      }
-
-      .search_list li {
-          margin-right: 15px; 
-      }
-
-      .search_list ul::-webkit-scrollbar {
-          height: 6px; 
-      }
-
-      .search_list ul::-webkit-scrollbar-thumb {
-          background-color: #007bff; 
-      }
-
-      .search_list ul::-webkit-scrollbar-track {
-          background-color: #f1f1f1;
-      }
+     
       .mg-5{
         margin: 5px;
       }
@@ -140,17 +107,29 @@
     
     
     /* end 1st car*/
+
+    .overlay-base_banner{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        padding: 10px;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0) 77.1%, rgba(0, 0, 0, 0.59) 95.16%, #000000 106.82%);
+        color: #fff;
+        z-index: 1;
+      
+    }
+    
 </style>  
   
     <!-- Hero Section -->
       <section id="hero" class="hero section">
         <div class="hero-bg">
-          <img src="{% static 'img/home_banner.png' %}" alt="">
+          <img src="{% static 'img/hero_banner.png' %}" alt="">
         </div>
-        <div class="container text-center">
-          <div class="d-flex flex-column justify-content-center align-items-center">
+        <div class="container text-center p-0">
+          <div class="d-flex flex-column justify-content-center align-items-center top-padding">
             <img  src="{% static 'img/pray.svg' %}" class="img-fluid hero-img" alt="" data-aos="zoom-out" data-aos-delay="200">
-            <h1 class="h1_ttile" data-aos="zoom-out" data-aos-delay="230">namaste</h1>
+            <h1 class="h1_title" data-aos="zoom-out" data-aos-delay="230">namaste</h1>
             <div class="container" data-aos="fade-up" data-aos-delay="100">
               <div id="search_list" class="search_list justify-content-lg-center justify-content-md-center">
                 <ul>
@@ -169,28 +148,54 @@
               <div class="error-message"></div>
             </form>
           </div>
+          <div>
+            <h4 class="txt-white recent-search">Recent Searches</h4>
+            <div class="search-tags d-flex justify-content-between flex-nowrap">
+              <span class="scrollbar-height text-nowrap"><a href="{% url 'home' %}" class="search-tag-list"><i class="bi bi-search mg-5"></i> Kedarnath </a></span>
+              <span class="scrollbar-height text-nowrap"><a href="{% url 'home' %}" class="search-tag-list"><i class="bi bi-search mg-5"></i> Search All</a></span>
+              <span class="scrollbar-height text-nowrap"><a href="{% url 'home' %}" class="search-tag-list"><i class="bi bi-search mg-5"></i> Search All</a></span>
+              <span class="scrollbar-height text-nowrap"><a href="{% url 'home' %}" class="search-tag-list"><i class="bi bi-search mg-5"></i> Search All</a></span>
+              <span class="scrollbar-height text-nowrap"><a href="{% url 'home' %}" class="search-tag-list"><i class="bi bi-search mg-5"></i> Search All</a></span>
+              <span class="scrollbar-height text-nowrap"><a href="{% url 'home' %}" class="search-tag-list"><i class="bi bi-search mg-5"></i> Search All</a></span>
+              <span class="scrollbar-height text-nowrap"><a href="{% url 'home' %}" class="search-tag-list"><i class="bi bi-search mg-5"></i> Search All</a></span>
+              <span class="scrollbar-height text-nowrap"><a href="{% url 'home' %}" class="search-tag-list"><i class="bi bi-search mg-5"></i> Search All</a></span>
+            </div>
+          </div> 
         </div>
+        <div class="overlay-base_banner">
+        </div> 
 
       </section>
     <!-- /Hero Section -->
 
+    <!--  Top Destinations for your -->
+    {% include "carousels/top-destinations.html" %}
+    <!--  Top Destinations for your End-->
+
+    <!-- Upcoming Tour & Events   -->
+    {% include "carousels/holiday_carousel.html" %}
+    <!-- Upcoming Tour & Events end  -->
+
+    <!-- Lates Blog  -->
+    {% include "blogs/blog_post.html" %}
+    <!-- Lates Blog End -->
+
     <!-- Top Reted Items  -->
-      {% include "carousels/near_by_home.html" %}
+    {% comment %} {% include "carousels/near_by_home.html" %} {% endcomment %}
     <!-- Top Reted Items end  -->
     
      <!-- Top Reted Items  -->
     {% comment %} {% include "swiper_card.html" %} {% endcomment %}
     <!-- Top Reted Items end  -->
 
-      {% include "carousels/top-destinations.html" %}
 
-      {% include "carousels/top_items.html" %}
+    {% comment %} {% include "carousels/top_items.html" %} {% endcomment %}
 
-      {% include "carousels/kanha_ki_nagri.html" %}
+    {% comment %} {% include "carousels/kanha_ki_nagri.html" %} {% endcomment %}
 
-      {% include "carousels/holiday_carousel.html" %}
 
-      {% include "blogs/blog_post.html" %}
+
+   
 
  
 

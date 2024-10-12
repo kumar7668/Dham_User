@@ -190,8 +190,8 @@ h6 {
   }
 }
 
-.header .btn-getstarted,
-.header .btn-getstarted:focus {
+.header .btn-translate,
+.header .btn-translate:focus {
   color: var(--contrast-color);
   background: var(--accent-color);
   font-size: 14px;
@@ -201,8 +201,8 @@ h6 {
   transition: 0.3s;
 }
 
-.header .btn-getstarted:hover,
-.header .btn-getstarted:focus:hover {
+.header .btn-translate:hover,
+.header .btn-translate:focus:hover {
   color: var(--contrast-color);
   background: color-mix(in srgb, var(--accent-color), transparent 15%);
 }
@@ -215,7 +215,7 @@ h6 {
     order: 1;
   }
 
-  .header .btn-getstarted {
+  .header .btn-translate {
     cursor: pointer;
     transition: color 0.3s;
     order: 1;

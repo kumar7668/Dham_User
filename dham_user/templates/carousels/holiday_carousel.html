@@ -1,17 +1,21 @@
 
 {% load static %}
 <style>
-    .upcoming_tours_events_data {
+    {% comment %} .upcoming_tours_events_data {
         background-image: url("{% static '/img/holiday_bg.svg' %}"); 
-    }
+    } {% endcomment %}
 </style>
 {% if upcoming_tours_events_data %}
     <section id="upcoming_tours_events_data class_for_all_sections" class="class_for_all_sections comman_car_list upcoming_tours_events_data" data-aos="fade-up" data-aos-delay="100">
         <div class="container">
-            <div class=" container-fluid mb-5"  data-aos="fade-up" >
-                <div class="row">
-                    <div class="col-sm-12 col-lg-7 col-md-6 p-0">
-                        <h2 class="h2_title theme_red">Upcoming <span class="h2_title_rated" style="color: var(--theme-orange-color);">Tours or Events</span> Book Now</h2>
+            <div class="container-fluid mb-5 p-0"  data-aos="fade-up" >
+                <div class="d-dm-flex d-lg-flex justify-content-between title-h2-div">
+                    <div class="p-0">
+                        <h2 class="h2_title theme_red">Upcoming Tour & Events</h2>
+                        <p class="p-text">Making the Most of Your Travel Experience in 2024</p>
+                    </div>
+                    <div class="view_all_div text-center">
+                        <a href="{% url 'home' %}" class="view_all_btn"> View All Destination </a>
                     </div>
                 </div>
             </div>    
