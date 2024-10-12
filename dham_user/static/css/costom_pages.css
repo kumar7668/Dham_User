@@ -1,13 +1,29 @@
 
+    
+  /* comman hero txt banner style */
+  .comman_hero_txt_banner {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    height: 370px; /* Adjust this height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+.mt-40{
+    margin-top: 40px;
+}
 
 .section .theme-h1, .theme-h1{
-    letter-spacing: 1px;
-    color: #ffffff;
+    letter-spacing: 2px;
     font-family: var(--heading-font);
-    font-size: 99px;
+    color: #ffffff;
+    font-size: 90px;
     font-weight: 400;
     line-height: 63px;
     text-align: center;
+    filter: drop-shadow(0px 0px 2px #FF8505);
     } 
 
 
@@ -656,6 +672,11 @@
         padding: 70px 0 30px 0;
         overflow: hidden;
     }
+
+    #hero-sections, .hero-sections {
+        position: relative;
+        overflow: hidden;
+    }
   .near_by_home_top_car{
     background-color: #f8f8f8;
   }
@@ -702,7 +723,7 @@
 .h2_title{
     letter-spacing: 2px;
     font-family: Jomhuria;
-    font-size: 70px;
+    font-size: 65px;
     font-weight: 400;
     line-height: 40px;
     text-align: left;
@@ -711,7 +732,7 @@
 
   .p-text{
     font-family: Inter;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 400;
     line-height: 35px;
     text-align: left;
@@ -929,15 +950,6 @@
 
     /* ############################### */
 
-    .h1_title{
-        font-family: var(--heading-font);
-        color:#ffffff;
-        font-size: 90px;
-        font-weight: 400;
-        line-height: 63px;
-        text-align: center;
-        filter: drop-shadow(0px 0px 2px #FF8505);
-    }
 
     .search_list {
         width: 100%;
