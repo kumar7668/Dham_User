@@ -4,88 +4,64 @@
   .footer_copyright{
     align-items: center;
   }
-  
-  /* Basic styling for the image */
- .footer_head .service-item  .temple{
-      transition: all 0.3s ease-in-out;
+  .gpt-god{
+    width: auto;
+    height: 265px;
   }
-  
-  /* Define the shake animation */
-  @keyframes shake {
-      0% { transform: translate(1px, 1px) rotate(0deg); }
-      10% { transform: translate(-1px, -2px) rotate(-1deg); }
-      20% { transform: translate(-3px, 0px) rotate(1deg); }
-      30% { transform: translate(3px, 2px) rotate(0deg); }
-      40% { transform: translate(1px, -1px) rotate(1deg); }
-      50% { transform: translate(-1px, 2px) rotate(-1deg); }
-      60% { transform: translate(-3px, 1px) rotate(0deg); }
-      70% { transform: translate(3px, 1px) rotate(-1deg); }
-      80% { transform: translate(-1px, -1px) rotate(1deg); }
-      90% { transform: translate(1px, 2px) rotate(0deg); }
-      100% { transform: translate(1px, -2px) rotate(-1deg); }
-  }
-  
-  .class_name {
-      animation: shake 0.5s; /* 0.5s duration for the shake */
-      animation-iteration-count: infinite; /* Keeps the shake going */
+  #footer .footer-top{
+    background-position: bottom;
+    background-size: cover !important;
+    {% comment %} background: linear-gradient(180deg, rgba(0, 0, 0, 0) 87.36%, #4A061B 106.41%),
+      linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.39) 71.18%),
+      linear-gradient(180deg, rgba(73, 30, 10, 0) -52.11%, #4A060A 100%),url("{% static '\img\footer_bg.jpg' %}"); {% endcomment %}
+
   }
   
 </style>  
 
 <div class="container-fluid footer_head">
-  <div class="container p-0">
-    <div class="row gy-4 p-0">
-      <div class="col-sm-12 col-md-12 col-lg-3 gpt-god_div justify-content-lg-start justify-content-md-center service-item" data-aos="fade-up" data-aos-delay="100">
-        <div class="service-item d-flex">
-          <img class="gpt-god img-fluid" src="/static/img/ganaji.svg" alt="img">
-        </div>
-      </div>
-      <div class="title-head col-sm-12 col-md-6 col-lg-5" data-aos="fade-up" data-aos-delay="200">
-        <div class="service-item d-flex bless_text">
-            <h4 class="title">Seek his blessings, and find your path</h4>
-        </div>
-      </div>
-      <div class="col-sm-12 col-md-6 col-lg-4 p-0" data-aos="fade-up" data-aos-delay="200">
-        <div class="service-item d-flex">
-          <img class="temple img-fluid" src="/static/img/mandir.png" alt="img">
-        </div>
+  <div class="container p-0 text-center aos-init aos-animate">
+    <div class="row d-block gy-4 p-0" data-aos="fade-up" data-aos-delay="100">
+          <img class="gpt-god img-fluid" src="/static/img/janaji.png" alt="img">
       </div>
     </div>
-
   </div>
 
 </div>
-<footer id="footer" class="footer">
-    <div class="container footer-top">
-      <div class="row gy-4">
-        <div class="col-lg-5 col-md-5 col-sm-12 footer-about">
-          <a href="index.html" class="logo d-flex align-items-center">
-            <span class="sitename">Dham</span>
-          </a>
-          <div class="footer-contact">
-            <p class="">Dham offers guided historical tours, room bookings, cultural workshops, local cuisine experiences, and personalized services to enrich your cultural journey.</p>
+<footer id="footer" class="footer mt-4">
+    <div class="container-fluid p-0 footer-top">
+      <div class="container">
+        <div class="row gy-4">
+          <div class="col-lg-5 col-md-5 col-sm-12 footer-about">
+            <a href="index.html" class="logo d-flex align-items-center">
+              <img class="gpt-god img-fluid" src="/static/img/base_logo.png" alt="img">
+              <p class="footer-contact" style="color:white; font-family: Jomhuria; font-size: 70px; font-weight: 400; line-height: 40px; top: 58px; position: relative;">Discover </br> Learn </br>Immerse</p>
+            </a>
+            <div class="footer-contact">
+              <p class="mt-5">Dham offers guided historical tours, room bookings, cultural workshops, local cuisine experiences, and personalized services to enrich your cultural journey.</p>
+            </div>
           </div>
-        </div>
-        <div class="col-lg-4 col-md-4 col-sm-12 footer-links ">
-          <h4 class="footer_titles py-3">Links</h4>
-          <ul>
-            <li><a href="{% url 'faq' %}">FAQ</a></li>
-            <li><a href="{% url 'about_us' %}">About Us</a></li>
-            <li><a href="{% url 'testimonials' %}">Testimonials</a></li>
-            <li><a href="{% url 'contact_us' %}">Contact US</a></li>
-            <li><a href="{% url 'privacy_policy' %}">Privacy policy</a></li>
-            <li><a href="{% url 'terms_condition' %}">Terms and Condition</a></li>
-          </ul>
-        </div>
-        <div class="footer_iocns col-lg-3 col-md-3 col-sm-12 footer-links">
-          <h4 class="footer_titles py-3">Contact</h4>
-          <p><i class="bi bi-geo-alt-fill"></i>Akshya Nagar 1st Block 1st Cross, Rammurthy nagar, Bangalore-560016</p>
-          <p><i class="bi bi-telephone-fill"></i>+91 1234567890</p>
-          <p><i class="bi bi-envelope-fill"></i>Dham@gmail.com</p>
+          <div class="col-lg-4 col-md-4 col-sm-12 footer-links ">
+            <h4 class="footer_titles py-3">Links</h4>
+            <ul>
+              <li><a href="{% url 'faq' %}">FAQ</a></li>
+              <li><a href="{% url 'about_us' %}">About Us</a></li>
+              <li><a href="{% url 'testimonials' %}">Testimonials</a></li>
+              <li><a href="{% url 'contact_us' %}">Contact US</a></li>
+              <li><a href="{% url 'privacy_policy' %}">Privacy policy</a></li>
+              <li><a href="{% url 'terms_condition' %}">Terms and Condition</a></li>
+            </ul>
+          </div>
+          <div class="footer_iocns col-lg-3 col-md-3 col-sm-12 footer-links">
+            <h4 class="footer_titles py-3">Contact</h4>
+            <p><i class="bi bi-geo-alt-fill"></i>Akshya Nagar 1st Block 1st Cross, Rammurthy nagar, Bangalore-560016</p>
+            <p><i class="bi bi-telephone-fill"></i>+91 1234567890</p>
+            <p><i class="bi bi-envelope-fill"></i>Dham@gmail.com</p>
+          </div>
         </div>
       </div>
     </div>
-    <div class="container copyright mt-4 ">
+    <div class="container copyright ">
       <div class="row footer_copyright ">
           <div class="col-sm-12 col-md-8 col-lg-6 order-2 order-sm-2 order-md-1 order-lg-1 order-xl-1 copyright_txt_start">
               <p>© 2024 <span>All rights reserved for</span><span class="px-1 sitename">Dham Pvt Ltd.</span></p>
