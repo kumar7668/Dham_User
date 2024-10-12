@@ -244,6 +244,12 @@
         display: inline-block;
         cursor: pointer;
     }
+    .ytp-copylink-button, .ytp-show-copylink-title, .ytp-copylink-button-visible{
+        display:none;
+    }
+    #glightbox-body .ytp-copylink-button{
+        display:none !important;
+    }
 </style>
 
 
@@ -271,11 +277,17 @@
     <div class="container item-center p-0" data-aos="fade-up" data-aos-delay="150">
         <div class="video-container video-container_head" onclick="hideOverlay()">
             <div class="live-badge">Live</div>
-            <video controls style="cursor: pointer;"  class="vdo_tag vdo_tag_desktop_poster-x"  poster="{% static 'img/kedarnath-cover.jpg' %}" >
-                <source src="https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_20mb.mp4" type="video/mp4" >
+            
+            <!-- Video player -->
+            <video controls style="cursor: pointer;" class="vdo_tag vdo_tag_desktop_poster-x" poster="{% static 'img/kedarnath-cover.jpg' %}">
             </video>
+            
+            <!-- Overlay with Share button -->
             <div class="overlay" id="overlay">
-                <i class="bi bi-play-circle"></i>
+                <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="glightbox btn-watch-video d-flex align-items-center">
+                    <i class="bi bi-play-circle"></i><span>Watch Video</span>
+                </a>
+
             </div>
         </div>
     </div>
@@ -304,10 +316,10 @@
    
     // Function to hide overlay
     function hideOverlay() {
-        document.getElementById('overlay').style.display = 'none';
+        {% comment %} document.getElementById('overlay').style.display = 'none'; {% endcomment %}
     }
 
-    const videoLink = 'https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4';
+    const videoLink = 'https://www.youtube.com/watch?v=Y7f98aduVJ8';
     const text = 'Check out this live puja video!';
 
     // WhatsApp sharing

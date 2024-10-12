@@ -22,6 +22,7 @@
   --theme-hover-color: #FFC100;
   --theme-secondary-color:#4A061B;
   --theme-blue-color: #8338EC;
+  --theme-card-bg-color:#FBFBFB;
 
 }
 
@@ -280,7 +281,7 @@ h6 {
   color: var(--nav-color);
 }
 .index-page.scrolled .navmenu a:hover, .navmenu a:active, .navmenu a:focus {
-  color: var(--theme-hover-color);
+  color: var(--theme-red-color);
 }
 
 /*--------------------------------------------------------------
@@ -855,7 +856,7 @@ section,
 .section {
   color: var(--default-color);
   background-color: var(--background-color);
-  padding: 85px 0;
+  /* padding: 85px 0; */
   scroll-margin-top: 100px;
   overflow: clip;
 }
@@ -932,15 +933,16 @@ section,
   z-index: 3;
 }
 
-.hero h1 {
-    margin: 0;
-    letter-spacing: 2px;
-    font-family: var(--heading-font);
-    color: #ffffff;
-    font-size: 90px;
-    font-weight: 400;
-    line-height: 63px;
-    text-align: center;
+.hero .h1_title {
+  margin: 0;
+  letter-spacing: 2px;
+  font-family: var(--heading-font);
+  color: #ffffff;
+  font-size: 90px;
+  font-weight: 400;
+  line-height: 63px;
+  text-align: center;
+  filter: drop-shadow(0px 0px 2px #FF8505);
 }
  
 .hero h1 span {
