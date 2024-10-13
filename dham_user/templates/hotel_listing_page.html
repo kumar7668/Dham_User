@@ -175,7 +175,7 @@
                                 <div class="col-12 col-sm-6 col-xl-4 d-flex flex-column mb-4">
                                     <div class="card hotel-card" style="height: 100%;">
                                         <div class="img-prod">
-                                            <a href="#">
+                                            <a href="{% url 'detail_page_hotel' city_id=hotel.cityId hotel_id=hotel.id%}">
                                                 <img 
                                                 src="{% if hotel.first_file_url and hotel.first_file_url != '' %}{{ hotel.first_file_url }}{% else %}{% static 'img/hotel_default.png' %}{% endif %}" 
                                                 alt="Hotel Image" 
