@@ -78,7 +78,7 @@
     }
 
     .left-content {
-      display: flex;
+      {% comment %} display: flex; {% endcomment %}
       flex-direction: column;
       justify-content: center;
     }
@@ -360,42 +360,81 @@
 
 
   <!-- Login Modal -->
-    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-        <div class="modal-content">
-          <div class="modal-body p-0">
-            <div class="row no-gutters">
-              <!-- Left Side: Image for Desktop -->
-              <div class="col-md-6 d-none d-md-block">
-                <img src="{% static 'img/login_img.png' %}" class="img-fluid" alt="Login Image">
-              </div>
-              <!-- Left Side: Image for Mobile -->
-              <div class="col-12 d-block d-md-none">
-                <img src="{% static 'img/login_pop_mob_img.png' %}" class="img-fluid" alt="Login Image">
-              </div>
-              <!-- Right Side: Login Form -->
-              <div class="col-md-6 col-12">
-                <div class="p-4">
-                  <!-- Close Button (X) -->
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="position: absolute; top: 10px; right: 10px;">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                  <h5 class="modal-title mb-4" id="loginModalLabel">Log in or Sign up</h5>
-                  <h2 class="mb-4">Welcome to Dham</h2>
-                  <form>
-                    <div class="form-group">
-                      <label class="p-1" for="emailPhone">Mobile Number</label>
-                      <input type="text" class="form-control" id="emailPhone" placeholder="Enter email or phone">
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-block py-2">Login</button>
-                  </form>
-                </div>
+  <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-body p-0">
+          <div class="row no-gutters">
+            <!-- Left Side: Image for Desktop -->
+            <div class="col-md-6 d-none d-md-block">
+              <img src="{% static 'img/login_img.png' %}" class="img-fluid" alt="Login Image">
+            </div>
+            <!-- Left Side: Image for Mobile -->
+            <div class="col-12 d-block d-md-none">
+              <img src="{% static 'img/login_pop_mob_img.png' %}" class="img-fluid" alt="Login Image">
+            </div>
+            <!-- Right Side: Form Section -->
+            <div class="col-md-6 col-12">
+              <div class="p-4">
+                <!-- Close Button (X) -->
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="position: absolute; top: 10px; right: 10px;">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title mb-4" id="loginModalLabel">Log in or Sign up</h5>
+                <h2 class="mb-4">Welcome to Dham</h2>
+  
+                <!-- Step 1: Registration Form -->
+                <form id="registerForm">
+                  <div class="form-group">
+                    <label for="firstname">First Name</label>
+                    <input type="text" class="form-control" id="firstname" name="firstname" placeholder="First Name" required>
+  
+                    <label for="lastname">Last Name</label>
+                    <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Last Name" required>
+  
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+  
+                    <label for="phone">Mobile Number</label>
+                    <input type="text" class="form-control" id="phone" name="phone" placeholder="Phone No." required>
+                  </div>
+                  <button type="button" class="btn btn-primary btn-block py-2" id="registerSubmit">Register</button>
+                </form>
+  
+                <!-- Step 2: OTP Verification for Registration -->
+                <form id="registerOtpForm" class="d-none">
+                  <div class="form-group">
+                    <label for="otp">Enter OTP sent to your phone</label>
+                    <input type="text" class="form-control" id="registerOtp" placeholder="Enter 6-digit OTP" required>
+                  </div>
+                  <button type="button" class="btn btn-primary btn-block py-2" id="verifyRegisterOtp">Verify OTP</button>
+                </form>
+  
+                <!-- Step 3: Login Form -->
+                <form id="loginForm" class="d-none">
+                  <div class="form-group">
+                    <label for="loginPhone">Mobile Number</label>
+                    <input type="text" class="form-control" id="loginPhone" placeholder="Enter mobile number" required>
+                  </div>
+                  <button type="button" class="btn btn-primary btn-block py-2" id="loginSubmit">Login</button>
+                </form>
+  
+                <!-- Step 4: OTP Verification for Login -->
+                <form id="loginOtpForm" class="d-none">
+                  <div class="form-group">
+                    <label for="loginOtp">Enter OTP sent to your phone</label>
+                    <input type="text" class="form-control" id="loginOtp" placeholder="Enter 6-digit OTP" required>
+                  </div>
+                  <button type="button" class="btn btn-primary btn-block py-2" id="verifyLoginOtp">Verify OTP</button>
+                </form>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
+  
   <!-- Login Modal End -->
 
 
@@ -417,7 +456,35 @@
     <!-- jQuery and Owl Carousel -->
     {% comment %} <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script> {% endcomment %}
-
+    <script>
+      document.getElementById("registerSubmit").addEventListener("click", function () {
+        // Step 1: Handle Registration Form submission
+        // Assume the registration API sends OTP on success
+        document.getElementById("registerForm").classList.add("d-none");
+        document.getElementById("registerOtpForm").classList.remove("d-none");
+      });
+      
+      document.getElementById("verifyRegisterOtp").addEventListener("click", function () {
+        // Step 2: Handle OTP verification for registration
+        // After OTP verification, show the login form
+        document.getElementById("registerOtpForm").classList.add("d-none");
+        document.getElementById("loginForm").classList.remove("d-none");
+      });
+      
+      document.getElementById("loginSubmit").addEventListener("click", function () {
+        // Step 3: Handle Login Form submission
+        // Assume login API sends OTP on success
+        document.getElementById("loginForm").classList.add("d-none");
+        document.getElementById("loginOtpForm").classList.remove("d-none");
+      });
+      
+      document.getElementById("verifyLoginOtp").addEventListener("click", function () {
+        // Step 4: Handle OTP verification for login
+        // After OTP is verified, redirect to the home page
+        window.location.href = "/home";  // Assuming '/home' is the URL for the homepage
+      });
+      
+    </script>
     <!-- Vendor JS Files -->
     <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'vendor/aos/aos.js' %}"></script>

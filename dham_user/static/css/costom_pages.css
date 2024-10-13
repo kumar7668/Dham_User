@@ -14,7 +14,12 @@
 .mt-40{
     margin-top: 40px;
 }
-
+.mt-70{
+    margin-top: 70px;
+}
+.color-fff{
+    color: #fff !important;
+}
 .section .theme-h1, .theme-h1{
     letter-spacing: 2px;
     font-family: var(--heading-font);
@@ -672,6 +677,11 @@
         padding: 70px 0 30px 0;
         overflow: hidden;
     }
+    #sections_detail_page, .sections_detail_page {
+        position: relative;
+        padding: 70px 0 30px 0;
+        overflow: hidden;
+    }
 
     #hero-sections, .hero-sections {
         position: relative;
@@ -1318,57 +1328,228 @@
 
 
     /* Badge Styling */
-            .selected-filters {
-                border-radius: 5px;
-            }
-    
-            .selected-filters h5 {
-                margin-bottom: 10px;
-            }
-    
-            .filter-badge {
-                display: flex;
-                align-items: center;
-                margin-right: 10px;
-                margin-bottom: 5px;
-            }
+    .selected-filters {
+        border-radius: 5px;
+    }
 
-            .filter-badge .badge {
-                font-family: var(--default-font);
-                border-radius: 19px;
-                font-size: 12px;
-                background: var(--theme-orange-color);
-                padding: 5px 10px;
-            }
-    
-            .filter-badge .remove-filter {
-                padding-bottom: 1px;
-                border: 1px solid #fff;
-                margin-left: 12px !important;
-                cursor: pointer !important;
-                color: #fff;
-                border-radius: 50%;
-                width: 20px;
-                height: 20px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-    
-            /* Optional: Add transition for badge removal */
-            .filter-badge.removing {
-                opacity: 0;
-                transform: translateX(20px);
-                transition: all 0.3s ease;
-            }
-    
-            #loader {
-                position: fixed;
-                top: 50%;
-                left: 40%;
-                transform: translate(-50%, -50%);
-                z-index: 9999;
-            }
+    .selected-filters h5 {
+        margin-bottom: 10px;
+    }
 
+    .filter-badge {
+        display: flex;
+        align-items: center;
+        margin-right: 10px;
+        margin-bottom: 5px;
+    }
 
+    .filter-badge .badge {
+        font-family: var(--default-font);
+        border-radius: 19px;
+        font-size: 12px;
+        background: var(--theme-orange-color);
+        padding: 5px 10px;
+    }
+
+    .filter-badge .remove-filter {
+        padding-bottom: 1px;
+        border: 1px solid #fff;
+        margin-left: 12px !important;
+        cursor: pointer !important;
+        color: #fff;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Optional: Add transition for badge removal */
+    .filter-badge.removing {
+        opacity: 0;
+        transform: translateX(20px);
+        transition: all 0.3s ease;
+    }
+
+    #loader {
+        position: fixed;
+        top: 50%;
+        left: 40%;
+        transform: translate(-50%, -50%);
+        z-index: 9999;
+    }
+
+    
+    /* e-puja*/
+    /* Live Darsna */
+    .book-btn {
+        font-family: var(--default-font);
+        font-size: 16px;
+        font-weight: 600;
+        margin-top: 20px;
+        width: 100%;
+        padding: 10px;
+        background-color: var(--theme-red-color);
+        color: white;
+        border: none;
+        border-radius: 30px;
+      }
+    .puja-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
         
+    }
+    .live_darshan_detail .location, .puja-detail-section .location{
+        font-family: var(--default-font);
+        color: #919191;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 24.2px;
+        text-align: left;
+    }
+    .live_darshan_detail .location i, .puja-detail-section .location i{
+        color: var(--theme-red-color);
+    }
+
+    .puja-meta {
+        margin: 0 20px 0 0px;
+        display: flex;
+        gap: 10px;
+        cursor: pointer;
+    }
+    .puja-meta .dropdown {
+        
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        border-radius:8px;
+        background-color: white;
+        border: 1px solid #ccc;
+        min-width: 125px;
+        box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+    }
+
+    .puja-meta .dropdown button {
+        background-color: white;
+        color: black;
+        font-size:small;
+        padding: 5px;
+        text-align: left;
+        border: none;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .puja-meta .dropdown button i {
+        margin-right: 10px;
+    }
+    .puja-meta .dropdown button:hover {
+        background-color: #f1f1f1;
+    }
+    .share:hover .dropdown {
+        display: block;
+    }
+
+    .live_darshan_detail .share,  .puja-detail-section .share  {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+    }
+    .live_darshan_detail .share,  .puja-detail-section .share {
+        color: var(--theme-secondary-color);
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        font-family: var(--default-font);
+    
+    }
+    .live_darshan_detail .share i, .puja-detail-section .share i{
+        color: var(--theme-red-color);
+        padding-right: 5px;
+    }
+    .live_darshan_detail .about-section,  .puja-detail-section .about-section {
+        margin-bottom: 20px;
+    }
+
+    .live_darshan_detail .about_live,  .puja-detail-section .about_live {
+        font-family: var(--default-font);
+        color: var(--theme-secondary-color);
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 33.89px;
+        text-align: left;
+    }
+    
+    .live_darshan_detail .about-section p, .puja-detail-section .about-section p {
+        font-family: var(--default-font);
+        color: #919191;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 31px;
+        text-align: left;
+    }
+    .live_darshan_detail .benefits-section, .puja-detail-section .benefits-section {
+        margin-bottom: 20px;
+    }
+    
+    .live_darshan_detail .benefits-section ul, .puja-detail-section .benefits-section ul {
+        margin: 0;
+    }
+    
+    .live_darshan_detail .benefits-section li,  .puja-detail-section .benefits-section li{
+        font-family: var(--default-font);
+        color: #919191;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 30px;
+        text-align: left;
+    }
+
+    .live_darshan_detail .benefits_section, .puja-detail-section .benefits_section{
+        font-family: var(--default-font);
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 29.05px;
+        text-align: left;
+    }
+    
+    .puja-detail-section hr {
+        color: #919191 !important;
+        margin: 1rem 0;
+        border: 0;
+        border-top: var(--bs-border-width) solid;
+        opacity: 1.25;
+    }
+    @media (max-width: 768px) {
+        .puja-meta .dropdown {
+            margin: 0 0 0 -30px;
+        }
+    
+        .puja-meta {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+    
+        .puja-header h1 {
+            font-size: 20px;
+        }
+        .live_darshan_detail .location, .live_darshan_detail .share, .puja-detail-section .location, .puja-detail-section .share{
+            font-size: 14px;
+    
+        }
+
+    }
+    @media (max-width: 576px) {
+        .book-btn {
+          padding: 8px;
+        }
+    }
+     /* e-puja end*/
+    /* Live Darsna end */

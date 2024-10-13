@@ -9,7 +9,7 @@ urlpatterns = [
     #acc
     path('accommodation_state', views.accommodation_state, name="accommodation"),
     path('e-pooja', views.e_pooja, name="e_pooja"),
-    path('e-pooja', views.e_pooja_detail, name="e_pooja_detial"),
+    path('e-pooja-detial', views.e_pooja_detail, name="e_pooja_detial"),
 
     
 
