@@ -17,6 +17,7 @@ API_ENDPOINTS = {
     'get_blog_by_id': BASE_URI + "/get-blog-by-id/",
 
     'get_hotel_list': BASE_URI + '/get-hotel-by-city/',
+    'get_hotel_detial':BASE_URI + '/get-hotel-details/',
     'get_amenities': BASE_URI + '/get-all-amenities',           
     'get_property_types': BASE_URI + '/get-all-property-type', 
 }
@@ -44,6 +45,22 @@ def get_request_data(api_name):
 
 def get_hotel_list_ViaId(api_name, property_city_id, filters=None):
     url = API_ENDPOINTS.get(api_name) + str(property_city_id) + '/'
+    if not url:
+        raise ValueError(f"No API endpoint found for {api_name}")
+    
+    try:
+        response = requests.get(url, params=filters)  # Pass filters as params
+        response.raise_for_status()
+        return response.json()  
+    except requests.exceptions.HTTPError as http_err:
+        print(f"HTTP error occurred: {http_err}")  
+    except Exception as err:
+        print(f"Other error occurred: {err}")
+    return None
+
+def get_hotel_detail_ViaId(api_name, property_city_id, hotel_id, filters=None):
+    url = API_ENDPOINTS.get(api_name) + str(property_city_id) + '/' + str(hotel_id) + '/'
+    
     if not url:
         raise ValueError(f"No API endpoint found for {api_name}")
     

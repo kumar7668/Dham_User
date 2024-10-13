@@ -1,6 +1,6 @@
 from django.shortcuts import render
 import requests
-from dod_api.api_hooks import get_request_data, get_hotel_list_ViaId, get_blog_detail_via_id
+from dod_api.api_hooks import get_request_data, get_hotel_list_ViaId, get_blog_detail_via_id, get_hotel_detail_ViaId
 from django.templatetags.static import static
 from django.utils import translation
 from django.shortcuts import redirect
@@ -335,3 +335,44 @@ def get_hotel_by_city(request, property_city, property_city_id):
         'formattedPriceRangeCounts': formattedPriceRangeCounts
     }
     return render(request, 'hotel_listing_page.html', context)
+
+
+def detail_page_hotel(request, city_id, hotel_id):
+    filters = {}
+    try:
+        hotel_data = get_hotel_detail_ViaId('get_hotel_detial',city_id ,hotel_id , filters)
+        context = {}
+        # GET NAME AND ADDRESS
+        context['name'] = hotel_data['hotel'].get('name')
+        context['address'] = hotel_data['hotel'].get('address')
+
+        # IMAGES
+        files = hotel_data['hotel'].get('files')
+        if(hotel_data and files):
+            context['DetailImages'] = [data['Url'] for data in files]
+
+        # AMENITITES
+        amenitites = hotel_data.get('hotel').get('amenitiesId')
+        if amenitites:
+            amenitites = [ {'name' : amenity['name'], 'img' : amenity['file']['Url']} for amenity in amenitites if amenity['file']]
+            context['amenitites'] = amenitites
+        # GET NEAR BY DATA
+        near_by = {}
+        if(hotel_data and hotel_data.get('nearbiesWithDistances')):
+            
+            for nearby in hotel_data.get('nearbiesWithDistances'):
+                type = nearby.get('type')
+                if type not in near_by:
+                    near_by[type] = []
+                if nearby.get('file'):
+                    file = nearby.get('file')['Url']
+                near_by[type].append({'name' : nearby.get('name'), 'distance' : nearby.get('distance'), 'img' : file })
+            
+        context['near_by'] = near_by
+    except Exception as e:
+        print(f"Error fetching hotel data: {e}")
+    return render(request, 'hotels/hotel_detail_page_main.html', context) 
+
+def BookHotel(request):
+    pass
+    

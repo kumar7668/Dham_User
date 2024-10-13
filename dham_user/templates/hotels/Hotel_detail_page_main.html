@@ -1,0 +1,1046 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %} 
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<style>
+    .detail-title{
+        justify-content : space-between;
+        align-items : center;
+    }
+    .image-section{
+        justify-content : space-between;
+    }
+    .image-section img{
+        border-radius : 10px;
+    }
+    .grid-images{
+        display : grid;
+        gap: 15px;
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .detail-main-img{
+        height : 506px;
+        width : auto;
+    }
+    .grid-images img {
+        height : 243px;
+        width : 253px;
+    }
+    .form-style{
+        border : 1px solid black;
+        border-radius : 10px;
+    }
+    .booking-card {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .form_head_txt {
+        display: flex;
+        justify-content: space-between;
+        align-item : center;
+    }
+    .booking_guide_price {
+        font-family: var(--default-font);
+        font-size: 26px;
+        font-weight: 600;
+        line-height: 26px;
+        text-align: left;
+        color: var(--theme-red-color);
+        margin-top : 3px;
+    }
+    .booking_guide_price_hours {
+        font-family: var(--default-font);
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 26px;
+        text-align: left;
+        color: var(--theme-secondary-color);
+    }
+    .book_guide_from hr, .booking-card hr {
+        color: #919191 !important;
+        margin: 1rem 0;
+        border: 0;
+        border-top: var(--bs-border-width) solid;
+        opacity: 1.25;
+    }
+    .from_date, .to_date, .form-label {
+        font-weight: 600;
+        font-size: 16px;
+        color: var(--theme-secondary-color);
+    }
+    .book_guide_from #from-date, .book_guide_from #to-date, .book_guide_from #hours {
+        border: none;
+        color: var(--theme-secondary-color);
+    }
+    .form_price_txt{
+        font-size : 18px;
+    }
+    .non-refund{
+        font-size : 12px;
+    }
+    .form_from_txt{
+        font-weight : 600;
+        font-size : 24px;
+        line-height : 29.05px;
+    }
+    .custom-select-wrapper {
+        position: relative;
+        width: 100%;
+        margin-bottom: 15px;
+    }
+    .custom-select {
+        position: relative;
+        display: inline-block;
+        width: 
+        100%;
+    }
+    .custom-select i {
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        pointer-events: none;
+        font-size: 14px;
+        color: #333;
+    }
+    .booking-total, .gst-section, .total-section {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 5px;
+        font-family: var(--default-font);
+        color: var(--theme-secondary-color);
+    }
+    .total-section {
+        font-weight: 600;
+    }
+    .book-btn {
+        font-family: var(--default-font);
+        font-size: 16px;
+        font-weight: 600;
+        margin-top: 20px;
+        width: 100%;
+        padding: 10px;
+        background-color: var(--theme-red-color);
+        color: white;
+        border: none;
+        border-radius: 30px;
+    }
+    .nearby_title{
+        font-weight : 600;
+        font-size : 16px;
+        line-height : 22.99px;
+    }
+    .nearby_images img{
+        height : 46px;
+        width : 67px;
+    }
+    .review-card_title_div {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+    .review-card_title {
+        font-family: var(--default-font);
+        color: var(--theme-secondary-color);
+        font-size: 22px;
+        font-weight: 600;
+        line-height: 28.05px;
+        /* padding: 5px 5px 20px 5px; */
+    }
+    .review-card_title_div .dropdown {
+        text-align: end;
+    }
+    /* swiper-container  */
+
+    .swiper-container {
+        width: 100vw;
+        padding: 5px 5px 5px 5px;
+        overflow: hidden;
+        position: relative;
+    }
+    .swiper-wrapper{
+        display : flex;
+    }
+    .swiper-slide {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        {% comment %} box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); {% endcomment %}
+        width: calc(80% - 20px); /* Adjust the width */
+        margin-right: 20px; /* Space between slides */
+      }
+      .review-card {
+        padding-bottom: 0 !important;
+        padding: 15px;
+        text-align: left;
+      }
+      
+      .reviewer-img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        margin-bottom: 10px;
+      }
+    
+      .review-card p{
+        padding: 0;
+        letter-spacing: 0.5px;
+        font-family: var(--default-font);
+        color:#919191;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 24px;
+        text-align: left;
+      }
+      .review-card .card_title{
+        font-family: var(--default-font);
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 29.05px;
+        text-align: left;
+        margin-left: 20px;
+      }
+      .card_title span{
+        padding: 0;
+        letter-spacing: 0.5px;
+        font-family: var(--default-font);
+        color:#919191;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 24px;
+        text-align: left;
+      }
+      .last-img-div{
+        position : relative;
+      }
+      .last-img-div a{
+        position : absolute;
+        top : 50%;
+        left : 50%;
+        transform : translate(-50%, -50%);
+        height : 98%;
+        width : 100%;
+        text-align : center;
+        padding-top: 44%;
+        color: white;
+        background-color: rgba(0, 0, 0, 0.3);
+        border-radius : 10px;
+      }
+      {% comment %} .row > .column {
+        padding: 0 8px;
+      }
+      
+      .row:after {
+        content: "";
+        display: table;
+        clear: both;
+      } {% endcomment %}
+      
+      /* Create four equal columns that floats next to eachother */
+      {% comment %} .column {
+        float: left;
+        width: 25%;
+      } {% endcomment %}
+      .all_img{
+        display: inline-flex;
+        overflow-x: scroll;
+        gap: 20px;
+        margin: 8px 1px;
+       }
+      .all_img .column{
+        display : inline-block;
+      }
+      .all_img .column img{
+        height : 100px;
+      }
+      /* The Modal (background) */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        padding-top: 100px;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: black;
+      }
+      
+      /* Modal Content */
+      .modal-content {
+        position: relative;
+        background-color: #fefefe;
+        margin: auto;
+        padding: 0;
+        width: 90%;
+        max-width: 1200px;
+      }
+      
+      /* The Close Button */
+      .close {
+        color: white;
+        position: absolute;
+        top: 10px;
+        right: 25px;
+        font-size: 35px;
+        font-weight: bold;
+      }
+      
+      .close:hover,
+      .close:focus {
+        color: #999;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      
+      /* Hide the slides by default */
+      .mySlides {
+        display: none;
+      }
+      
+      /* Next & previous buttons */
+      .prev,
+      .next {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        width: auto;
+        padding: 16px;
+        margin-top: -50px;
+        color: white;
+        font-weight: bold;
+        font-size: 20px;
+        transition: 0.6s ease;
+        border-radius: 0 3px 3px 0;
+        user-select: none;
+        -webkit-user-select: none;
+      }
+      
+      /* Position the "next button" to the right */
+      .next {
+        right: 0;
+        border-radius: 3px 0 0 3px;
+      }
+      
+      /* On hover, add a black background color with a little bit see-through */
+      .prev:hover,
+      .next:hover {
+        background-color: rgba(0, 0, 0, 0.8);
+      }
+      
+      /* Number text (1/3 etc) */
+      .numbertext {
+        color: #f2f2f2;
+        font-size: 12px;
+        padding: 8px 12px;
+        position: absolute;
+        top: 0;
+      }
+      
+      /* Caption text */
+      .caption-container {
+        text-align: center;
+        background-color: black;
+        padding: 2px 16px;
+        color: white;
+      }
+      
+      img.demo {
+        opacity: 0.6;
+      }
+      
+      .demo.active,
+      .demo:hover {
+        opacity: 1;
+      }
+      
+      img.hover-shadow {
+        transition: 0.3s;
+      }
+      
+      .hover-shadow:hover {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      }
+
+      {% comment %} share button {% endcomment %}
+      .puja-meta .dropdown {
+        
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        border-radius:8px;
+        background-color: white;
+        border: 1px solid #ccc;
+        min-width: 125px;
+        box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+    }
+
+    .puja-meta .dropdown button {
+        background-color: white;
+        color: black;
+        font-size:small;
+        padding: 5px;
+        text-align: left;
+        border: none;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .puja-meta .dropdown button i {
+        margin-right: 10px;
+    }
+
+    .puja-meta .dropdown button:hover {
+        background-color: #f1f1f1;
+    }
+    .puja-meta .share {
+      color: var(--theme-secondary-color);
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      font-family: var(--default-font);
+  
+    }
+    .puja-meta .share i{
+        color: var(--theme-red-color);
+        padding-right: 5px;
+    }
+
+    .share:hover .dropdown {
+        display: block;
+    }
+
+    .share {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+    }
+    {% comment %} MOST POPULAR FACILITIES {% endcomment %}
+    .mpf-main {
+      gap : 18px;
+      align-items : center;
+      flex-wrap : wrap;
+    }
+    .mpf-main div{
+      display : flex;
+      gap : 10px;
+      align-items : center;
+    }
+      @media (max-width: 991px) {
+        .af-flex {
+            gap : 40px;
+        }
+      }
+      @media (max-width: 522px) {
+        .form_head_txt.gap-4 {
+            flex-direction : column;
+        }
+      }
+</style>
+    <!-- Hero Section -->
+     <section id="hero" class="hero section">
+        <div class="hero-bg">
+        <img src="{% static 'img/hotel_listing_page_bg.png' %}" alt="hotel_listing_page_bg">
+        </div>
+
+        <div class="container text-center">
+            <div class="d-flex flex-column justify-content-center align-items-center">
+                <h1 class="h1_ttile" data-aos="zoom-out" data-aos-delay="230">Search Hotel</h1>       
+                <form class="container txt-center" action="" method="post" data-aos="fade-up" data-aos-delay="110">
+                    {% csrf_token %}
+                    <div class="custom_search_box">
+                        <!-- Text input area for City or Hotel search -->
+                        <div class="">
+                            <input type="text" name="search" class="form-control txt_input" placeholder="Search for City or Hotel">
+                        </div>
+                        {% comment %} <div class="row p-0  base-seach-col">
+                            <!-- HTML5 Date Picker -->
+                            <div class="col-lg-5 col-md-6 mb-3 check-in-col">
+                                <div class="p-0 m-0 ">
+                                    <label for="adults" class="">Check In/Out</label>
+                                    <input type="text" class="form-control flatpickr rm_bd_bg " placeholder="Select Date">
+                                </div>
+                                <div class="p-0 m-0 d-none">
+                                    <label for="adults" class="">Check Out</label>
+                                    <input type="text" class="form-control flatpickr" placeholder="Select Date">
+                                </div>
+                            </div>
+
+                            <!-- Adults dropdown -->
+                            <div class="col-lg-3 col-md-6 mb-3 room-col">
+                                <label for="adults" class="">Rooms</label>
+                                <select name="" id="adults" class="form-control rm_bd_bg" fdprocessedid="nfa5qe">
+                                    <option selcted value="">Select</option>
+                                    <option value="">1</option>
+                                    <option value="">2</option>
+                                    <option value="">3</option>
+                                    <option value="">4+</option>
+                                </select>
+                            </div>
+        
+                            <!-- Children dropdown -->
+                            <div class="col-lg-4 col-md-6 mb-3 guest-col">
+                                <label for="children" class="">Guests</label>
+                                <select name="" id="children" class="form-control rm_bd_bg " fdprocessedid="5xmtc9">
+                                    <option selcted value="">No. of Guests</option>
+                                    <option value="">1</option>
+                                    <option value="">2</option>
+                                    <option value="">3</option>
+                                    <option value="">4+</option>
+                                </select>
+                            </div>
+                        </div> {% endcomment %}
+        
+                        <!-- Search button -->
+                        <div class="text-right" style="position: absolute;right: 0;top: 5px;">
+                            <input type="submit" class="btn btn-primary" value="Search">
+                        </div>
+                    </div>
+                    <div class="error-message"></div>
+                </form>
+            </div>
+        </div>
+
+    </section>
+    <!-- /Hero Section End -->
+
+    <section id="hotel_listing_page class_for_all_sections" class="">
+        <div class="container">
+            {% comment %} title section  {% endcomment %}
+            <div class = 'd-flex detail-title'>
+                <h3>{{name}}</h3>
+
+                <div class="puja-meta">
+                  <!-- Share icon with dropdown -->
+                  <div class="share">
+                      <span><i class="bi bi-share-fill"></i> Share</span>
+                      <!-- Dropdown menu -->
+                      <div class="dropdown">
+                          <button onclick="shareVideoWhatsApp()"><i class="bi bi-whatsapp"></i> WhatsApp</button>
+                          <button onclick="shareVideoFacebook()"><i class="bi bi-facebook"></i> Facebook</button>
+                          <button onclick="shareVideoTwitter()"><i class="bi bi-twitter"></i> Twitter</button>
+                          <button onclick="shareVideoInstagram()"><i class="bi bi-instagram"></i> Instagram</button>
+                          <button onclick="shareVideoEmail()"><i class="bi bi-envelope-fill"></i> Email</button>
+                      </div>
+                  </div>
+              </div>
+
+            </div>
+            {% comment %} FULL ADDRESS {% endcomment %}
+            <div class = ''>
+                <svg width="18" height="22" viewBox="0 0 18 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 0.5C6.81276 0.50258 4.71584 1.3726 3.16922 2.91922C1.62261 4.46584 0.752586 6.56276 0.750005 8.75C0.747994 10.5373 1.33179 12.276 2.41201 13.7C2.41201 13.7 2.63701 13.9963 2.67376 14.039L9 21.5L15.3293 14.0353C15.3623 13.9955 15.588 13.7 15.588 13.7L15.5888 13.6978C16.6682 12.2743 17.2517 10.5365 17.25 8.75C17.2474 6.56276 16.3774 4.46584 14.8308 2.91922C13.2842 1.3726 11.1872 0.50258 9 0.5ZM9 11.75C8.40666 11.75 7.82664 11.5741 7.33329 11.2444C6.83995 10.9148 6.45543 10.4462 6.22837 9.89805C6.0013 9.34987 5.94189 8.74667 6.05765 8.16473C6.1734 7.58279 6.45913 7.04824 6.87868 6.62868C7.29824 6.20912 7.83279 5.9234 8.41473 5.80764C8.99668 5.69189 9.59988 5.7513 10.1481 5.97836C10.6962 6.20542 11.1648 6.58994 11.4944 7.08329C11.8241 7.57664 12 8.15666 12 8.75C11.999 9.54535 11.6826 10.3078 11.1202 10.8702C10.5578 11.4326 9.79535 11.749 9 11.75Z" fill="#E52B50"/>
+                </svg>
+                {{address}}
+            </div>
+            {% comment %} IMAGES {% endcomment %}
+            <div class = 'd-flex image-section pt-2'>
+                <img class = "detail-main-img" src="{{DetailImages.0}}" alt="Image 1 ">
+                <div class = "grid-images">
+                  {% if DetailImages|length <= 5 %}
+                    {% for img in DetailImages|slice:"1:" %}
+                        <div><img src="{{img}}" alt="Image 1" /></div>
+                    {% endfor %}
+                  {% else %}
+                    <div><img src="{{DetailImages.1}}" alt="Image 1" /></div>
+                    <div><img src="{{DetailImages.2}}" alt="Image 1" /></div>
+                    <div><img src="{{DetailImages.3}}" alt="Image 1" /></div>
+                    <div class = "last-img-div">
+                      <img src="{{DetailImages.4}}" alt="Image 1">
+                      <a href = '#' onclick = "openModal()">+{{DetailImages|length|add:'-5'}} photos</a>
+                  </div>
+                  {% endif %}
+                  
+                </div>
+            </div>
+            {% comment %} ABOUT AND BOOK THIS FORM {% endcomment %}
+            <div class = 'row mt-4 af-flex'>
+                <div class = "col-lg-8 col-md-12">
+                    <div class = "d-flex flex-column">
+                        
+                        <div>
+                            <h3>About the Hotel</h3>
+                            <p>A wonderful serenity has taken possession of my entire soul, like these sweet mornings 
+                                of spring which I enjoy with my whole heart. I am alone, and feel the charm of existence 
+                                in this spot, which was created for the bliss of souls like mine. I am so happy, my dear 
+                                friend, so absorbed in the exquisite sense of mere tranquil existence, that I neglect 
+                                my talents.
+                            </p>
+                            <p>Lorem Ipsum decided to leave for the far World of Grammar. The Big Oxmox advised 
+                                her not to do so, because there were thousands of bad Comma wild Question Marks
+                                and devious Semikoli, but the Little Blind Text didn’t listen. She packed her seven 
+                                versalia, put her initial into the belt and made herself on the way. When she reached
+                                the first hills.
+                            </p>
+                        </div>
+                        <div class = "pt-3">
+                            <h5>Most popular facilities:
+                            </h5>
+                            <div class="d-flex mpf-main">
+                              {% for amenity in amenitites %}
+                                <div>
+                                    <img src = "{{amenity.img}}" alt = "{{amenity.name}}"/><span>{{amenity.name}}</span>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12">
+                    <div class="booking-card">
+                      <div class="form_head_txt">
+                        <span class="form_price_txt">Price</span><span class="non-refund">Non-Refundable</span>
+                      </div>  
+                      <div class="form_head_txt mt-3">
+                        <span class="form_from_txt">From</span>
+                        <p class="booking_guide_price m-0">₹ 290</p>
+                      </div>  
+                      
+                      <hr>
+                      <form class="book_guide_from">
+                        <input type="hidden" name="csrfmiddlewaretoken" value="aluyQgILrOeSzp9UeFxlbmrbv2ovIu96DKUyEXfZbdxq3Uz8YlR7dptal4YVIpwY">
+                        <div class="row ">
+                          <div class="col-6 ">
+                            <label for="from-date" class="form-label from_date">Check In</label>
+                            <input type="date" class="form-control p-0" id="from-date">
+                            <hr>
+                          </div>
+                          <div class=" col-6 ">
+                            <label for="to-date" class="form-label to_date">Check Out</label>
+                            <input type="date" class="form-control p-0" id="to-date">
+                            <hr>
+                          </div>
+                        </div>
+                        {% comment %} ROOMS {% endcomment %}
+                        <div class="custom-select-wrapper">
+                          <label for="hours" class="form-label">Room</label>
+                          <div class="custom-select">
+                            <select class="form-control" id="hours">
+                              <option value="2">2 hours</option>
+                              <option value="3">3 hours</option>
+                              <option value="4">4 hours</option>
+                            </select>
+                            <i class="bi bi-caret-down-fill"></i> <!-- Bootstrap Icon -->
+                          </div>
+                          <hr>
+                        </div>  
+
+                        {% comment %} Guests {% endcomment %}
+                        <div class="custom-select-wrapper">
+                          <label for="hours" class="form-label">Guests</label>
+                          <div class="custom-select">
+                            <select class="form-control" id="hours">
+                              <option value="2">2 guests, 1 infant, 1 pet </option>
+                              <option value="3">1 guests, 1 infant, 1 pet</option>
+                              <option value="4">1 guests, 1 infant</option>
+                            </select>
+                            <i class="bi bi-caret-down-fill"></i> <!-- Bootstrap Icon -->
+                          </div>
+                          <hr>
+                        </div>         
+                        <div class="booking-total">
+                          <span>₹290 x 2 hours</span><span>₹ 580.00</span>
+                        </div>
+                        <div class="total-section">
+                          <span>Total (incl. taxes)</span>
+                          <span id="total">₹ 684.4</span>
+                        </div>
+                        <button type="submit" class="book-btn">Book this Now</button>
+                      </form>
+                    </div>
+                  </div>
+            </div>
+
+            {% comment %} NEAR BY SECTION {% endcomment %}
+            {% comment %} {% if near_by%} {% endcomment %}
+            <div class = 'mt-5'>
+                <h5>Near by:</h5>
+                
+                <div class = "form_head_txt gap-4">
+                  {% for key,values in near_by.items %}
+                    <div>
+                        <div class = "nearby_title mb-3">{{key}}</div>
+                        <div class = "d-flex gap-2 flex-column">
+                        {% if values %}
+                        {% for val in values %}
+                          
+                              <div class = "d-flex gap-2 nearby_images">
+                                  <img src = "{{val.img}}" alt = 'none'>
+                                  <div> 
+                                      <div> {{val.name}} </div>
+                                      <div> {{val.distance}} </div> 
+                                  </div>
+                              </div>
+                          
+                        {% endfor %}
+                        {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+            </div>
+            {% comment %} {% endif %} {% endcomment %}
+
+            {% comment %} REVIEW SECTION {% endcomment %}
+            <div class="row mt-5">
+                <div class="review-card_title_div">
+                  <h1 class="review-card_title">From Our Guests: Reviews of Our Outstanding Guides</h1>
+                  <div class="dropdown d-lg-block d-md-block d-none d-sm-none ">
+                    <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                      Sort by: <span id="selected-option">Most Relevant</span> <span id="dropdown-icon">▼</span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <li><a class="dropdown-item" href="#" onclick="setSortOption('Most Relevant')">Most Relevant</a></li>
+                      <li><a class="dropdown-item" href="#" onclick="setSortOption('Newest First')">Newest First</a></li>
+                      <li><a class="dropdown-item" href="#" onclick="setSortOption('Oldest First')">Oldest First</a></li>
+                      <li><a class="dropdown-item" href="#" onclick="setSortOption('Highest Rated')">Highest Rated</a></li>
+                    </ul>
+                  </div>        
+                </div> 
+                <div class="container p-0 pt-2">
+                  <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                      <div class="swiper-slide">
+                        <div class="review-card">
+                          <div>
+                            <sapn class="d-flex">
+                              <img src="{% static 'img/guide.png' %}" alt="Reviewer" class="reviewer-img">
+                              <h4 class="card_title">Kierra Ekstrom Bothman<br><span>5 years on</span></h4>
+                            </span>
+                          </div>
+                          <p>Lorem Ipsum decided to leave for the far World of Grammar. The 
+                            Big Oxmox advised her not to do so, because there were thousands 
+                            of bad Comma wild Question Marksand devious Semikoli, but the 
+                            Little Blind Text didn’t listen. She packed her seven versalia, put her 
+                            initial into the belt and made herself on the way. </p>
+                        </div>
+                      </div>
+                      <div class="swiper-slide">
+                        <div class="review-card">
+                          <div>
+                            <sapn class="d-flex">
+                              <img src="{% static 'img/guide.png' %}" alt="Reviewer" class="reviewer-img">
+                              <h4 class="card_title">Kierra Ekstrom Bothman<br><span>5 years on</span></h4>
+                            </span>
+                          </div>
+                          <p>Lorem Ipsum decided to leave for the far World of Grammar. The 
+                            Big Oxmox advised her not to do so, because there were thousands 
+                            of bad Comma wild Question Marksand devious Semikoli, but the 
+                            Little Blind Text didn’t listen. She packed her seven versalia, put her 
+                            initial into the belt and made herself on the way. </p>
+                        </div>
+                      </div>
+                      <div class="swiper-slide">
+                        <div class="review-card">
+                          <div>
+                            <sapn class="d-flex">
+                              <img src="{% static 'img/guide.png' %}" alt="Reviewer" class="reviewer-img">
+                              <h4 class="card_title">Kierra Ekstrom Bothman<br><span>5 years on</span></h4>
+                            </span>
+                          </div>
+                          <p>Lorem Ipsum decided to leave for the far World of Grammar. The 
+                            Big Oxmox advised her not to do so, because there were thousands 
+                            of bad Comma wild Question Marksand devious Semikoli, but the 
+                            Little Blind Text didn’t listen. She packed her seven versalia, put her 
+                            initial into the belt and made herself on the way. </p>
+                        </div>
+                      </div>
+                      <div class="swiper-slide">
+                        <div class="review-card">
+                          <div>
+                            <sapn class="d-flex">
+                              <img src="{% static 'img/guide.png' %}" alt="Reviewer" class="reviewer-img">
+                              <h4 class="card_title">Kierra Ekstrom Bothman<br><span>5 years on</span></h4>
+                            </span>
+                          </div>
+                          <p>Lorem Ipsum decided to leave for the far World of Grammar. The 
+                            Big Oxmox advised her not to do so, because there were thousands 
+                            of bad Comma wild Question Marksand devious Semikoli, but the 
+                            Little Blind Text didn’t listen. She packed her seven versalia, put her 
+                            initial into the belt and made herself on the way. </p>
+                        </div>
+                      </div>
+                      <div class="swiper-slide">
+                        <div class="review-card">
+                          <div>
+                            <sapn class="d-flex">
+                              <img src="{% static 'img/guide.png' %}" alt="Reviewer" class="reviewer-img">
+                              <h4 class="card_title">Kierra Ekstrom Bothman<br><span>5 years on</span></h4>
+                            </span>
+                          </div>
+                          <p>Lorem Ipsum decided to leave for the far World of Grammar. The 
+                            Big Oxmox advised her not to do so, because there were thousands 
+                            of bad Comma wild Question Marksand devious Semikoli, but the 
+                            Little Blind Text didn’t listen. She packed her seven versalia, put her 
+                            initial into the belt and made herself on the way. </p>
+                        </div>
+                      </div>
+                      <div class="swiper-slide">
+                        <div class="review-card">
+                          <div>
+                            <sapn class="d-flex">
+                              <img src="{% static 'img/guide.png' %}" alt="Reviewer" class="reviewer-img">
+                              <h4 class="card_title">Kierra Ekstrom Bothman<br><span>5 years on</span></h4>
+                            </span>
+                          </div>
+                          <p>Lorem Ipsum decided to leave for the far World of Grammar. The 
+                            Big Oxmox advised her not to do so, because there were thousands 
+                            of bad Comma wild Question Marksand devious Semikoli, but the 
+                            Little Blind Text didn’t listen. She packed her seven versalia, put her 
+                            initial into the belt and made herself on the way. </p>
+                        </div>
+                      </div>
+                      <!-- Add more slides as needed -->
+                    </div>
+                  </div>
+            </div> 
+            
+            {% comment %} Property Policies: section {% endcomment %}
+            <div class = 'mt-5'>
+                <h3>Property Policies:</h3>
+                <ul>
+                    <li>Passport, Aadhar, Driving License and Govt. ID are accepted as ID proof(s)</li>
+                    <li>Hot Water available in all Rooms with a fixed time (06:00AM to 09:00AM)</li>
+                    <li>Outside food is not allowed</li>
+                    <li>Smoking within the premises is not allowed</li>
+                    <li>Alcohol consumption is not allowed within the property premises.</li>
+                    <li>This property is accessible to guests who use a wheelchair. Guests are requested to carry their own wheelchair.</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Mobile Filter Sticky Footer -->
+        <div class="sticky-footer d-md-none d-lg-none">
+            <div class="mob-container-footer">
+                <div class="row w-100">
+                    <div class="col-6">
+                        <button class="btn btn-primary btn-block filter-button" data-bs-toggle="modal" data-bs-target="#filterModal">
+                            <i class="fa fa-filter"></i> Filter
+                        </button>
+                    </div>
+                    <div class="col-6 text-right">
+                        <button id="clearFiltersMobile" class="btn btn-secondary btn-block">Clear Filters</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Filter Modal for Mobile -->
+        <div class="modal fade d-md-none" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="filterModalLabel">Filters</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Selected Filters Badges (Mobile Modal) -->
+                        <div class="selected-filters my-3 d-none">
+                            <div id="filterBadgesMobile" class="filterBadges d-flex flex-wrap d-none">
+                                <!-- Badges will be appended here dynamically -->
+                            </div>
+                        </div>
+                        <!-- Price Range Filter -->
+                        {% for price_range in formattedPriceRangeCounts %}
+                        <div class="form-group price-range-group d-flex justify-content-between">
+                            <div class="price-wraper p-0">
+                                <input type="checkbox" class="form-check-input filter-checkbox" id="selectPriceModal{{ forloop.counter }}" name="selectPrice" value="{{ price_range.value }}" {% if price_range.count == 0 %} disabled {% endif %}>
+                                <label class="form-check-label" for="selectPriceModal{{ forloop.counter }}"><span>{{ price_range.display }}</span></label>
+                            </div>
+                            <div class="price-count-wraper p-0"><span class="{% if price_range.count == 0  %}count-disabled{% endif %}">({{price_range.count}})</span></div>
+                        </div>
+                        {% endfor %}
+                        <div class="form-group mt-2">
+                            <label for="modalPriceRange">Price Range</label>
+                            <input type="text" class="form-control priceRange modalPriceRange" id="modalPriceRange" placeholder="₹0 - ₹500">
+                            <button id="applyPriceFilterModal" class="btn btn-primary apply-btn d-none mt-2">Apply</button>
+                        </div>
+
+                        <!-- Amenities Filter -->
+                        <div class="form-group mt-3">
+                            <label for="modalAmenities">Amenities</label>
+                            {% for amenity in amenities.amenities %}
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input filter-checkbox" id="modalAmenity{{ amenity.id }}" value="{{ amenity.id }}"
+                                        {% if amenity.id in selected_amenities %}checked{% endif %}>
+                                    <label class="form-check-label" for="modalAmenity{{ amenity.id }}">{{ amenity.name }}</label>
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <!-- Property Types Filter -->
+                        <div class="form-group mt-3">
+                            <label for="modalPropertyTypes">Property Types</label>
+                            {% for property_type in property_types.propertyType %}
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input filter-checkbox" id="modalPropertyType{{ property_type.id }}" value="{{ property_type.id }}"
+                                        {% if property_type.id in selected_property_types %}checked{% endif %}>
+                                    <label class="form-check-label" for="modalPropertyType{{ property_type.id }}">{{ property_type.name }}</label>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <!-- Optionally, add an 'Apply Filters' button here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- The Modal/Lightbox -->
+<div id="myModal" class="modal">
+    <span class="close cursor" onclick="closeModal()">&times;</span>
+    <div class="modal-content">
+      {% for img in DetailImages %}
+          <div class="mySlides">
+            <div class="numbertext">{{forloop.counter}} / {{DetailImages|length}}</div>
+            <img src="{{img}}" style="width:100%">
+          </div>
+      {% endfor %}
+      
+  
+      <!-- Next/previous controls -->
+      <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+      <a class="next" onclick="plusSlides(1)">&#10095;</a>
+  
+      <!-- Caption text -->
+      <div class="caption-container">
+        <p id="caption"></p>
+      </div>
+  
+        <!-- Thumbnail image controls -->
+        <div class = "all_img">
+          {% for img in DetailImages %}
+            <div class="column">
+                <img class="demo" src="{{img}}" onclick="currentSlide({{forloop.counter}})" alt="Nature">
+            </div>
+          {% endfor %}
+            
+        </div>
+    </div>
+</div>
+<script>
+    var swiper = new Swiper('.swiper-container', {
+        slidesPerView: 1.25,  // Mobile: 1 full slide and 15% of the next
+        spaceBetween: 20,    // Space between slides
+        centeredSlides: false,  // Align slides to the left
+        loop: true,  // Infinite looping
+        autoplay: {
+          delay: 3000,  // Auto-slide every 3 seconds
+          disableOnInteraction: false,  // Keep autoplay after interaction
+        }, 
+        speed: 800,  // Transition speed
+        breakpoints: {
+          768: {  // Tablet: 1 full slide and 30% of the next
+            slidesPerView: 1.6,
+          },
+          991: {  // Desktop: 2 full slides and 65% of the next
+            slidesPerView: 2.65,
+          },
+          1099: {  // Extra large screens: 3 full slides and 60% of the next
+            slidesPerView: 2.80,
+          },
+          1299: {  // Extra large screens: 3 full slides and 60% of the next
+            slidesPerView: 2.80,
+          },
+        },
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+    });
+</script>
+
+<script>
+    // Open the Modal
+    function openModal() {
+      document.getElementById("myModal").style.display = "block";
+    }
+    
+    // Close the Modal
+    function closeModal() {
+      document.getElementById("myModal").style.display = "none";
+    }
+    
+    var slideIndex = 5;
+    showSlides(slideIndex);
+    
+    // Next/previous controls
+    function plusSlides(n) {
+      showSlides(slideIndex += n);
+    }
+    
+    // Thumbnail image controls
+    function currentSlide(n) {
+      showSlides(slideIndex = n);
+    }
+    
+    function showSlides(n) {
+      var i;
+      var slides = document.getElementsByClassName("mySlides");
+      var dots = document.getElementsByClassName("demo");
+      var captionText = document.getElementById("caption");
+      if (n > slides.length) {slideIndex = 1}
+      if (n < 1) {slideIndex = slides.length}
+      for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+      }
+      for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+      }
+      slides[slideIndex-1].style.display = "block";
+      dots[slideIndex-1].className += " active";
+      captionText.innerHTML = dots[slideIndex-1].alt;
+    }
+
+
+    const hotelDetailLink = window.location.href
+    const text = 'Check out this hotel!';
+
+    // WhatsApp sharing
+    function shareVideoWhatsApp() {
+        const fullLink = `https://wa.me/?text=${encodeURIComponent(text + ' ' + hotelDetailLink)}`;
+        window.open(fullLink, '_blank');
+    }
+
+    // Facebook sharing
+    function shareVideoFacebook() {
+        const facebookShareURL = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(hotelDetailLink)}`;
+        window.open(facebookShareURL, '_blank');
+    }
+
+    // Twitter sharing
+    function shareVideoTwitter() {
+        const twitterShareURL = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(hotelDetailLink)}`;
+        window.open(twitterShareURL, '_blank');
+    }
+
+    // Instagram (No direct sharing, redirect to Instagram homepage)
+    function shareVideoInstagram() {
+        window.open('https://www.instagram.com/', '_blank');
+    }
+
+    // Email sharing
+    function shareVideoEmail() {
+        const subject = 'Gathbandhan Puja from Baba Baidyanath';
+        const body = `Check out this live puja video!\n\n${hotelDetailLink}`;
+        const mailtoLink = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        window.open(mailtoLink, '_self');
+    }
+    </script>
+    
+{% endblock %}
+
+

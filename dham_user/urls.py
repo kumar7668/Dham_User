@@ -16,6 +16,8 @@ urlpatterns = [
 
     # Hotels Listing or Details Routes 
     path('property-by-<str:property_city>/<str:property_city_id>/', views.get_hotel_by_city, name='property_by_city'),
+    path('about-hotel/<str:city_id>/<str:hotel_id>/', views.detail_page_hotel, name='detail_page_hotel'),
+    path('book_hotel/', views.BookHotel, name='book_hotel'),
 
     # Guide Listing or Details Routes 
     path('guide/', views.guide, name='guide'),
