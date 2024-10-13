@@ -5,32 +5,6 @@
 {% block content %}
 
 <style>
-.live_darshan_detail .title {
-    font-family: var(--default-font);
-    color: var(--theme-secondary-color);
-    font-size: 28px;
-    font-weight: 600;
-    line-height: 33.89px;
-    text-align: left;
-}
-
-.live_darshan_detail .about_live {
-    font-family: var(--default-font);
-    color: var(--theme-secondary-color);
-    font-size: 24px;
-    font-weight: 600;
-    line-height: 33.89px;
-    text-align: left;
-}
-
-.live_darshan_detail .location{
-    font-family: var(--default-font);
-    color: #919191;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 24.2px;
-    text-align: left;
-}
 
 .live_darshan_detail p, ul {
     margin-bottom: 20px;
@@ -48,42 +22,12 @@
     margin-right: 5px;
 }
 
-.puja-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-   
-}
 .video-container_head{
     max-width: 801px;
     border-radius: 12px;
 }
 .item-center{
     text-align: -webkit-center;
-}
-
-.puja-meta {
-    margin: 0 20px 0 0px;
-    display: flex;
-    gap: 10px;
-    cursor: pointer;
-}
-
-.live_darshan_detail .share {
-    color: var(--theme-secondary-color);
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    font-family: var(--default-font);
-
-}
-.live_darshan_detail .share i{
-    color: var(--theme-red-color);
-    padding-right: 5px;
-}
-.live_darshan_detail .location i{
-    color: var(--theme-red-color);
 }
     
 .overlay {
@@ -97,63 +41,9 @@
     font-size: 40px;
 } 
 
-.about-section {
-    margin-bottom: 20px;
-}
-
-.about-section p {
-    font-family: var(--default-font);
-    color: #919191;
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 31px;
-    text-align: left;
-}
-.benefits_section{
-    font-family: var(--default-font);
-    font-size: 18px;
-    font-weight: 600;
-    line-height: 29.05px;
-    text-align: left;
-}
-
-.benefits-section {
-    margin-bottom: 20px;
-}
-
-.benefits-section ul {
-    margin: 0;
-}
-
-.benefits-section li {
-    font-family: var(--default-font);
-    color: #919191;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 30px;
-    text-align: left;
-}
-
 /* Responsive Design */
 @media (max-width: 768px) {
-    .puja-meta .dropdown {
-        margin: 0 0 0 -30px;
-    }
-
-    .puja-header h1 {
-        font-size: 20px;
-    }
-
-    .puja-meta {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .location, .share {
-        font-size: 14px;
-
-    }
-
+   
     .play-button {
         width: 50px;
         height: 50px;
@@ -183,13 +73,13 @@
          .vdo_tag_desktop_poster {
              display: none !important; /* Hide the desktop poster image */
          }
-     }
+    }
  
-     .vdo_tag_desktop_poster {
+    .vdo_tag_desktop_poster {
          display: block; /* Show the desktop poster image */
-     }
+    }
 
-     .live-badge {
+    .live-badge {
         position: absolute;
         top: 10px;
         left: 10px;
@@ -200,50 +90,7 @@
         font-size: 12px;
         z-index: 1;
     }
-    .puja-meta .dropdown {
-        
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        border-radius:8px;
-        background-color: white;
-        border: 1px solid #ccc;
-        min-width: 125px;
-        box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-        z-index: 1;
-    }
-
-    .puja-meta .dropdown button {
-        background-color: white;
-        color: black;
-        font-size:small;
-        padding: 5px;
-        text-align: left;
-        border: none;
-        width: 100%;
-        display: flex;
-        align-items: center;
-        cursor: pointer;
-    }
-
-    .puja-meta .dropdown button i {
-        margin-right: 10px;
-    }
-
-    .puja-meta .dropdown button:hover {
-        background-color: #f1f1f1;
-    }
-
-    .share:hover .dropdown {
-        display: block;
-    }
-
-    .share {
-        position: relative;
-        display: inline-block;
-        cursor: pointer;
-    }
+      
     .ytp-copylink-button, .ytp-show-copylink-title, .ytp-copylink-button-visible{
         display:none;
     }
@@ -253,9 +100,9 @@
 </style>
 
 
-<section id ="class_for_all_sections " class="mt-5 class_for_all_sections live_darshan_detail" >
-    <div class="container" > 
-        <h1 class="title">Gathbandhan Puja from Baba Baidyanath</h1>
+<section id ="sections_detail_page " class="mt-5 sections_detail_page live_darshan_detail" >
+    <div class="container pt-4 pb-5" > 
+        <h1 class="title h2_title">Gathbandhan Puja from Baba Baidyanath</h1>
         <div class="puja-header" >
             <h6 class="location"><i class="bi bi-geo-alt"></i> Deoghar</h6>
             <div class="puja-meta">
@@ -273,42 +120,39 @@
                 </div>
             </div>
         </div>
-    <!-- Image with Overlay -->
-    <div class="container item-center p-0" data-aos="fade-up" data-aos-delay="150">
-        <div class="video-container video-container_head" onclick="hideOverlay()">
-            <div class="live-badge">Live</div>
-            
-            <!-- Video player -->
-            <video controls style="cursor: pointer;" class="vdo_tag vdo_tag_desktop_poster-x" poster="{% static 'img/kedarnath-cover.jpg' %}">
-            </video>
-            
-            <!-- Overlay with Share button -->
-            <div class="overlay" id="overlay">
+        <!-- Image with Overlay -->
+        <div class="container item-center p-0" data-aos="fade-up" data-aos-delay="150">
+            <div class="video-container video-container_head" onclick="hideOverlay()">
+                <div class="live-badge">Live</div>
+                
+                <!-- Video player -->
                 <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="glightbox btn-watch-video d-flex align-items-center">
-                    <i class="bi bi-play-circle"></i><span>Watch Video</span>
+                    <video controls style="cursor: pointer;" class="vdo_tag vdo_tag_desktop_poster-x" poster="{% static 'img/kedarnath-cover.jpg' %}">
+                    </video>
                 </a>
-
+                <!-- Overlay with Share button -->
+                <div class="overlay" id="overlay">
+                <i class="bi bi-play-circle color-fff"></i>
+                </div>
             </div>
         </div>
-    </div>
     
+        <!-- About Section -->
+        <div class="container py-4 about-section p-0"  data-aos="fade-up" data-aos-delay="140">
+            <h2 class="about_live">About the Baba Baidyanath</h2>
+            <p>The story states that Vishnu took the form of a Shepherd named Baiju Gadariya. While Ravana went to perform Surya Namaskaram, he gave a lingam to this cowherd. Due to the presence of Varun Dev, Ravana took a very long time. Baiju got angry, having to wait for Ravana, for a very long time. He then positioned the lingam on the ground and left the place. Upon returning, Ravana attempted to pick up the lingam, but was unsuccessful in his endeavor. Ravana became upset after realizing this was the doing of Lord Vishnu and proceeded to press his thumb onto the lingam before departing which partially damaged the Shiv Lingam. The Shiva lingam was then worshipped by Brahma, Vishnu, and other deities and they constructed the Baidyanath Temple.
+            Since then, Mahadev has taken up residence in Deoghar as the embodiment of the Kamna Linga</p>
+        </div>
 
-    <!-- About Section -->
-    <div class="container py-4 about-section p-0"  data-aos="fade-up" data-aos-delay="140">
-        <h2 class="about_live">About the Baba Baidyanath</h2>
-        <p>The story states that Vishnu took the form of a Shepherd named Baiju Gadariya. While Ravana went to perform Surya Namaskaram, he gave a lingam to this cowherd. Due to the presence of Varun Dev, Ravana took a very long time. Baiju got angry, having to wait for Ravana, for a very long time. He then positioned the lingam on the ground and left the place. Upon returning, Ravana attempted to pick up the lingam, but was unsuccessful in his endeavor. Ravana became upset after realizing this was the doing of Lord Vishnu and proceeded to press his thumb onto the lingam before departing which partially damaged the Shiv Lingam. The Shiva lingam was then worshipped by Brahma, Vishnu, and other deities and they constructed the Baidyanath Temple.
-         Since then, Mahadev has taken up residence in Deoghar as the embodiment of the Kamna Linga</p>
-    </div>
-
-    <!-- Benefits Section -->
-    <div class="container benefits-section p-0"  data-aos="fade-up" data-aos-delay="140">
-        <h3 class="benefits_section">Benefits of Gathbandhan Puja:</h3>
-        <ul>
-            <li>Puja is an excellent way to cultivate a deeper sense of spirituality and connect with the divine. By engaging in rituals and devotions, practitioners develop a greater awareness of their inner selves and the world around them.</li>
-            <li>Puja is an excellent way to cultivate a deeper sense of spirituality and connect with the divine. By engaging in rituals and devotions, practitioners develop a greater awareness of their inner selves and the world around them.</li>
-            <li>Puja is an excellent way to cultivate a deeper sense of spirituality and connect with the divine. By engaging in rituals and devotions, practitioners develop a greater awareness of their inner selves and the world around them.</li>
-        </ul>
-    </div>
+        <!-- Benefits Section -->
+        <div class="container benefits-section p-0"  data-aos="fade-up" data-aos-delay="140">
+            <h3 class="benefits_section">Benefits of Gathbandhan Puja:</h3>
+            <ul>
+                <li>Puja is an excellent way to cultivate a deeper sense of spirituality and connect with the divine. By engaging in rituals and devotions, practitioners develop a greater awareness of their inner selves and the world around them.</li>
+                <li>Puja is an excellent way to cultivate a deeper sense of spirituality and connect with the divine. By engaging in rituals and devotions, practitioners develop a greater awareness of their inner selves and the world around them.</li>
+                <li>Puja is an excellent way to cultivate a deeper sense of spirituality and connect with the divine. By engaging in rituals and devotions, practitioners develop a greater awareness of their inner selves and the world around them.</li>
+            </ul>
+        </div>
     </div>
 </section>
 

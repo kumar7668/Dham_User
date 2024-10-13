@@ -17,8 +17,8 @@
     // Get the current page URL (pathname)
     const currentPath = window.location.pathname;
   
-    // List of static pages where the scrolled class should always be added
-    const staticScrolledPages = ['/live_darshan/live_darshan_detail', '/about', '/contact', '/privacy-policy']; // Adjust paths as per your site structure
+    // List of static pages where the scrolled class should always be added  /e-pooja-detial
+    const staticScrolledPages = ['/live_darshan/live_darshan_detail', '/e-pooja-detial', '/about-us', '/contact', '/privacy-policy']; // Adjust paths as per your site structure
     
     // Add scrolled class if the page is one of the static scrolled pages, otherwise toggle based on scroll position
     if (staticScrolledPages.includes(currentPath)) {

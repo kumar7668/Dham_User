@@ -4,160 +4,282 @@
 {% load static %}
 {% block content %}
 <style>
-
-
-.puja-section .container {
-    display: flex;
-    flex-wrap: wrap;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-.puja-section {
-    margin: 30px 0;
-}
-
-.left-content, .right-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.left-content {
-    flex: 2;
-    margin-right: 20px;
-}
-
-.right-content {
-    flex: 1;
-    min-width: 300px;
-}
-
-.puja-image {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-    margin-bottom: 20px;
-}
-
-/* Styling the form */
-form {
-    display: flex;
-    flex-direction: column;
-}
-
-form label {
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-form input, form textarea {
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 16px;
-}
-
-form textarea {
-    resize: none;
-}
-
-form button {
-    padding: 12px;
-    background-color: #ff4a4a;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-form button:hover {
-    background-color: #e84343;
-}
-
-/* Price box styles */
-.price-box {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.price-box span {
-    font-size: 18px;
-    color: #666;
-}
-
-.price-box h2 {
-    color: #ff4a4a;
-    font-size: 24px;
-}
-
-/* Responsive styles */
-@media (max-width: 768px) {
-    .puja-section .container {
+    .puja-detail-section .page-cont {
+        display: flex;
+        flex-wrap: wrap;
+        margin: -10px auto;
+    }
+    
+    .puja-detail-section {
+        margin: 30px 0;
+    }
+    
+    .left-content {
+        background-color: transparent;
+        padding: 5px;
+        flex: 2;
+        margin-right: 20px;
+    }
+    
+    .right-content {
+        margin: 10px 0 0 0px;
+        background: var(--theme-card-bg-color);
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        height: max-content;
+        flex: 1;
+        min-width: 300px;
+    }
+    
+    .puja-image {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border: 1px solid #ddd;
+    }
+    
+    /* Form styles */
+    .puja-detail-section form {
+        padding: 0 10px;
+        display: flex;
         flex-direction: column;
     }
-
-    .left-content {
-        margin-right: 0;
-        margin-bottom: 20px;
+    
+    .puja-detail-section form label {
+        margin-bottom: 5px;
+        font-weight: bold;
     }
-
-    .right-content {
-        min-width: 100%;
+    
+    .puja-detail-section form input,
+    .puja-detail-section form textarea {
+        border: none;
+        padding: 0px;
+        margin-bottom: -5px;
+        border-radius: 5px;
+        font-size: 16px;
+        background: transparent;
+        outline: none;
+        color: var(--theme-secondary-color);
+        font-family: var(--default-font);
     }
-}
+    
+    .puja-detail-section form input:hover,
+    .puja-detail-section form textarea:hover,
+    .puja-detail-section form input:focus,
+    .puja-detail-section form textarea:focus {
+        border: none;
+        background: transparent;
+        outline: none;
+    }
+    
+    .puja-detail-section form textarea {
+        resize: none;
+    }
+    
+    .puja-detail-section form button:hover {
+        background-color: #e84343;
+    }
+    
+    /* Price box styles */
+    .price-box {
+        padding: 5px 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+    
+    .price-box span {
+        font-size: 18px;
+        color: #666;
+    }
+    
+    .price-box h2 {
+        color: var(--theme-red-color);
+        font-size: 24px;
+    }
+    
+    /* Responsive styles for tablet and mobile */
+    @media (max-width: 991px) {
+        .puja-detail-section .page-cont {
+            flex-direction: column;
+        }
+    
+        .left-content {
+            order: 1;
+            margin-right: 0;
+            width: 100%;
+            text-align: center;
+        }
+    
+        .right-content {
+            order: 2;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+    
+        .about-section,
+        .benefits-section {
+            order: 3;
+            width: 100%;
+        }
+    }
+    
+    /* Mobile view - rearrange order */
+    @media (max-width: 767px) {
+        .puja-detail-section .page-cont {
+            flex-direction: column;
+        }
+    
+        .left-content {
+            order: 1; /* Image first */
+            width: 100%;
+            text-align: center;
+        }
+    
+        .about-section {
+            order: 2; /* About section next */
+        }
+    
+        .benefits-section {
+            order: 3; /* Benefits section third */
+        }
+    
+        .right-content {
+            order: 4; /* Form at the bottom */
+            width: 100%;
+            text-align: left;
+        }
+    }
+    
 </style>
 
 
-    <section class="puja-section" style="margin-top:50px;">
-        <div class="container">
-            <!-- Left Side Content -->
-            <div class="left-content">
-                <h1>Gathbandhan Puja from Baba Baidyanath</h1>
-                <p class="location"><i class="icon-location"></i> Deoghar</p>
-                <img src="{% static 'img/kedarnath-cover.jpg' %}" alt="Baba Baidyanath Image" class="puja-image">
-                
-                <h2>About the Baba Baidyanath</h2>
-                <p>Lorem Ipsum decided to leave for the far World of Grammar...</p>
-
-                <h3>Benefits of Gathbandhan Puja:</h3>
-                <ul>
-                    <li>Lorem Ipsum decided to leave for the far World of Grammar...</li>
-                    <li>Lorem Ipsum decided to leave for the far World of Grammar...</li>
-                    <li>Lorem Ipsum decided to leave for the far World of Grammar...</li>
-                </ul>
-            </div>
-
-            <!-- Right Side Form -->
-            <div class="right-content">
-                <div class="price-box">
-                    <span>Price</span>
-                    <h2>₹ 1,200</h2>
+    <section id="sections_detail_page" class="sections_detail_page puja-detail-section">
+        <div class="container pt-4 pb-5">
+            <h1 class=" h2_title">Gathbandhan Puja from Baba Baidyanath</h1>
+            <div class="puja-header" >
+                <h6 class="location"><i class="bi bi-geo-alt"></i> Deoghar</h6>
+                <div class="puja-meta">
+                    <!-- Share icon with dropdown -->
+                    <div class="share">
+                        <span><i class="bi bi-share-fill"></i> Share</span>
+                        <!-- Dropdown menu -->
+                        <div class="dropdown">
+                            <button onclick="shareVideoWhatsApp()"><i class="bi bi-whatsapp"></i> WhatsApp</button>
+                            <button onclick="shareVideoFacebook()"><i class="bi bi-facebook"></i> Facebook</button>
+                            <button onclick="shareVideoTwitter()"><i class="bi bi-twitter"></i> Twitter</button>
+                            <button onclick="shareVideoInstagram()"><i class="bi bi-instagram"></i> Instagram</button>
+                            <button onclick="shareVideoEmail()"><i class="bi bi-envelope-fill"></i> Email</button>
+                        </div>
+                    </div>
                 </div>
-                <form>
-                    {% csrf_token %}
-                    <label for="date">Date</label>
-                    <input type="date" id="date" name="date" value="2024-08-23">
+            </div>  
+            <div class="container page-cont p-0">
+                <!-- Left Side Content -->
+                <div class="left-content">
+                    <img src="{% static 'img/kedarnath-cover.jpg' %}" alt="Baba Baidyanath Image" class="puja-image">
+                     <!-- About Section -->
+                </div>
 
-                    <label for="name">Name</label>
-                    <input type="text" id="name" name="name" placeholder="Full Name">
+                <!-- Right Side Form -->
+                <div class="right-content">
+                    <div class="price-box">
+                        <span>Price</span>
+                        <h2>₹ 1,200</h2>
+                    </div>
+                    <form>
+                        {% csrf_token %}
+                        <div class="date d-grid">
+                            <label for="date">Date</label>
+                            <input type="date" id="date" name="date" value="2024-08-23">
+                            <hr>
+                        </div>
 
-                    <label for="gotra">Gotra</label>
-                    <input type="text" id="gotra" name="gotra" placeholder="Person Gotra">
+                        <div class="d-grid">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" placeholder="Full Name">
+                            <hr>
+                        </div>
 
-                    <label for="note">Note</label>
-                    <textarea id="note" name="note" placeholder="Write Note"></textarea>
+                        <div class="d-grid">
+                            <label for="gotra">Gotra</label>
+                            <input type="text" id="gotra" name="gotra" placeholder="Person Gotra">
+                            <hr>
+                        </div>
 
-                    <button type="submit">Book this Now</button>
-                </form>
+                        <div class="d-grid">
+                            <label for="note">Note</label>
+                            <textarea id="note" name="note" placeholder="Write Note"></textarea>
+                            <hr>
+                        </div>  
+                        <div>
+                            <button class="book-btn" type="submit">Book this Now</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+           
+            <div class="container py-4 about-section p-0"  data-aos="fade-up" data-aos-delay="140">
+                <h2 class="about_live">About the Baba Baidyanath</h2>
+                <p>The story states that Vishnu took the form of a Shepherd named Baiju Gadariya. While Ravana went to perform Surya Namaskaram, he gave a lingam to this cowherd. Due to the presence of Varun Dev, Ravana took a very long time. Baiju got angry, having to wait for Ravana, for a very long time. He then positioned the lingam on the ground and left the place. Upon returning, Ravana attempted to pick up the lingam, but was unsuccessful in his endeavor. Ravana became upset after realizing this was the doing of Lord Vishnu and proceeded to press his thumb onto the lingam before departing which partially damaged the Shiv Lingam. The Shiva lingam was then worshipped by Brahma, Vishnu, and other deities and they constructed the Baidyanath Temple.
+                Since then, Mahadev has taken up residence in Deoghar as the embodiment of the Kamna Linga</p>
+            </div>
+            <!-- Benefits Section -->
+            <div class="container benefits-section p-0"  data-aos="fade-up" data-aos-delay="140">
+                <h3 class="benefits_section">Benefits of Gathbandhan Puja:</h3>
+                <ul>
+                    <li>Puja is an excellent way to cultivate a deeper sense of spirituality and connect with the divine. By engaging in rituals and devotions, practitioners develop a greater awareness of their inner selves and the world around them.</li>
+                    <li>Puja is an excellent way to cultivate a deeper sense of spirituality and connect with the divine. By engaging in rituals and devotions, practitioners develop a greater awareness of their inner selves and the world around them.</li>
+                    <li>Puja is an excellent way to cultivate a deeper sense of spirituality and connect with the divine. By engaging in rituals and devotions, practitioners develop a greater awareness of their inner selves and the world around them.</li>
+                </ul>
             </div>
         </div>
     </section>
 
+    <script>
+   
+        // Function to hide overlay
+        function hideOverlay() {
+            {% comment %} document.getElementById('overlay').style.display = 'none'; {% endcomment %}
+        }
+    
+        const videoLink = 'window.location.href';
+        const text = 'Check out this E-Pooja service';
+    
+        // WhatsApp sharing
+        function shareVideoWhatsApp() {
+            const fullLink = `https://wa.me/?text=${encodeURIComponent(text + ' ' + videoLink)}`;
+            window.open(fullLink, '_blank');
+        }
+    
+        // Facebook sharing
+        function shareVideoFacebook() {
+            const facebookShareURL = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(videoLink)}`;
+            window.open(facebookShareURL, '_blank');
+        }
+    
+        // Twitter sharing
+        function shareVideoTwitter() {
+            const twitterShareURL = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(videoLink)}`;
+            window.open(twitterShareURL, '_blank');
+        }
+    
+        // Instagram (No direct sharing, redirect to Instagram homepage)
+        function shareVideoInstagram() {
+            window.open('https://www.instagram.com/', '_blank');
+        }
+    
+        // Email sharing
+        function shareVideoEmail() {
+            const subject = 'Gathbandhan Puja from Baba Baidyanath';
+            const body = `Check out this live puja video!\n\n${videoLink}`;
+            const mailtoLink = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            window.open(mailtoLink, '_self');
+        }
+    </script>
 {% endblock %}

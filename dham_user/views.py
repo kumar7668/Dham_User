@@ -109,7 +109,7 @@ def e_pooja(request):
     context={
         'data':'Data',
     }
-    return render(request, 'e_pooja.html', context)
+    return render(request, 'e-puja/e_pooja_base.html', context)
 
 def e_pooja_detail(request):
     context={
