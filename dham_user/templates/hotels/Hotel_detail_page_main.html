@@ -436,6 +436,10 @@
       gap : 10px;
       align-items : center;
     }
+    .mpf-main img{
+      height : 30px;
+      width : 30px;
+    }
       @media (max-width: 991px) {
         .af-flex {
             gap : 40px;
@@ -603,32 +607,25 @@
                       </div>  
                       <div class="form_head_txt mt-3">
                         <span class="form_from_txt">From</span>
-                        <p class="booking_guide_price m-0">₹ 290</p>
+                        <p class="booking_guide_price m-0">₹ {{price}}</p>
                       </div>  
                       
                       <hr>
-                      <form class="book_guide_from">
+                      <form method = "post" class="book_guide_from" action = "{% url 'book_hotel' %}">
                         <input type="hidden" name="csrfmiddlewaretoken" value="aluyQgILrOeSzp9UeFxlbmrbv2ovIu96DKUyEXfZbdxq3Uz8YlR7dptal4YVIpwY">
-                        <div class="row ">
-                          <div class="col-6 ">
-                            <label for="from-date" class="form-label from_date">Check In</label>
-                            <input type="date" class="form-control p-0" id="from-date">
-                            <hr>
-                          </div>
-                          <div class=" col-6 ">
-                            <label for="to-date" class="form-label to_date">Check Out</label>
-                            <input type="date" class="form-control p-0" id="to-date">
-                            <hr>
-                          </div>
+                        <div class="mb-3">
+                          <label for="date-range-picker-reservation" class="form-label">Check In / Check Out</label>
+                          <input type="text" name = "dateRange" class="form-control" id="date-range-picker-reservation" placeholder="Select dates" readonly>
                         </div>
                         {% comment %} ROOMS {% endcomment %}
                         <div class="custom-select-wrapper">
                           <label for="hours" class="form-label">Room</label>
                           <div class="custom-select">
-                            <select class="form-control" id="hours">
-                              <option value="2">2 hours</option>
-                              <option value="3">3 hours</option>
-                              <option value="4">4 hours</option>
+                            <select name = "No_of_rooms" class="form-control" id="hours">
+                              <option value="1">Single bedroom set</option>
+                              <option value="2">Double bedroom set</option>
+                              <option value="3">Triple bedroom set</option>
+                              <option value="4">Fourth bedroom set</option>
                             </select>
                             <i class="bi bi-caret-down-fill"></i> <!-- Bootstrap Icon -->
                           </div>
@@ -636,18 +633,45 @@
                         </div>  
 
                         {% comment %} Guests {% endcomment %}
-                        <div class="custom-select-wrapper">
-                          <label for="hours" class="form-label">Guests</label>
-                          <div class="custom-select">
-                            <select class="form-control" id="hours">
-                              <option value="2">2 guests, 1 infant, 1 pet </option>
-                              <option value="3">1 guests, 1 infant, 1 pet</option>
-                              <option value="4">1 guests, 1 infant</option>
-                            </select>
-                            <i class="bi bi-caret-down-fill"></i> <!-- Bootstrap Icon -->
-                          </div>
-                          <hr>
-                        </div>         
+                        <div class="mb-3">
+                          <label for="guests" class="form-label">Guests</label>
+                          <input type="text" name = "guests" class="form-control" id="guests" placeholder="Adults, Children, Infants, Pets" readonly data-bs-toggle="dropdown" aria-expanded="false">
+                          <ul class="dropdown-menu p-3" aria-labelledby="guests">
+                            <li class="d-flex justify-content-between align-items-center mb-2">
+                              <span>Adults</span>
+                              <div>
+                                <button type = "button" class="btn btn-sm btn-outline-secondary me-2" onclick="updateGuest('adults', -1)">-</button>
+                                <span id="adults-count">2</span>
+                                <button type = "button" class="btn btn-sm btn-outline-secondary ms-2" onclick="updateGuest('adults', 1)">+</button>
+                              </div>
+                            </li>
+                            <li class="d-flex justify-content-between align-items-center mb-2">
+                              <span>Children</span>
+                              <div>
+                                <button type = "button" class="btn btn-sm btn-outline-secondary me-2" onclick="updateGuest('children', -1)">-</button>
+                                <span id="children-count">0</span>
+                                <button type = "button" class="btn btn-sm btn-outline-secondary ms-2" onclick="updateGuest('children', 1)">+</button>
+                              </div>
+                            </li>
+                            <li class="d-flex justify-content-between align-items-center mb-2">
+                              <span>Infants</span>
+                              <div>
+                                <button type = "button" class="btn btn-sm btn-outline-secondary me-2" onclick="updateGuest('infants', -1)">-</button>
+                                <span id="infants-count">0</span>
+                                <button type = "button" class="btn btn-sm btn-outline-secondary ms-2" onclick="updateGuest('infants', 1)">+</button>
+                              </div>
+                            </li>
+                            <li class="d-flex justify-content-between align-items-center mb-2">
+                              <span>Pets</span>
+                              <div>
+                                <button type = "button" class="btn btn-sm btn-outline-secondary me-2" onclick="updateGuest('pets', -1)">-</button>
+                                <span id="pets-count">0</span>
+                                <button type = "button" class="btn btn-sm btn-outline-secondary ms-2" onclick="updateGuest('pets', 1)">+</button>
+                              </div>
+                            </li> 
+                          </ul>
+                        </div>    
+
                         <div class="booking-total">
                           <span>₹290 x 2 hours</span><span>₹ 580.00</span>
                         </div>
@@ -1039,6 +1063,55 @@
         const mailtoLink = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
         window.open(mailtoLink, '_self');
     }
+    let guests = {
+      adults: 2,
+      children: 0,
+      infants: 0,
+      pets : 0,
+    };
+  function updateGuest(type, delta) {
+    guests[type] += delta;
+    if (guests[type] < 0) guests[type] = 0;
+    if (guests[type] < 1 && (type === 'adults' || type === 'pets')) guests[type] = 1;
+
+    document.getElementById(`${type}-count`).textContent = guests[type];
+    document.getElementById('guests').value = `${guests.adults} Adults, ${guests.children} Children, ${guests.infants} Infants, ${guests.pets} Pets`;
+    checkAvailability();
+  }
+
+  // Initialize Date Range Picker for Reservation Sidebar (Using Flatpickr)
+  let checkInDate = null;
+  let checkOutDate = null;
+
+  flatpickr("#date-range-picker-reservation", {
+    mode: "range",
+    dateFormat: "d M Y",
+    onClose: function(selectedDates, dateStr, instance) {
+      if (selectedDates.length === 2) {
+        [checkInDate, checkOutDate] = selectedDates;
+        document.getElementById('date-range-picker-reservation').value = `${formatDate(checkInDate)} - ${formatDate(checkOutDate)}`;
+        checkAvailability();
+      }
+    },
+    disable: [
+      function(date) {
+        // Disable all dates before today
+        return date < new Date().setHours(0,0,0,0);
+      }
+    ],
+    onReady: function(selectedDates, dateStr, instance) {
+      function adjustCalendar() {
+        if (window.innerWidth <= 481) {
+          instance.config.showMonths = 1;
+        } else {
+          instance.config.showMonths = 2;
+        }
+        instance.redraw();
+      }
+      window.addEventListener('resize', adjustCalendar);
+      adjustCalendar();
+    }
+  });
     </script>
     
 {% endblock %}
