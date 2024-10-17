@@ -20,6 +20,7 @@ API_ENDPOINTS = {
     'get_hotel_detial':BASE_URI + '/get-hotel-details/',
     'get_amenities': BASE_URI + '/get-all-amenities',           
     'get_property_types': BASE_URI + '/get-all-property-type', 
+    'book_property': BASE_URI + '/book-property', 
 }
 
 def get_request_data(api_name):
@@ -74,7 +75,25 @@ def get_hotel_detail_ViaId(api_name, property_city_id, hotel_id, filters=None):
         print(f"Other error occurred: {err}")
     return None
 
-
+def post_booking_detail(api_name,body_data):
+    url = API_ENDPOINTS.get(api_name)
+    if not url:
+        raise ValueError(f"No API endpoint found for {api_name}") 
+    try:
+        token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtb2JpbGUiOiIrOTE3NDg4ODgxNTM3IiwiX2lkIjoiNjcwYjljOTA5YzgwMjUyZWE3YTk1ZmQ0IiwiaWF0IjoxNzI4ODE0NDU2LCJleHAiOjE3NjAzNTA0NTZ9._ubCQnjLhgfG_P3uyyVJyitd3RMWpxGThDDzOjRre8Y'
+        headers = {
+            'Authorization': f'Bearer {token}',
+            'Content-Type': 'application/json'
+        }
+        response = requests.post(url, json=body_data, headers = headers)  # Pass filters as params
+        response.raise_for_status()
+        print("response.raise_for_status()",response.raise_for_status())
+        return response.raise_for_status() 
+    except requests.exceptions.HTTPError as http_err:
+        print(f"HTTP error occurred: {http_err}")  
+    except Exception as err:
+        print(f"Other error occurred: {err}")
+    return None
 def get_blog_detail_via_id(api_name, blog_id=None):
     if api_name not in API_ENDPOINTS:
         raise ValueError(f"No API endpoint found for {api_name}")

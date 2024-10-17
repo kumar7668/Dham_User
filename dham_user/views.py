@@ -1,6 +1,6 @@
 from django.shortcuts import render
 import requests
-from dod_api.api_hooks import get_request_data, get_hotel_list_ViaId, get_blog_detail_via_id, get_hotel_detail_ViaId
+from dod_api.api_hooks import get_request_data, get_hotel_list_ViaId, get_blog_detail_via_id, get_hotel_detail_ViaId, post_booking_detail
 from django.templatetags.static import static
 from django.utils import translation
 from django.shortcuts import redirect
@@ -341,10 +341,12 @@ def detail_page_hotel(request, city_id, hotel_id):
     filters = {}
     try:
         hotel_data = get_hotel_detail_ViaId('get_hotel_detial',city_id ,hotel_id , filters)
+        print
         context = {}
         # GET NAME AND ADDRESS
         context['name'] = hotel_data['hotel'].get('name')
         context['address'] = hotel_data['hotel'].get('address')
+        context['price'] = hotel_data['hotel'].get('price')
 
         # IMAGES
         files = hotel_data['hotel'].get('files')
@@ -374,5 +376,25 @@ def detail_page_hotel(request, city_id, hotel_id):
     return render(request, 'hotels/hotel_detail_page_main.html', context) 
 
 def BookHotel(request):
-    pass
+    if request.method == 'POST':
+        dateRange = request.POST.get('dateRange')
+        dateRange = dateRange.split('to')
+        print('k',dateRange)
+        start_date = datetime.strptime(dateRange[0].strip(), '%d %b %Y')
+        start_date = start_date.strftime("%Y-%m-%d") 
+        end_date = datetime.strptime(dateRange[1].strip(), '%d %b %Y')
+        end_date = end_date.strftime("%Y-%m-%d") 
+
+        No_of_rooms = request.POST.get('No_of_rooms')
+
+        guests = request.POST.get('guests')
+
+        json_data = {
+            "checkInDate" : start_date,
+            "checkOutDate" : end_date, 
+        }
+        
+        post_booking_detail('book_property', json_data )
+        return redirect('/')
+        # return render(request, 'noname.html')
     
