@@ -545,6 +545,7 @@
             <input type = "hidden" name = "guide_id" value = "{{guides_detail.id}}" />
             <input type = "hidden" name = "guide_price_per_hrs"  value = "{{guides_detail.pricePerHour}}" />
             <input type = "hidden" name = "total_amout_with_gst_and_hrs"  value = "" />
+            <input type = "hidden" name = "noOfHrs"  value = "" />
             <div class="row ">
               <div class="col-12 ">
                 <label for="guide-date" class="form-label from_date">From</label>
@@ -587,6 +588,10 @@
             <div class="gst-section">
               <span>GST (18%)</span>
               <span id="gst"></span>
+            </div>
+            <div class="discount-section d-flex justify-content-between">
+              <span>Discount(-)</span>
+              <span id="discount">₹ 50</span>
             </div>
             <div class="total-section">
               <span>Total (incl. taxes)</span>
@@ -776,17 +781,18 @@ function getTotal(selected_hrs){
   let totalPrice = price * hours
   
   // selected no of hours
-  $("#noOfHrs").text(${hours} hours)
+  $("#noOfHrs").text(`${hours} hours`)
+  $("input[name ='noOfHrs']").val(hours)
 
   // total price
-  $('#totalPrice').text(₹ ${totalPrice})
+  $('#totalPrice').text(`₹ ${totalPrice}`)
 
   // calculate gst
   let gst = Math.round((18/100)*totalPrice)
-  $('#gst').text(₹ ${gst})
+  $('#gst').text(`₹ ${gst}`)
   
-  let toatlIncTax = gst + totalPrice
-  $('#total').text(₹ ${toatlIncTax})
+  let toatlIncTax = (gst + totalPrice) - 50 // for now -50 is for discount
+  $('#total').text(`₹ ${toatlIncTax}`)
 
   $('input[name = "total_amout_with_gst_and_hrs"]').val(toatlIncTax)
 
@@ -799,7 +805,7 @@ flatpickr("#start_date", {
   onClose: function(selectedDates, dateStr, instance) {
     if (selectedDates.length === 2) {
       [checkInDate, checkOutDate] = selectedDates;
-      document.getElementById('start_date').value = ${formatDate(checkInDate)} - ${formatDate(checkOutDate)};
+      document.getElementById('start_date').value = `${formatDate(checkInDate)} - ${formatDate(checkOutDate)}`;
       checkAvailability();
     }
   },
@@ -856,5 +862,5 @@ function validateTime(){
   getTotal(guideHrs)
 
 }
-</script>  
-{% endblock %}
+</script>
+{% endblock %}

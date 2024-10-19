@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 import requests
-from dod_api.api_hooks import userRegistration, verifyOtp, userLogin, get_request_data, get_hotel_list_ViaId, get_blog_detail_via_id, get_hotel_detail_ViaId, post_booking_detail, get_guides_list, get_guides_by_Id
+from dod_api.api_hooks import userRegistration, verifyOtp, userLogin, get_request_data, get_hotel_list_ViaId, get_blog_detail_via_id, get_hotel_detail_ViaId,\
+      post_booking_detail, get_guides_list, get_guides_by_Id, PostGuideToBook
 from dod_api.forms.userForms import LoginForm, RegisterForm, BaseOtpForm
 from django.templatetags.static import static
 from django.utils import translation
@@ -296,10 +297,25 @@ def book_guide(request):
         guide_id = request.POST.get('guide_id')
         guide_price_per_hrs = request.POST.get('guide_price_per_hrs')
         total_amout_with_gst_and_hrs = request.POST.get('total_amout_with_gst_and_hrs')
+
         start_date = request.POST.get('start_date')
+        start_date = datetime.strptime(start_date, '%d %b %Y')
+        start_date = start_date.strftime("%Y-%m-%d") 
         start_time = request.POST.get('start_time')
         end_time = request.POST.get('end_time')
         noOfHrs = request.POST.get('noOfHrs')
+        json_data = {
+            "guideId" : guide_id,
+            "bookingDate":start_date,
+            "bookingTimeFrom":start_time,
+            "bookingTimeTo":end_time,
+            "totalBookingHours": noOfHrs,
+            "discountPrice":50,
+            "paidAmount": total_amout_with_gst_and_hrs,
+            "paymentMethod":"online"
+        }
+        json_data = json.dumps(json_data)
+        res = PostGuideToBook('book_guide', json_data)
     return redirect(reverse('guide'))
 
 def guide_carousel(request):
@@ -592,7 +608,6 @@ def BookHotel(request):
     if request.method == 'POST':
         dateRange = request.POST.get('dateRange')
         dateRange = dateRange.split('to')
-        print('k',dateRange)
         start_date = datetime.strptime(dateRange[0].strip(), '%d %b %Y')
         start_date = start_date.strftime("%Y-%m-%d") 
         end_date = datetime.strptime(dateRange[1].strip(), '%d %b %Y')
@@ -607,7 +622,8 @@ def BookHotel(request):
             "checkOutDate" : end_date, 
         }
         
-        post_booking_detail('book_property', json_data )
+        res = post_booking_detail('book_property', json_data )
+        
         return redirect('/')
         # return render(request, 'noname.html')
     

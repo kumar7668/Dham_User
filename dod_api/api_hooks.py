@@ -31,6 +31,7 @@ API_ENDPOINTS = {
 
     'guides_list': BASE_URI + '/guids',  # get all the guides
     'guides_by_id': BASE_URI + '/get-guide-by-id',  # get guides by id
+    'book_guide': BASE_URI + '/book-guide',  # get guides by id
 }
 
 
@@ -178,6 +179,7 @@ def post_booking_detail(api_name,body_data):
     except Exception as err:
         print(f"Other error occurred: {err}")
     return None
+
 def get_blog_detail_via_id(api_name, blog_id=None):
     if api_name not in API_ENDPOINTS:
         raise ValueError(f"No API endpoint found for {api_name}")
@@ -228,3 +230,25 @@ def get_guides_by_Id(api_name, guide_id):
     except Exception as err:
         print(f"Other error occurred: {err}")
     return None
+
+def PostGuideToBook(api_name, body_data):
+    url = API_ENDPOINTS.get(api_name)
+    if not url:
+        raise ValueError(f"No API endpoint found for {api_name}")
+    print("slieiee",body_data)
+    try:
+        token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtb2JpbGUiOiIrOTE3OTc5ODg1MjEwIiwiX2lkIjoiNjcwYjdjYjk4YzFmODY5NzhmZmRkMjEyIiwiaWF0IjoxNzI5MjUwMjgyLCJleHAiOjE3NjA3ODYyODJ9.e4LrgcALcsZKwtVU1ZoSBt4_OlX4BWRgpxkHGGJ_5lQ'
+        headers = {
+            'Authorization': f'Bearer {token}',
+            'Content-Type': 'application/json'
+        }
+        response = requests.post(url, json=body_data, headers=headers)  # Pass filters as params
+        response.raise_for_status()
+        
+        return response.json()  
+    except requests.exceptions.HTTPError as http_err:
+        print(f"HTTP error occurred: {http_err}")  
+    except Exception as err:
+        print(f"Other error occurred: {err}")
+    return None
+
