@@ -1,0 +1,131 @@
+{% load static %}
+<style>
+        /* Custom card height for Instagram Reels look */
+        .reels_car .owl-carousel .owl-item .item .card {
+            height: 445px; !important;
+            overflow: hidden;
+            position: relative;
+        }
+    
+        .reels_car .owl-carousel .card video {
+            width: 100%;
+            height: 100%; /* Ensure the video takes the full height of the card */
+            object-fit: cover; /* Ensure the video covers the card fully */
+        }
+    
+        .reels_car .owl-carousel .card .property_title {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+    
+        .reels_car .owl-carousel .card .tour_event_info {
+            font-size: 0.9rem;
+        }
+
+        .reels_car .video-slide,  .reels_car .item, .reels_car .card{
+            border-radius: 26px;
+        }
+
+</style>
+
+<section id="reels_car" class="class_for_all_sections reels_car top-destinations" data-aos="fade-up" data-aos-delay="100">
+    <div class="container">
+        <div class="container-fluid mb-5 p-0" data-aos="fade-up">
+            <div class="d-dm-flex d-lg-flex justify-content-between title-h2-div">
+                <div class="p-0">
+                    <h2 class="h2_title">Plan your best experience ever!</h2>
+                    <p class="p-text">Making the Most of Your Travel Experience in 2024</p>
+                </div>
+                <div class="view_all_div text-center">
+                    <a href="{% url 'home' %}" class="view_all_btn"> View All Destinations </a>
+                </div>
+            </div>
+        </div>    
+        <div class="owl-carousel owl-theme" data-aos="fade-up" data-aos-delay="100">
+            <!-- Card 1 -->
+            <div class="item">
+                <div class="card" data-aos="fade-up" data-aos-delay="200">
+                    <span class="badge">Tour</span>
+                    <video class="video-slide" autoplay muted loop playsinline>
+                        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="overlay">
+                        <div class="property_title">Destination 1</div>
+                        <div class="tour_event_info"><i class="bi bi-calendar2-heart"></i> Starting from Jan 1, 2024 to Jan 10, 2024</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Add more cards similarly... -->
+        </div>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function(){
+        let isManualPlay = false; // Variable to control play mode
+
+        $('.reels_car .owl-carousel').owlCarousel({
+            loop: true,
+            margin: 10,
+            autoplay: !isManualPlay, // Set autoplay based on the variable
+            autoplayTimeout: 5000, // Adjust the delay between slides
+            autoplayHoverPause: true, // Pause on hover
+            responsive: {
+                0: {
+                    items: 1, 
+                    stagePadding: 0, 
+                    margin: 10
+                },
+                768: {
+                    items: 3.3, 
+                    stagePadding: 30, 
+                    margin: 10
+                },
+                992: {
+                    items: 3, 
+                    stagePadding: 100, 
+                    margin: 10
+                },
+                1200: {
+                    items: 4.2, 
+                    stagePadding: 50,
+                    margin: 10
+                }
+            }
+        });
+
+        // Click event for cards
+        $('.owl-item').on('click', function() {
+            const video = $(this).find('video')[0];
+            // Toggle isManualPlay
+            isManualPlay = true; // Set to true to play manually
+            if (video.paused) {
+                $('.owl-item video').each(function() {
+                   // this.pause(); // Pause all videos when one is played manually
+                });
+                video.currentTime = 0; // Reset video to start
+                video.play(); // Play the clicked video
+            } else {
+                video.pause(); // Pause the video if it's already playing
+            }
+        });
+
+        // Optional: Reset to autoplay when a video ends
+        $('.owl-carousel').on('changed.owl.carousel', function(event) {
+            if (!isManualPlay) { // If not in manual play mode
+                var currentItem = $(this).find('.owl-item.active video')[0];
+                $('.owl-item video').each(function() {
+                    this.pause(); // Pause all videos
+                });
+                if (currentItem) {
+                    currentItem.play(); // Play the current visible video
+                }
+            }
+        });
+
+    });
+</script>
+
+
+

@@ -60,7 +60,7 @@
             <div class = "main-blog-container">
             <div class="container blog-container p-0">
                 {% if blogs_data %}
-                {% for blog in blogs_data.updatedBlogs|slice:":3" %}
+                {% for blog in blogs_data.updatedBlogs %}
                     <div class="blog-post">
                         <a href="{% url 'blog_detail_page' blog_loc=blog.cityId.name blog_id=blog.id %}" class="clsmanage">
                                 <div class="remder p-0">
