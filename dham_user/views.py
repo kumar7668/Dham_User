@@ -229,6 +229,7 @@ def format_datetime(date_str):
         return date_str  # Fallback if the date format is invalid
 
 def home(request):
+    # insta_reels_temp =
     city_data = get_request_data('get_all_city')
     kanha_jiki_nagri_data = get_request_data('kanha_jiki_nagri')
     upcoming_tours_events_data = get_request_data('upcoming_tours_events')

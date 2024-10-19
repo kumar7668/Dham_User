@@ -1,9 +1,16 @@
-.env
-.vscode
-sk.py
+# Ignore Python bytecode files
 __pycache__/
+*.py[cod]
 *.pyc
 
-*.py[cod]
+# Ignore environment files
+.env
+.venv
 
-# requirements.txt
+# Ignore IDE/editor configurations
+.vscode/
+.idea/
+
+# Ignore operating system files
+.DS_Store
+Thumbs.db
