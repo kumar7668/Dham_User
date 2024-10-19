@@ -33,8 +33,9 @@
    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 
-  <!-- Vendor CSS Files -->
+ <!-- Vendor CSS Files -->
   <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
   <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
   <link href="{% static 'vendor/aos/aos.css' %}" rel="stylesheet">
@@ -239,7 +240,12 @@
   .mobile-nav-toggle {
     display: none;
   }
-  
+  #registerModal .modal-head, #loginModal .modal-head{
+    font-family: var(--heading-font);
+    font-size: 52px;
+    font-weight: 400;
+    line-height: 29px;
+  }
   .footer_copyright{
      padding: 0 0 70px 0;
   }
@@ -283,6 +289,69 @@
   filter: drop-shadow(0px 0px 1px var(--theme-red-color));
 }
 
+.dropdown-toggle::after {
+    display: none;
+}
+
+.menu_login li a{
+  font-family: var(--default-font);
+  color: var(--default-color);
+  font-weight: 500;
+  font-size: 14px;
+}
+.menu_login li{
+  padding: 2px 0 2px 0px;
+
+}
+.menu_login .dropdown-item:focus, .menu_login .dropdown-item:hover {
+  border-radius: 8px;
+  border: 0;
+  color: var(--bs-dropdown-link-hover-color);
+  background-color: #FDF7E7;
+}
+
+ .dropdownlogin{ 
+  margin: 10px 0px 0 0 !important;
+    padding: 2px 0 2px 0 !important;
+    min-width: fit-content;
+    filter: drop-shadow(0px 0px 3px var(--theme-red-color));
+ }
+
+ .register-modal-img-div{
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image :url("{% static 'img/login_img.png' %}");
+ }
+
+ #registerModal .modal-title, #loginModal .modal-title{
+    font-family: var(--default-font);
+    font-size: 14px;
+    font-weight: 600;
+
+ }
+ #registerModal .form-group label, #loginModal .form-group label{
+  border-radius: 30px;
+  font-weight: 500;
+  font-family: var(--default-font);
+  font-size: 14px;
+ }
+ #registerModal .form-group input, #loginModal .form-group input{
+  padding: 10px;
+    border: 1px solid var(--Gray, #919191);
+    border-radius: 30px;
+    font-weight: 400;
+    font-family: var(--default-font);
+    font-size: 14px;
+}
+ #registerModal .modal-head, #loginModal .modal-head{
+  font-family: var(--heading-font);
+  font-size: 62px;
+  font-weight: 400;
+  line-height: 48px;
+  text-align: left;
+  color: var(--theme-red-color);
+ }
 </style>
 
 
@@ -292,10 +361,12 @@
   <header id="header" class="header d-flex align-items-center fixed-top">
     <div class="container-fluid container-xl position-relative d-flex align-items-center">
 
-      <a href="{% url 'home' %}"  class="logo d-flex align-items-center me-auto">
+      <!-- Logo -->
+      <a href="{% url 'home' %}" class="logo d-flex align-items-center me-auto">
         <img src="{% static 'img/base_logo.png' %}" alt="logo">
       </a>
 
+      <!-- Navigation Menu -->
       <nav id="navmenu" class="navmenu me-auto">
         <ul>
           <li><a href="{% url 'accommodation' %}" class="{% if request.resolver_match.url_name == 'accommodation' %}active{% endif %}">{% trans "Accommodation" %}</a></li>
@@ -305,27 +376,34 @@
           <li><a href="https://demo.swadeshidiwali.com/" target="_blank" class="{% if request.resolver_match.url_name == 'https://demo.swadeshidiwali.com/' %}active{% endif %}">{% trans "E-commerce" %}</a></li>
           <li><a href="{% url 'blogs' %}" class="{% if request.resolver_match.url_name == 'blogs' %}active{% endif %}">{% trans "Blogs" %}</a></li>
           <li><a href="{% url 'contact_us' %}" class="{% if request.resolver_match.url_name == 'contact' %}active{% endif %}">{% trans "Contact" %}</a></li>
-    
-          {% comment %} <a href="{% url 'set_language' %}?language=hi">Switch to Hindi</a>
-          <a href="{% url 'set_language' %}?language=en">Switch to English</a> {% endcomment %}
-          {% comment %} <input type="checkbox" id="language-toggle" /> {% endcomment %}
-
         </ul>
       </nav>
+
+      <!-- Mobile Navigation Toggle -->
       <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+
+      <!-- Language Toggle -->
       <div class="button r btn-translate d-md-block d-none d-sm-none" id="button-1">
         <input type="checkbox" class="checkbox" id="language-toggle-base" />
         <div class="knobs"></div>
         <div class="layer"></div>
       </div>
-      <a  href="https://demo.swadeshidiwali.com/cart/" class="cart_iocn d-flex align-items-center">
-        <img src="{% static 'img/cart.svg' %}" alt="cart_iocn">
+
+      <!-- Cart Icon -->
+      <a href="https://demo.swadeshidiwali.com/cart/" class="cart_iocn d-flex align-items-center">
+        <img src="{% static 'img/cart.svg' %}" alt="cart_icon">
       </a>
-      <a class="login_icon d-flex align-items-center" role="button" data-toggle="modal" data-target="#loginModal">
-        <img src="{% static 'img/login.svg' %}" alt="login_icon">
-      </a>
+
+      <!-- Login Icon -->
+        <a class="login_icon dropdown d-flex dropdown-toggle align-items-center" role="button" id="loginIcon dropdownlogin" aria-haspopup="true" data-bs-toggle="dropdown" aria-expanded="false">
+          <img src="{% static 'img/login.svg' %}" alt="login_icon">
+        </a>
+        <ul class="dropdown-menu dropdownlogin menu_login " aria-labelledby="dropdownlogin">
+                <!-- User Authentication Section -->
+        </ul>
     </div>
   </header>
+
   <!-- Base Heder End -->
 
 <!-- Mobile Bottom Navigation -->
@@ -359,84 +437,168 @@
     {% endblock %}
 
 
-  <!-- Login Modal -->
-  <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+  <!-- registerModal Modal -->
+  <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-      <div class="modal-content">
-        <div class="modal-body p-0">
-          <div class="row no-gutters">
-            <!-- Left Side: Image for Desktop -->
-            <div class="col-md-6 d-none d-md-block">
-              <img src="{% static 'img/login_img.png' %}" class="img-fluid" alt="Login Image">
+        <div class="modal-content">
+            <div class="modal-body p-0">
+                <div class="row no-gutters">
+                    <!-- Left Side: Image for Desktop -->
+                    <div class="col-md-6 d-none d-md-block register-modal-img-div">
+                        <img src="{% static 'img/login_img.png' %}" class="img-fluid opacity-0" alt="Login Image">
+                    </div>
+                    <!-- Left Side: Image for Mobile -->
+                    <div class="col-12 d-block d-md-none">
+                        <img src="{% static 'img/login_pop_mob_img.png' %}" class="img-fluid" alt="Login Image">
+                    </div>
+
+                    <!-- Right Side: Form Section -->
+                    <div class="col-md-6 col-12">
+                        <div class="p-4">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="position: absolute; top: 10px; right: 10px;">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+
+                            <h5 class="modal-title mb-2" id="registerModalLabel">Sign-Up </h5>
+                            <h2 class="mb-4 modal-head">Welcome to Dham</h2>
+                            <div id="successSMS"></div> 
+
+                            <!-- Step 1: Register Form -->
+                            <form id="registerForm" method="POST" action="{% url 'register' %}">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <input type="hidden" name="form_type" value="register-form">
+                                    <label class="p-1" for="firstname">First Name</label>
+                                    {{ register_form.firstname }}
+                                    <label class="p-1" for="lastname">Last Name</label>
+                                    {{ register_form.lastname }}
+                                    <label class="p-1" for="email">Email</label>
+                                    {{ register_form.email }}
+                                    <label class="p-1" for="phone">Mobile Number</label>
+                                    {{ register_form.phone }}
+                                </div>
+                                <button type="submit" id="registerSubmit" class="modal-log-regsiter-btn btn-block">Register</button>
+                            </form>
+
+                            <!-- Step 2: OTP Verification for Registration -->
+                            <form id="registerOtpForm" class="d-none" method="POST" action="{% url 'verify_otp_view' %}">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <input type="hidden" name="form_type" value="register-otp-form">
+                                    <label class="p-1" for="otp">Enter OTP</label>
+                                    {{ otp_form.otp }}
+                                </div>
+                                <button type="submit" id="verifyRegisterOtp" class="modal-log-regsiter-btn btn-block">Verify OTP</button>
+                            </form>
+
+                            <!-- Step 3: Login Form -->
+                            <form id="loginForm" class="d-none" method="POST" action="{% url 'login' %}">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <input type="hidden" name="form_type" value="login-form">
+                                    <label class="p-1" for="phone">Mobile Number</label>
+                                    {{ login_form.phone }}
+                                </div>
+                                <button type="submit" id="loginSubmit" class="modal-log-regsiter-btn btn-block">Login</button>
+                            </form>
+
+                            <!-- Step 4: OTP Verification for Login -->
+                            <form id="loginOtpForm" class="d-none" method="POST" action="{% url 'verify_otp_view' %}">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                  <input type="hidden" name="form_type" value="login-otp-form">
+                                  <label class="p-1" for="otp">Enter OTP</label>
+                                  {{ otp_form.otp }}
+                                </div>
+                                <button type="submit" id="verifyLoginOtp" class="modal-log-regsiter-btn btn-block">Verify OTP</button>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
             </div>
-            <!-- Left Side: Image for Mobile -->
-            <div class="col-12 d-block d-md-none">
-              <img src="{% static 'img/login_pop_mob_img.png' %}" class="img-fluid" alt="Login Image">
-            </div>
-            <!-- Right Side: Form Section -->
-            <div class="col-md-6 col-12">
-              <div class="p-4">
-                <!-- Close Button (X) -->
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="position: absolute; top: 10px; right: 10px;">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-                <h5 class="modal-title mb-4" id="loginModalLabel">Log in or Sign up</h5>
-                <h2 class="mb-4">Welcome to Dham</h2>
-  
-                <!-- Step 1: Registration Form -->
-                <form id="registerForm">
-                  <div class="form-group">
-                    <label for="firstname">First Name</label>
-                    <input type="text" class="form-control" id="firstname" name="firstname" placeholder="First Name" required>
-  
-                    <label for="lastname">Last Name</label>
-                    <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Last Name" required>
-  
-                    <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
-  
-                    <label for="phone">Mobile Number</label>
-                    <input type="text" class="form-control" id="phone" name="phone" placeholder="Phone No." required>
-                  </div>
-                  <button type="button" class="btn btn-primary btn-block py-2" id="registerSubmit">Register</button>
-                </form>
-  
-                <!-- Step 2: OTP Verification for Registration -->
-                <form id="registerOtpForm" class="d-none">
-                  <div class="form-group">
-                    <label for="otp">Enter OTP sent to your phone</label>
-                    <input type="text" class="form-control" id="registerOtp" placeholder="Enter 6-digit OTP" required>
-                  </div>
-                  <button type="button" class="btn btn-primary btn-block py-2" id="verifyRegisterOtp">Verify OTP</button>
-                </form>
-  
-                <!-- Step 3: Login Form -->
-                <form id="loginForm" class="d-none">
-                  <div class="form-group">
-                    <label for="loginPhone">Mobile Number</label>
-                    <input type="text" class="form-control" id="loginPhone" placeholder="Enter mobile number" required>
-                  </div>
-                  <button type="button" class="btn btn-primary btn-block py-2" id="loginSubmit">Login</button>
-                </form>
-  
-                <!-- Step 4: OTP Verification for Login -->
-                <form id="loginOtpForm" class="d-none">
-                  <div class="form-group">
-                    <label for="loginOtp">Enter OTP sent to your phone</label>
-                    <input type="text" class="form-control" id="loginOtp" placeholder="Enter 6-digit OTP" required>
-                  </div>
-                  <button type="button" class="btn btn-primary btn-block py-2" id="verifyLoginOtp">Verify OTP</button>
-                </form>
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
-  
+  </div>  
   <!-- Login Modal End -->
 
+  <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body p-0">
+                <div class="row no-gutters">
+                    <!-- Left Side: Image for Desktop -->
+                    <div class="col-md-6 d-none d-md-block register-modal-img-div">
+                        <img src="{% static 'img/login_img.png' %}" class="img-fluid opacity-0" alt="Login Image">
+                    </div>
+                    <!-- Left Side: Image for Mobile -->
+                    <div class="col-12 d-block d-md-none">
+                        <img src="{% static 'img/login_pop_mob_img.png' %}" class="img-fluid" alt="Login Image" >
+                    </div>
+
+                    <!-- Right Side: Form Section -->
+                    <div class="col-md-6 col-12">
+                        <div class="p-4">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="position: absolute; top: 10px; right: 10px;">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+
+                            <h5 class="modal-title mb-2" id="loginModalLabel">Log In</h5>
+                            <h2 class="mb-4 modal-head">Welcome to Dham</h2>
+                            <div id="successSMS"></div>
+
+                            <!-- Error message display -->
+                            <div id="errorSMS" class="text-danger mb-3" style="display: none;"></div>
+
+                            <!-- Step 1: Login Form -->
+                            <form id="loginForm-2" method="POST" action="{% url 'login' %}">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <input type="hidden" name="form_type" value="login-form">
+                                    <label class="p-1" for="phone">Mobile Number</label>
+                                    {{ login_form.phone }}
+                                </div>
+                                <button type="submit" id="loginSubmit" class="modal-log-regsiter-btn btn-block ">Login</button>
+                            </form>
+
+                            <!-- Step 2: OTP Verification for Login -->
+                            <form id="loginOtpForm-2" class="d-none" method="POST" action="{% url 'verify_otp_view' %}">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <input type="hidden" name="form_type" value="login-otp-form">
+                                    <label class="p-1" for="otp">Enter OTP</label>
+                                    {{ otp_form.otp }}
+                                </div>
+                                <button type="submit" id="verifyLoginOtp" class="modal-log-regsiter-btn btn-block">Verify OTP</button>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% comment %} Logout Modal {% endcomment %}
+<div class="modal" id="logoutModal">  
+  <div class="modal-dialog">  
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title">Do you want to Log out?</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">  
+              <p class="semi-bold m-0">Logging Out will clear your shopping cart on this computer. Logging In again will bring them back.</p>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Stay Logged In</button>
+              <button type="button" class="btn btn-primary" onclick="logOut();">Log Out</button>
+          </div>
+      </div>  
+  </div>  
+</div>
 
 
     <!-- Footer Block  -->
@@ -456,35 +618,298 @@
     <!-- jQuery and Owl Carousel -->
     {% comment %} <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script> {% endcomment %}
+
     <script>
-      document.getElementById("registerSubmit").addEventListener("click", function () {
-        // Step 1: Handle Registration Form submission
-        // Assume the registration API sends OTP on success
-        document.getElementById("registerForm").classList.add("d-none");
-        document.getElementById("registerOtpForm").classList.remove("d-none");
+
+      {% comment %} function openLogoutModal() {
+        $('#logoutModal').modal('show');
+      } {% endcomment %}
+
+      function logOut() {
+        // Make a request to the logout URL
+        fetch(`{% url 'logout' %}`, {  // Ensure this points to the correct logout URL
+            method: 'POST', // Use POST for logout
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken') // Ensure CSRF token is included
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                // Remove session data from local storage
+                localStorage.removeItem('cart');
+    
+                // Remove the 'user_session' and 'user' cookies
+                $.removeCookie('user_session', { path: '/' });
+                $.removeCookie('user', { path: '/' });
+    
+                // Reload the page to reflect logout
+                document.location.reload();
+            } else {
+                console.error("Logout failed.");
+            }
+        })
+        .catch(error => {
+            console.error("Error during logout: ", error);
+        });
+    }
+    
+    // Helper function to get CSRF token from cookies
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Check if this cookie string begins with the name we want
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    
+    
+
+        $(document).ready(function() {
+          // Function to display success message
+          function showSuccessMessage(message) {
+              const messageContainer = $('#successMessage'); // Check if message already exists
+              if (messageContainer.length) {
+                  messageContainer.text(message); // Update the message text if it exists
+              } else {
+                  // Create a new div for the message
+                  $('#successSMS').after('<div id="successMessage" class="alert alert-success mt-2">' + message + '</div>');
+              }
+      
+              // Remove the message after 15 seconds
+              setTimeout(function() {
+                  $('#successMessage').remove();
+              }, 15000); // 15 seconds
+          }
+      
+          // Handle registration form submission
+          $('#registerForm').on('submit', function(e) {
+              e.preventDefault(); // Prevent default form submission
+              $.ajax({
+                  type: 'POST',
+                  url: $(this).attr('action'),
+                  data: $(this).serialize(),
+                  success: function(response) {
+                      if (response.status === 'success') {
+                          // Show success message
+                          showSuccessMessage(response.message);
+      
+                          // Show OTP form if registration is successful
+                          $('#registerForm').addClass('d-none');
+                          $('#registerOtpForm').removeClass('d-none');
+                      }
+                  },
+                  error: function(xhr) {
+                      showSuccessMessage('An error occurred: ' + xhr.responseText);
+                  }
+              });
+          });
+      
+          // Handle OTP verification for registration
+          $('#registerOtpForm').on('submit', function(e) {
+              e.preventDefault();
+              $.ajax({
+                  type: 'POST',
+                  url: $(this).attr('action'),
+                  data: $(this).serialize(),
+                  success: function(response) {
+                      if (response.status === 'success') {
+                          // Show success message
+                          showSuccessMessage(response.message);
+      
+                          // Hide registration OTP form, show login form
+                          $('#registerOtpForm').addClass('d-none');
+                          $('#loginForm').removeClass('d-none');
+                      }
+                  },
+                  error: function(xhr) {
+                      showSuccessMessage('An error occurred: ' + xhr.responseText);
+                  }
+              });
+          });
+      
+          // Handle login form submission (first login form)
+          $('#loginForm').on('submit', function(e) {
+              e.preventDefault();
+              $.ajax({
+                  type: 'POST',
+                  url: $(this).attr('action'),
+                  data: $(this).serialize(),
+                  success: function(response) {
+                      if (response.status === 'success') {
+                          // Show success message
+                          showSuccessMessage(response.message);
+      
+                          // Show OTP form if login is successful
+                          $('#loginForm').addClass('d-none');
+                          $('#loginOtpForm').removeClass('d-none');
+                      }
+                  },
+                  error: function(xhr) {
+                      showSuccessMessage('An error occurred: ' + xhr.responseText);
+                  }
+              });
+          });
+      
+          // Handle OTP verification for login (first login form)
+          $('#loginOtpForm').on('submit', function(e) {
+              e.preventDefault();
+              $.ajax({
+                  type: 'POST',
+                  url: $(this).attr('action'),
+                  data: $(this).serialize(),
+                  success: function(response) {
+                      if (response.status === 'success') {
+                          // Show success message
+                          showSuccessMessage(response.message);
+      
+                          // Redirect to home after success
+                          setTimeout(function() {
+                              window.location.href = '/home'; // Replace '/home' with your actual home URL
+                          }, 2000); // Optional delay before redirection
+                      }
+                  },
+                  error: function(xhr) {
+                      showSuccessMessage('An error occurred: ' + xhr.responseText);
+                  }
+              });
+          });
+      
+          // Handle login form submission (second login form)
+          $('#loginForm-2').on('submit', function(event) {
+              event.preventDefault(); // Prevent the default form submission
+      
+              // Clear previous error messages
+              $('#errorSMS').hide().text('');
+              debugger
+              $.ajax({
+                  type: 'POST',
+                  url: $(this).attr('action'),
+                  data: $(this).serialize(),
+                  success: function(response) {
+                    if (response.status === 'success') {
+                          // Show success message
+                          showSuccessMessage(response.message);
+                        debugger
+                          // Hide the login form and show the OTP form
+                          $('#loginOtpForm-2').removeClass('d-none');
+                          $('#loginForm-2').addClass('d-none');
+                      } else {
+                          // Show error message
+                          $('#errorSMS').text(response.error).show();
+                      }
+                  },
+                  error: function(xhr, status, error) {
+                      // Handle any errors
+                      $('#errorSMS').text('An error occurred. Please try again.').show();
+                  }
+              });
+          });
+      
+          // Handle OTP form submission (second login form)
+          $('#loginOtpForm-2').on('submit', function(event) {
+              event.preventDefault(); // Prevent the default form submission
+      
+              // Clear previous error messages
+              $('#errorSMS').hide().text('');
+      
+              $.ajax({
+                  type: 'POST',
+                  url: $(this).attr('action'),
+                  data: $(this).serialize(),
+                  success: function(response) {
+                    if (response.status === 'success') {
+                          // Show success message
+                          showSuccessMessage('Login successful!');
+      
+                          // Close modal after a delay
+                          setTimeout(function() {
+                              $('#loginModal').modal('hide'); // Close modal after 2 seconds
+                          }, 1000);
+                          // Redirect to home after success
+                          setTimeout(function() {
+                            window.location.href = '/contact'; // Replace '/home' with your actual home URL
+                        }, 1001);
+                      } else {
+                          // Show error message
+                          $('#errorSMS').text(response.error).show();
+                      }
+                  },
+                  error: function(xhr, status, error) {
+                      // Handle any errors
+                      $('#errorSMS').text('An error occurred. Please try again.').show();
+                  }
+              });
+          });
       });
       
-      document.getElementById("verifyRegisterOtp").addEventListener("click", function () {
-        // Step 2: Handle OTP verification for registration
-        // After OTP verification, show the login form
-        document.getElementById("registerOtpForm").classList.add("d-none");
-        document.getElementById("loginForm").classList.remove("d-none");
-      });
-      
-      document.getElementById("loginSubmit").addEventListener("click", function () {
-        // Step 3: Handle Login Form submission
-        // Assume login API sends OTP on success
-        document.getElementById("loginForm").classList.add("d-none");
-        document.getElementById("loginOtpForm").classList.remove("d-none");
-      });
-      
-      document.getElementById("verifyLoginOtp").addEventListener("click", function () {
-        // Step 4: Handle OTP verification for login
-        // After OTP is verified, redirect to the home page
-        window.location.href = "/home";  // Assuming '/home' is the URL for the homepage
-      });
-      
+        
     </script>
+
+  <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          // Select the menu elements where the login/account options will be added
+          var menuElements = document.querySelectorAll('.menu_login');
+      
+          // Loop through all the elements
+          menuElements.forEach(function(menu) {
+              // Check if the user is logged in by checking the 'user' cookie
+              if (isUserLoggedIn()) {                  
+                  // Create the 'My Account' link
+                  var myAccountLink = document.createElement('li');
+                  myAccountLink.innerHTML = '<a class="dropdown-item" href="{{ shop_my_account_page_url }}" aria-label="My account">My Account</a>';
+                  menu.appendChild(myAccountLink);
+      
+                  // Create the 'Sign Out' link
+                  var signOutLink = document.createElement('li');
+                  signOutLink.innerHTML = '<a class="dropdown-item" href="javascript:void(0);" aria-label="Sign Out" onclick="openLogoutModal()">Sign Out</a>';
+                  menu.appendChild(signOutLink);
+                  
+              } else {
+                  // If the user is not logged in, show the 'Sign In' and 'Create Account' options
+                  // Create the 'Create Account' link
+                  var mySignupLink = document.createElement('li');
+                  mySignupLink.innerHTML = '<a class="dropdown-item"  role="button" data-toggle="modal" data-target="#registerModal" href="{{ shop_signup_url }}" aria-label="Create Account">Create Account</a>';
+                  menu.appendChild(mySignupLink);
+
+                  // Create the 'Sign In' link
+                  var myLoginLink = document.createElement('li');
+                  myLoginLink.innerHTML = '<a class="dropdown-item" role="button" data-toggle="modal" data-target="#loginModal" aria-label="Sign In">Sign In</a>';
+                  menu.appendChild(myLoginLink);
+
+              }
+      
+              // Display the menu
+              {% comment %} menu.style.display = 'block'; {% endcomment %}
+          });
+      });
+      
+      // Function to check if the 'user' cookie is present
+      function isUserLoggedIn() {
+          var cookies = document.cookie.split(';');
+          for (var i = 0; i < cookies.length; i++) {
+              var cookie = cookies[i].trim();
+              if (cookie.startsWith('user=')) {
+                  return true; // User is logged in
+              }
+          }
+          return false; // User is not logged in
+      }
+      
+      // Function to open the logout modal
+      function openLogoutModal() {
+          $('#logoutModal').modal('show');
+      }
+     
+  </script>
     <!-- Vendor JS Files -->
     <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'vendor/aos/aos.js' %}"></script>

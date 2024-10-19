@@ -1,13 +1,208 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import requests
-from dod_api.api_hooks import get_request_data, get_hotel_list_ViaId, get_blog_detail_via_id, get_hotel_detail_ViaId, post_booking_detail
+from dod_api.api_hooks import userRegistration, verifyOtp, userLogin, get_request_data, get_hotel_list_ViaId, get_blog_detail_via_id, get_hotel_detail_ViaId,post_booking_detail
+from dod_api.forms.userForms import LoginForm, RegisterForm, BaseOtpForm
 from django.templatetags.static import static
 from django.utils import translation
-from django.shortcuts import redirect
 from django.conf import settings
 from django.http import JsonResponse
 from datetime import datetime
 from django.http import HttpResponseNotFound
+import json  
+from django.contrib.auth import logout
+
+
+# Register view
+def register_view(request):
+    register_form = RegisterForm()
+
+    if request.method == 'POST':
+        register_form = RegisterForm(request.POST)
+
+        if register_form.is_valid():
+            fname = register_form.cleaned_data['firstname']
+            lname = register_form.cleaned_data['lastname']
+            email = register_form.cleaned_data['email']
+            phone = register_form.cleaned_data['phone']
+
+            try:
+                # Call userRegistration to register the user
+                register_response = userRegistration(fname, lname, email, phone)
+
+                if register_response.status_code == 201:
+                    request.session['user_mobile'] = phone
+                    request.session['user_email'] = email
+                    return JsonResponse({'status': 'success', 'message': 'Registration successful! Please check your OTP.'}, status=201)
+
+                elif register_response.status_code == 400:
+                    response_content = register_response.content.decode('utf-8')
+                    json_data = json.loads(response_content)  # Correctly parse the JSON response
+
+                    error_message = json_data.get('error', {}).get('message', '')
+
+                    if error_message == 'User with Entered Mobile Number is already exists':
+                        return JsonResponse({'status': 'error', 'message': error_message}, status=400)
+                    else:
+                        return JsonResponse({'status': 'error', 'message': 'Registration failed. Please try again.'}, status=400)
+
+                else:
+                    return JsonResponse({'status': 'error', 'message': 'Registration failed. Please try again.'}, status=register_response.status_code)
+
+            except Exception as e:
+                return JsonResponse({'status': 'error', 'message': f'Error occurred during registration: {str(e)}'}, status=500)
+
+        else:
+            return JsonResponse({'status': 'error', 'message': register_form.errors.as_json()}, status=400)
+
+    # GET request handling
+    return render(request, 'base.html', {
+        'register_form': register_form,
+        'otp_form': None,
+        'login_form': None,
+        'otp_step': None
+    })
+
+
+# OTP verification view
+def verify_otp_view(request):
+    try:
+        otp_form = BaseOtpForm()
+
+        if request.method == 'POST':
+            otp_form = BaseOtpForm(request.POST)
+            otp_from_type = request.POST.get('form_type')
+
+            if otp_form.is_valid():
+                otp = otp_form.cleaned_data['otp']
+                mobile = request.session.get('user_mobile')  # Get phone from session
+
+                try:
+                    # Call your OTP verification API
+                    verify_register_otp = verifyOtp(mobile, otp)
+
+                    # Check if OTP verification was successful
+                    if verify_register_otp.status_code == 200:
+                        response_content = verify_register_otp.content.decode('utf-8')
+                        json_data = json.loads(response_content)
+
+                        # Store token in session
+                        request.session['token'] = json_data['data']['token']
+                        
+                        # Create a response object
+                        response = JsonResponse({
+                            'status': 'success',
+                            'message': 'OTP verified successfully! Redirecting to My Account...' 
+                            if otp_from_type == 'login-otp-form' 
+                            else 'Profile verified successfully! Redirecting to Login...'
+                        }, status=200)
+                        
+                        # Set the cookie in the response object
+                        response.set_cookie('user', json_data['data']['customer']['_id'])
+
+                        # Set session values
+                        request.session['user_authenticated'] = True 
+                        request.session['user_id'] = json_data['data']['customer']['_id']
+                        request.session['user_email'] = json_data['data']['customer']['email']
+                        request.session['user_mobile'] = json_data['data']['customer']['mobile']
+            
+
+                        # Return the response with the cookie set
+                        return response
+                    else:
+                        return JsonResponse({
+                            'status': 'error', 
+                            'message': 'Invalid OTP or verification failed. Please try again.'
+                        }, status=400)
+                except Exception as e:
+                    return JsonResponse({
+                        'status': 'error', 
+                        'message': f'Error during OTP verification: {str(e)}'
+                    }, status=500)
+            else:
+                return JsonResponse({
+                    'status': 'error', 
+                    'message': otp_form.errors.as_json()
+                }, status=400)
+
+        return render(request, 'base.html', {
+            'register_form': None,
+            'otp_form': otp_form,
+            'login_form': None,
+            'otp_step': 'register'  # OTP step for registration
+        })
+
+    except Exception as e:
+        return JsonResponse({
+            'status': 'error', 
+            'message': f'Error in OTP verification: {str(e)}'
+        }, status=500)
+
+
+def login_view(request):
+    # Log out the user if they are a superuser
+    if request.user.is_superuser:
+        logout(request)
+
+    try:
+        login_form = LoginForm()
+
+        if request.method == 'POST':
+            login_form = LoginForm(request.POST)
+
+            if login_form.is_valid():
+                phone = login_form.cleaned_data['phone']
+                # otp = login_form.cleaned_data['otp']  # Assuming OTP is also submitted via the form
+
+                try:
+                    # # Retrieve the token from the session
+                    # token = request.session.get('token')
+
+                    # Call external or custom userLogin function to validate phone + OTP
+                    user_login = userLogin(phone)
+
+                    # Check if the OTP login was successful
+                    if user_login.status_code == 200:
+                        request.session['user_mobile'] = phone
+                        return JsonResponse({'status': 'success', 'message': 'Verify OTP for Login'}, status=200)
+                    else:
+                        return JsonResponse({'status': 'error', 'message': 'Invalid OTP or verification failed. Please try again.'}, status=400)
+                except Exception as e:
+                    return JsonResponse({'status': 'error', 'message': f'Error during login: {str(e)}'}, status=500)
+            else:
+                    return JsonResponse({'status': 'error', 'message': 'Phone number mismatch. Please check the phone number.'}, status=400)
+           
+
+        return render(request, 'base.html', {
+            'register_form': None,
+            'otp_form': None,
+            'login_form': login_form,
+            'otp_step': None
+        })
+    except Exception as e:
+        return JsonResponse({'status': 'error', 'message': f'Error occurred during login: {str(e)}'}, status=500)
+
+
+def dham_logout_view(request):
+    if request.method == 'POST':
+        # Clear only necessary session data
+       # Keep token for next login
+        request.session['user_authenticated'] = False  # Mark user as logged out
+        logout(request)  # This logs out the user if using Django's authentication system
+
+        return JsonResponse({'success': True})
+
+    return JsonResponse({'success': False, 'error': 'Invalid request method.'})
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -38,6 +233,10 @@ def home(request):
     upcoming_tours_events_data = get_request_data('upcoming_tours_events')
     top_destinations_data = get_request_data('top_destinations')
     blogs_data = get_request_data('recent_blogs')
+
+    register_form = RegisterForm()
+    login_form = LoginForm()  
+    otp_form = BaseOtpForm() 
 
     # Process blogs_data
     if blogs_data and 'updatedBlogs' in blogs_data:
@@ -71,6 +270,9 @@ def home(request):
         'city_data': city_data,
         'upcoming_tours_events_data': upcoming_tours_events_data,
         'top_destinations_data': top_destinations_data,
+        'register_form':register_form,
+        'login_form':login_form,
+        'otp_form':otp_form
     }
     return render(request, 'base.html', context)
 
@@ -225,10 +427,7 @@ def blog_detail_page(request, blog_loc, blog_id):
 
 
 
-from django.shortcuts import render
-from django.http import JsonResponse
-from django.template.loader import render_to_string
-from django.conf import settings
+
 
 def get_hotel_by_city(request, property_city, property_city_id):
     default_url = settings.STATIC_URL + 'img/default-product.png'  # Use the static file

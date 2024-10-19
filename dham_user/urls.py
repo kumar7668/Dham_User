@@ -6,6 +6,14 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('set_language/', views.set_language, name='set_language'),
 
+
+    #user/login/register/otp
+    path('register/', views.register_view, name='register'),
+    path('login/', views.login_view, name='login'),
+    path('logout/',views.dham_logout_view, name='logout'),
+    path('verify_otp_view/', views.verify_otp_view, name='verify_otp_view'),
+
+
     #acc
     path('accommodation_state', views.accommodation_state, name="accommodation"),
     path('e-pooja', views.e_pooja, name="e_pooja"),
