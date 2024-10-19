@@ -5,11 +5,11 @@
     position: relative;
     background-size: cover;
     background-position: center;
-    height: 370px; /* Adjust this height */
+    height: 700px; /* Adjust this height */
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
+    color:white;
 }
 .mt-40{
     margin-top: 40px;
@@ -100,22 +100,23 @@
 
 .blog_list_page .blog-container {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* Default for desktop: 4 columns */
-    gap: 20px;
+    grid-template-columns: repeat(3, 1fr); /* Default for desktop: 4 columns */
+    gap: 22px;
     padding: 20px;
-    margin: 0 auto;
+    margin:0 auto;
+
 }
 
 .blog_list_page .blog-post {
     background: #FBFBFB;
     border: 1px solid #FFEBEF;
-    border-radius: 8px;
+    border-radius: 25px;
     box-shadow: 0px 1px 13px 0px #0000000F;
     overflow: hidden;
     transition: transform 0.3s ease;
     display: flex;
     flex-direction: column;
-    height: 100%; /* Ensure the card takes up full height */
+    height: 100%; /* Ensure the card takes up full height */
 }
 
 .blog_list_page .blog-post:hover {

@@ -1,7 +1,9 @@
 .env
 .vscode
 sk.py
-_pycache_/
+__pycache__/
+*.pyc
+
 *.py[cod]
 
 # requirements.txt

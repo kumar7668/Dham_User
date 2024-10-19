@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 import requests
-from dod_api.api_hooks import userRegistration, verifyOtp, userLogin, get_request_data, get_hotel_list_ViaId, get_blog_detail_via_id, get_hotel_detail_ViaId,post_booking_detail
+from dod_api.api_hooks import userRegistration, verifyOtp, userLogin, get_request_data, get_hotel_list_ViaId, get_blog_detail_via_id, get_hotel_detail_ViaId, post_booking_detail, get_guides_list, get_guides_by_Id
 from dod_api.forms.userForms import LoginForm, RegisterForm, BaseOtpForm
 from django.templatetags.static import static
 from django.utils import translation
@@ -10,6 +10,7 @@ from datetime import datetime
 from django.http import HttpResponseNotFound
 import json  
 from django.contrib.auth import logout
+from django.urls import reverse
 
 
 # Register view
@@ -284,10 +285,22 @@ def accommodation_state(request):
     return render(request, 'accommodation_state.html', context)
 
 def guide(request):
+    guides_list = get_guides_list('guides_list')
     context={
-        'data':'Data',
+        'guides_list':guides_list['data'],
     }
     return render(request, 'guide/guide_base.html', context)
+
+def book_guide(request):
+    if request.method == 'POST':
+        guide_id = request.POST.get('guide_id')
+        guide_price_per_hrs = request.POST.get('guide_price_per_hrs')
+        total_amout_with_gst_and_hrs = request.POST.get('total_amout_with_gst_and_hrs')
+        start_date = request.POST.get('start_date')
+        start_time = request.POST.get('start_time')
+        end_time = request.POST.get('end_time')
+        noOfHrs = request.POST.get('noOfHrs')
+    return redirect(reverse('guide'))
 
 def guide_carousel(request):
     context={
@@ -295,11 +308,12 @@ def guide_carousel(request):
     }
     return render(request, 'guide/guide_carousel.html', context)
 
-def guide_detail(request):
+def guide_detail(request, guideId):
+    guides_detail = get_guides_by_Id('guides_by_id', guideId)
     context={
-        'data':'Data',
+        'guides_detail' : guides_detail['guide'],
     }
-    return render(request, 'guide/guide_detail_page.html', context)
+    return render(request, 'guide/guide_detail_page.html',context)
 
 def live_darshan(request):
     context={

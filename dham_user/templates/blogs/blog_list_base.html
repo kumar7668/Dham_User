@@ -1,4 +1,4 @@
-<!-- *********__Blog List Page__************* -->
+<!-- ********_Blog List Page_************ -->
 {% extends "base.html" %}
 {% load static custom_filters %}
 {% block content %}
@@ -6,10 +6,10 @@
     /* comman hero txt banner style */
     .comman_hero_txt_banner {
        position: relative;
-       background-image: url('{% static 'img/home_banner.png' %}'); 
+       background-image: url('{% static 'img/blogsnew.jpg' %}'); 
        background-size: cover;
        background-position: center;
-       height: 355px; /* Adjust this height */
+       height: 700px; /* Adjust this height */
        display: flex;
        align-items: center;
        justify-content: center;
@@ -35,6 +35,15 @@
     line-height: 63px;
     text-align: center;
 }
+.main-blog-container{
+    padding : 52px 65px;
+    background-color : white;
+}
+.Latest-title h1{
+    font-family : Urbanist;
+    font-weight : 600;
+    size : 48px;
+}
 </style>  
 
 <section class="section_blog blog_list blog_list_page" id="blog_list">   
@@ -43,10 +52,12 @@
       </div>
     <div class="row p-2 mt-5">
         <div class="blog-card-container container-fluid p-0 ">
+            <div class="Latest-title"><h1>Latest Blogs</h1></div>
             <!-- Blog container -->
+            <div class = "main-blog-container">
             <div class="container blog-container p-0">
                 {% if blogs_data %}
-                {% for blog in blogs_data.updatedBlogs %}
+                {% for blog in blogs_data.updatedBlogs|slice:":3" %}
                     <div class="blog-post">
                         <a href="{% url 'blog_detail_page' blog_loc=blog.cityId.name blog_id=blog.id %}" class="clsmanage">
                                 <div class="remder p-0">
@@ -73,6 +84,7 @@
                 {% endfor %}
                 {% endif %}
             </div>   
+            </div>
         </div>
     </div>
     <div class="container pt-4 text-center">
@@ -83,4 +95,4 @@
 </section>
 
 
-{% endblock %}
+{% endblock %}

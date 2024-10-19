@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static custom_filters%}
 {% block content %} 
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
@@ -460,6 +460,9 @@
     background-color: #fff;
     border: 2px solid var(--theme-red-color);
   }
+  .book_guide_from input[type='text']{
+    border : none;
+  }
   </style>
 
 <section id="guide_detail class_for_all_sections mt-5" class=" class_for_all_sectionsguide_detail section"> 
@@ -473,39 +476,41 @@
         <div class="profile-card">
           <div class="profile-header">
             <div class="d-flex align-items-center">
-              <img src="{% static 'img/guide.png' %}" alt="Employee Photo" alt="Guide Photo" class="profile-img">
+              <img src="{{guides_detail.file.Url}}" alt="Employee Photo" alt="Guide Photo" class="profile-img">
               <div class="profile-info">
-                <h4 class="guide_name">Wilson Schleifer</h4>
-                <p class="guide_city">Jaipur, India</p>
+                <h4 class="guide_name">{{guides_detail.name}}</h4>
+                <p class="guide_city">{{guides_detail.cityId.name}}, India</p>
                 <div class="d-block d-lg-none d-md-none d-sm-block guide_price">
-                  ₹ 290/<span class="guide_price_hours">hour</span>
+                  ₹ {{guides_detail.pricePerHour}}/<span class="guide_price_hours">hour</span>
                 </div>
-                <div class="profile-rating">
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-half"></i>
-                  <span class="rating_digit">4.3/5</span>
+                <div class="guide_rating d-flex gap-3 align-items-center">
+                  <span class="profile-rating">
+
+                    {% with guides_detail.rating as rating %}
+                      {% generate_stars rating as filled_stars %}
+    
+                      <!-- Display filled stars -->
+                      {% for star in filled_stars.0 %}
+                          <i class="bi bi-star-fill"></i>
+                      {% endfor %}
+                      
+                      <!-- Display empty stars -->
+                      {% for star in filled_stars.1 %}
+                          <i class="bi bi-star"></i>
+                      {% endfor %}
+                    {% endwith %}
+                  </span>
+                  <span class = 'guide-rating'>{{guides_detail.rating}}/5</span>
                 </div>
               </div>
             </div>
             <div class="d-block d-lg-block d-md-block d-none  d-sm-none guide_price">
-              ₹ 290/<span class="guide_price_hours">hour</span>
+              ₹ {{guides_detail.pricePerHour}}/<span class="guide_price_hours">hour</span>
             </div>
           </div>
           <div class="about-section">
             <h5 class="guid_about">About</h5>
-            <p>A wonderful serenity has taken possession of my entire soul, like these sweet mornings 
-              of spring which I enjoy with my whole heart. I am alone, and feel the charm of existence 
-              in this spot, which was created for the bliss of souls like mine. I am so happy, my dear 
-              friend, so absorbed in the exquisite sense of mere tranquil existence, that I neglect 
-              my talents.</p>
-              <p>Lorem Ipsum decided to leave for the far World of Grammar. The Big Oxmox advised 
-                her not to do so, because there were thousands of bad Comma wild Question Marks
-                and devious Semikoli, but the Little Blind Text didn’t listen. She packed her seven 
-                versalia, put her initial into the belt and made herself on the way. When she reached
-                the first hills.</p>
+            <p>{{guides_detail.about}}</p>
           </div>
           <div class="languages row">
             <div class="guide_lang">Languages:</div>
@@ -533,44 +538,59 @@
           <div class="form_head_txt">
             <h5 class="form_price_txt">Price</h5><span class="non-refund">Non-Refundable</span>
           </div>  
-          <p class="booking_guide_price">₹ 290/<span class="booking_guide_price_hours">hour</span></p>
+          <p class="booking_guide_price">₹ {{guides_detail.pricePerHour}}/<span class="booking_guide_price_hours">hour</span></p>
           <hr>
-          <form class="book_guide_from">
+          <form class="book_guide_from" method = 'post' action = "{% url 'book-guide' %}">
             {% csrf_token %}
+            <input type = "hidden" name = "guide_id" value = "{{guides_detail.id}}" />
+            <input type = "hidden" name = "guide_price_per_hrs"  value = "{{guides_detail.pricePerHour}}" />
+            <input type = "hidden" name = "total_amout_with_gst_and_hrs"  value = "" />
+            <div class="row ">
+              <div class="col-12 ">
+                <label for="guide-date" class="form-label from_date">From</label>
+                <input type="date" name = 'start_date' class="form-control p-0" placeholder = "Select date" id="start_date" required>
+                <hr>
+              </div>
+            </div>
             <div class="row ">
               <div class="col-6 ">
-                <label for="from-date" class="form-label from_date">From</label>
-                <input type="date" class="form-control p-0" id="from-date">
+                <label for="start-time" class="form-label from_date">From</label>
+                <input type="time" name = 'start_time' class="form-control p-0" id="start-time" onchange = "validateTime()" required>
                 <hr>
               </div>
               <div class=" col-6 ">
                 <label for="to-date" class="form-label to_date">To</label>
-                <input type="date" class="form-control p-0" id="to-date">
+                <input type="time" name = 'end_time' class="form-control p-0" id="end-time" onchange = "validateTime()" required>
                 <hr>
               </div>
             </div>
-            <div class="custom-select-wrapper">
+            {% comment %} <div class="custom-select-wrapper">
               <label for="hours" class="form-label">Hours</label>
               <div class="custom-select">
-                <select class="form-control" id="hours">
+                <select class="form-control" name = "noOfHrs" id="hours" onchange = "getTotal(this.value)">
                   <option value="2">2 hours</option>
                   <option value="3">3 hours</option>
                   <option value="4">4 hours</option>
                 </select>
-                <i class="bi bi-caret-down-fill"></i> <!-- Bootstrap Icon -->
+                <i class="bi bi-caret-down-fill"></i> 
               </div>
               <hr>
-            </div>         
+            </div>          {% endcomment %}
             <div class="booking-total">
-              <span>₹290 x 2 hours</span><span>₹ 580.00</span>
+              <div class = "d-flex gap-1">
+                <span id = "pricePerHrs">{{guides_detail.pricePerHour}}</span>
+                <span>x </span> 
+                <span id = 'noOfHrs'>2 hours</span>
+              </div>
+              <span id = "totalPrice">₹ 580.00</span>
             </div>
             <div class="gst-section">
               <span>GST (18%)</span>
-              <span id="gst">₹ 104.4</span>
+              <span id="gst"></span>
             </div>
             <div class="total-section">
               <span>Total (incl. taxes)</span>
-              <span id="total">₹ 684.4</span>
+              <span id="total">₹</span>
             </div>
             <button type="submit" class="book-btn">Book this Now</button>
           </form>
@@ -749,6 +769,92 @@
     },
 });
 
+function getTotal(selected_hrs){
+
+  let hours = selected_hrs;
+  let price = parseInt($('#pricePerHrs').text())
+  let totalPrice = price * hours
   
-</script>  
-{% endblock %} 
+  // selected no of hours
+  $("#noOfHrs").text(${hours} hours)
+
+  // total price
+  $('#totalPrice').text(₹ ${totalPrice})
+
+  // calculate gst
+  let gst = Math.round((18/100)*totalPrice)
+  $('#gst').text(₹ ${gst})
+  
+  let toatlIncTax = gst + totalPrice
+  $('#total').text(₹ ${toatlIncTax})
+
+  $('input[name = "total_amout_with_gst_and_hrs"]').val(toatlIncTax)
+
+}
+
+flatpickr("#start_date", {
+  mode: "single",
+  dateFormat: "d M Y",
+  defaultDate: new Date(),
+  onClose: function(selectedDates, dateStr, instance) {
+    if (selectedDates.length === 2) {
+      [checkInDate, checkOutDate] = selectedDates;
+      document.getElementById('start_date').value = ${formatDate(checkInDate)} - ${formatDate(checkOutDate)};
+      checkAvailability();
+    }
+  },
+  disable: [
+    function(date) {
+      // Disable all dates before today
+      return date < new Date().setHours(0,0,0,0);
+    }
+  ],
+  onReady: function(selectedDates, dateStr, instance) {
+    function adjustCalendar() {
+      if (window.innerWidth <= 481) {
+        instance.config.showMonths = 1;
+      } else {
+        instance.config.showMonths = 2;
+      }
+      instance.redraw();
+    }
+    window.addEventListener('resize', adjustCalendar);
+    adjustCalendar();
+  }
+});
+
+$(document).ready(function(){
+  validateTime()
+})
+let startTime = flatpickr("#start-time", {
+  enableTime: true,
+  noCalendar: true,
+  dateFormat: "H:i",  // 24-hour format
+  time_24hr: true,      
+  defaultDate : "10:00",
+});
+
+let endTime = flatpickr("#end-time", {
+  enableTime: true,
+  noCalendar: true,
+  dateFormat: "H:i",  // 24-hour format
+  time_24hr: true,   
+  defaultDate : "12:00", 
+});
+
+function validateTime(){
+
+  //let dateStart = $('#start-time').val()
+  //let dateEnd = $('#end-time').val()
+  let timeStart = startTime.input.value.split(':')[0]
+  let timeEnd = endTime.input.value.split(':')[0] 
+  if((timeStart != '' || timeEnd != '' ) && (timeEnd <= timeStart )){
+    $('#end-time').val('')
+    return false
+  }
+  let guideHrs = timeEnd - timeStart
+  getTotal(guideHrs)
+
+}
+</script>  
+{% endblock %}

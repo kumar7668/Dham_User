@@ -27,7 +27,10 @@ API_ENDPOINTS = {
     'get_hotel_detial':BASE_URI + '/get-hotel-details/',
     'get_amenities': BASE_URI + '/get-all-amenities',           
     'get_property_types': BASE_URI + '/get-all-property-type', 
-    'book_property': BASE_URI + '/book-property', 
+    'book_property': BASE_URI + '/book-property',
+
+    'guides_list': BASE_URI + '/guids',  # get all the guides
+    'guides_by_id': BASE_URI + '/get-guide-by-id',  # get guides by id
 }
 
 
@@ -192,4 +195,36 @@ def get_blog_detail_via_id(api_name, blog_id=None):
         raise RuntimeError(f"Request error occurred: {req_err}") from req_err
     except Exception as err:
         raise RuntimeError(f"Other error occurred: {err}") from err
+    return None
+
+
+
+def get_guides_list(api_name):
+    url = API_ENDPOINTS.get(api_name)
+    if not url:
+        raise ValueError(f"No API endpoint found for {api_name}")
+    
+    try:
+        response = requests.get(url)  # Pass filters as params
+        response.raise_for_status()
+        return response.json()  
+    except requests.exceptions.HTTPError as http_err:
+        print(f"HTTP error occurred: {http_err}")  
+    except Exception as err:
+        print(f"Other error occurred: {err}")
+    return None
+
+def get_guides_by_Id(api_name, guide_id):
+    url = API_ENDPOINTS.get(api_name) + "/" + guide_id + '/'
+    if not url:
+        raise ValueError(f"No API endpoint found for {api_name}")
+    
+    try:
+        response = requests.get(url)  # Pass filters as params
+        response.raise_for_status()
+        return response.json()  
+    except requests.exceptions.HTTPError as http_err:
+        print(f"HTTP error occurred: {http_err}")  
+    except Exception as err:
+        print(f"Other error occurred: {err}")
     return None
