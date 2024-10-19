@@ -1395,6 +1395,20 @@
         border: none;
         border-radius: 30px;
       }
+      .modal-log-regsiter-btn {
+        font-family: var(--default-font);
+        letter-spacing: 0.5px;
+        font-size: 14px;
+        font-weight: 500;
+        margin-top: 20px;
+        width: 100%;
+        padding: 12px;
+        background-color: var(--theme-red-color);
+        color: white;
+        border: none;
+        border-radius: 30px;
+      }
+
     .puja-header {
         display: flex;
         justify-content: space-between;

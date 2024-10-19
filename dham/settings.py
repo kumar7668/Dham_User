@@ -72,6 +72,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "dham_user.context_processors.forms_in_header",
                 "django.template.context_processors.i18n",
             ],
         },

@@ -1,12 +1,19 @@
 # hotels/utility.py
 
 import requests
-
+from django.http import JsonResponse
+from django.views import View
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
 # Define your API endpoints here
 BASE_URI = "https://bharatkedham.com/backend/api/v1"
 # BASE_URI = "https://dham-backend.onrender.com/backend/api/v1"
 
 API_ENDPOINTS = {
+
+    'register_customer': BASE_URI + "/register-customer",
+    'otp_verify': BASE_URI + "/otp-verify",
+
     'get_all_city': BASE_URI + "/get-all-city/",
     'kanha_jiki_nagri' : BASE_URI + "/get-current-city-tour",
     'upcoming_tours_events': BASE_URI + "/upcoming-tours-events",
@@ -22,6 +29,80 @@ API_ENDPOINTS = {
     'get_property_types': BASE_URI + '/get-all-property-type', 
     'book_property': BASE_URI + '/book-property', 
 }
+
+
+
+# User Registration function (without OTP verification)
+def userRegistration(fname, lname, email, phone):
+    registration_data = {
+        'firstname': fname,
+        'lastname': lname,
+        'email': email,
+        'mobile': "+91" + phone
+    }
+
+    try:
+        # Send POST request to the registration endpoint
+        response = requests.post(f"{BASE_URI}/register-customer", json=registration_data)
+        response_data = response.json()
+
+        # Check if registration was successful
+        if response.status_code == 201:
+            return JsonResponse({'message': 'Otp Send to Phone number!', 'data': response_data}, status=201)
+        else:
+            return JsonResponse({'message': 'Registration failed.', 'error': response_data}, status=response.status_code)
+
+    except requests.exceptions.RequestException as e:
+        return JsonResponse({'message': 'Error connecting to the third-party service.', 'error': str(e)}, status=500)
+    
+def verifyOtp(mobile, otp):
+    if not mobile.startswith("+91"):
+        mobile = "+91" + mobile
+
+    otp_data = {
+        'mobile': mobile,
+        'otp': otp
+    }
+    try:
+        # Send POST request to the otp endpoint
+        response = requests.post(f"{BASE_URI}/otp-verify", json=otp_data)
+        response_data = response.json()
+
+        # Check if registration was successful
+        if response.status_code == 200:
+            return JsonResponse({'message': 'Registration successful!', 'data': response_data}, status=200)
+        else:
+            return JsonResponse({'message': 'Registration failed.', 'error': response_data}, status=response.status_code)
+
+    except requests.exceptions.RequestException as e:
+        return JsonResponse({'message': 'Error connecting to the third-party service.', 'error': str(e)}, status=500)
+
+
+# User Registration function (without OTP verification)
+def userLogin(phone):
+    login_data = {
+        'mobile': "+91" + phone
+    }
+    # headers = {
+    #             'Authorization': f'Bearer {token}',
+    #             'Content-Type': 'application/json'
+    #         }
+
+    try:
+        # Send POST request to the registration endpoint
+        response = requests.post(f"{BASE_URI}/login-customer", json=login_data)
+        response_data = response.json()  
+
+        # Check if registration was successful
+        if response.status_code == 200:
+            return JsonResponse({'message': 'Otp Send to Phone number!', 'data': response_data}, status=200)
+        else:
+            return JsonResponse({'message': 'Registration failed.', 'error': response_data}, status=response.status_code)
+
+    except requests.exceptions.RequestException as e:
+        return JsonResponse({'message': 'Error connecting to the third-party service.', 'error': str(e)}, status=500)
+
+
 
 def get_request_data(api_name):
     """
