@@ -1,15 +1,15 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static custom_filters%}
 {% block content %} 
 <style>
 
   /* comman hero txt banner style */
   .comman_hero_txt_banner {
      position: relative;
-     background-image: url('{% static 'img/home_banner.png' %}'); 
+     {% comment %} background-image: url('{% static 'img/home_banner.png' %}');  {% endcomment %}
      background-size: cover;
      background-position: center;
-     height: 355px; /* Adjust this height */
+     height: 300px; /* Adjust this height */
      display: flex;
      align-items: center;
      justify-content: center;
@@ -75,7 +75,7 @@
     }
   
     .profile-rating {
-        font-size: 16px;
+        font-size: 15px;
         color: #f1c40f;
     }
   
@@ -121,7 +121,20 @@
     .card-base {
         padding: 15px;
     }
-  
+    .pad-64{
+      padding : 32px 64px 80px 64px;
+      background-color : white;
+      border : 1px;
+      border-radius : 25px;
+    }
+    .guide-rating{
+      font-family : Urbanist;
+      weight : 500;
+      font-size : 12px;
+      line-height : 20px;
+      color : var(--Gray, #919191);
+
+    }
     /* Media queries for responsiveness */
     @media (max-width: 767px) {
         /* Cards should shrink but stay in a row */
@@ -270,133 +283,46 @@
 
   </div>
   <div class="container mt-5">
-    <div class="row">
+    <div class="row pad-64">
       <div>
         <h1 class="guide_page_title">Find your selected guide detail here.</h1>
       </div> 
       <!-- Card 1 -->
-      
+      {% if guides_list %}
+      {% for guide in guides_list %}
         <div class="col-sm-12 col-md-6 col-lg-4 card-base">
-          <a href="{% url 'guide-detail' %}" >
+          <a href="{% url 'guide-detail' guide.id %}" >
             <div class="profile-card d-flex">
-              <img src="{% static 'img/guide.png' %}" alt="Employee Photo" class="profile-img">
+              <img src="{{guide.file.Url}}" alt="Employee Photo" class="profile-img">
                 <div class="profile-info">
-                    <h4 class="guide_name">Wilson Schleifer</h4>
-                    <p class="guide_city">Jaipur, India</p>
-                    <p class="guide_price">₹ 290/<span class="guide_price_hours"> hour</span></p>
-                    <p class="guide_rating">
+                    <h4 class="guide_name">{{guide.name}}</h4>
+                    <p class="guide_city">{{guide.cityId.name}}, India</p>
+                    <p class="guide_price">₹ {{guide.pricePerHour}}/<span class="guide_price_hours"> hour</span></p>
+                    <div class="guide_rating d-flex gap-3 align-items-center">
                       <span class="profile-rating">
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star"></i>
+
+                        {% with guide.rating as rating %}
+                          {% generate_stars rating as filled_stars %}
+        
+                          <!-- Display filled stars -->
+                          {% for star in filled_stars.0 %}
+                              <i class="bi bi-star-fill"></i>
+                          {% endfor %}
+                          
+                          <!-- Display empty stars -->
+                          {% for star in filled_stars.1 %}
+                              <i class="bi bi-star"></i>
+                          {% endfor %}
+                        {% endwith %}
                       </span>
-                    </p>
+                      <span class = 'guide-rating'>{{guide.rating}}/5</span>
+                    </div>
                 </div>
             </div>
           </a>
         </div>
-   
-      
-      <!-- Card 2 -->
-      <div class="col-sm-12 col-md-6 col-lg-4 card-base">
-          <div class="profile-card d-flex">
-            <img src="{% static 'img/guide.png' %}" alt="Employee Photo" class="profile-img">
-              <div class="profile-info">
-                  <h4 class="guide_name">Jane Smith</h4>
-                  <p class="guide_city">Jaipur, India</p>
-                  <p class="guide_price">₹ 290/<span class="guide_price_hours"> hour</span></p>
-                  <p class="guide_rating">
-                    <span class="profile-rating">
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-half"></i>
-                    </span>
-                  </p>
-              </div>
-          </div>
-      </div>
-      
-      <!-- Card 3 -->
-      <div class="col-sm-12 col-md-6 col-lg-4 card-base">
-          <div class="profile-card d-flex">
-            <img src="{% static 'img/guide.png' %}" alt="Employee Photo" class="profile-img">
-              <div class="profile-info">
-                  <h4 class="guide_name">Dev Kumar Jha</h4>
-                  <p class="guide_city">Jaipur, India</p>
-                  <p class="guide_price">₹ 290/<span class="guide_price_hours"> hour</span></p>
-                  <p class="guide_rating">
-                    <span class="profile-rating">
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star"></i>
-                    </span>
-                  </p>
-              </div>
-          </div>
-      </div>
-      <div class="col-sm-12 col-md-6 col-lg-4 card-base">
-        <div class="profile-card d-flex">
-          <img src="{% static 'img/guide.png' %}" alt="Employee Photo" class="profile-img">
-            <div class="profile-info">
-                <h4 class="guide_name">Dev Kumar Jha</h4>
-                <p class="guide_city">Jaipur, India</p>
-                <p class="guide_price">₹ 290/<span class="guide_price_hours"> hour</span></p>
-                <p class="guide_rating">
-                  <span class="profile-rating">
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star"></i>
-                  </span>
-                </p>
-            </div>
-        </div>
-      </div>
-      <div class="col-sm-12 col-md-6 col-lg-4 card-base">
-        <div class="profile-card d-flex">
-          <img src="{% static 'img/guide.png' %}" alt="Employee Photo" class="profile-img">
-            <div class="profile-info">
-                <h4 class="guide_name">Dev Kumar Jha</h4>
-                <p class="guide_city">Jaipur, India</p>
-                <p class="guide_price">₹ 290/<span class="guide_price_hours"> hour</span></p>
-                <p class="guide_rating">
-                  <span class="profile-rating">
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star"></i>
-                  </span>
-                </p>
-            </div>
-        </div>
-      </div>
-      <div class="col-sm-12 col-md-6 col-lg-4 card-base">
-        <div class="profile-card d-flex">
-          <img src="{% static 'img/guide.png' %}" alt="Employee Photo" class="profile-img">
-            <div class="profile-info">
-                <h4 class="guide_name">Dev Kumar Jha</h4>
-                <p class="guide_city">Jaipur, India</p>
-                <p class="guide_price">₹ 290/<span class="guide_price_hours"> hour</span></p>
-                <p class="guide_rating">
-                  <span class="profile-rating">
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star"></i>
-                  </span>
-                </p>
-            </div>
-        </div>
-      </div>
+      {% endfor%}
+      {% endif%}
     </div>
   </div>
 </section>

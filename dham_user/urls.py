@@ -12,7 +12,8 @@ urlpatterns = [
     path('login/', views.login_view, name='login'),
     path('logout/',views.dham_logout_view, name='logout'),
     path('verify_otp_view/', views.verify_otp_view, name='verify_otp_view'),
-
+    path('guide/guide-detail/<str:guideId>/', views.guide_detail, name='guide-detail'),
+    path('book_guide/', views.book_guide, name='book-guide'),
 
     #acc
     path('accommodation_state', views.accommodation_state, name="accommodation"),
