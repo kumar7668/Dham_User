@@ -5,6 +5,7 @@
             height: 445px; !important;
             overflow: hidden;
             position: relative;
+            border-radius: 26px;
         }
     
         .reels_car .owl-carousel .card video {
@@ -22,10 +23,16 @@
             font-size: 0.9rem;
         }
 
-        .reels_car .video-slide,  .reels_car .item, .reels_car .card{
+        .reels_car .owl-carousel .video-slide,  .reels_car .owl-carousel .item, .owl-carousel .reels_car .card{
             border-radius: 26px;
         }
 
+
+        @media only screen and (max-width: 768px) {
+            .reels_car .owl-carousel .owl-item .item .card {
+                height: 505px; !important;
+        }
+    }
 </style>
 
 <section id="reels_car" class="class_for_all_sections reels_car top-destinations" data-aos="fade-up" data-aos-delay="100">
@@ -63,7 +70,7 @@
 
 <script>
     $(document).ready(function(){
-        let isManualPlay = false; // Variable to control play mode
+        let isManualPlay = true; // Variable to control play mode
 
         $('.reels_car .owl-carousel').owlCarousel({
             loop: true,
