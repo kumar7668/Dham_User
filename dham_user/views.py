@@ -237,10 +237,6 @@ def home(request):
     top_destinations_data = get_request_data('top_destinations')
     blogs_data = get_request_data('recent_blogs')
 
-    register_form = RegisterForm()
-    login_form = LoginForm()  
-    otp_form = BaseOtpForm() 
-
     # Process blogs_data
     if blogs_data and 'updatedBlogs' in blogs_data:
         for blog in blogs_data['updatedBlogs']:
@@ -273,9 +269,6 @@ def home(request):
         'city_data': city_data,
         'upcoming_tours_events_data': upcoming_tours_events_data,
         'top_destinations_data': top_destinations_data,
-        'register_form':register_form,
-        'login_form':login_form,
-        'otp_form':otp_form
     }
     return render(request, 'base.html', context)
 
@@ -628,3 +621,9 @@ def BookHotel(request):
         return redirect('/')
         # return render(request, 'noname.html')
     
+
+def eventAndTourDetail(request):
+    context={
+        'data':'Data',
+    }
+    return render(request, 'showcase_events.html', context)

@@ -11,52 +11,66 @@
   #footer .footer-top{
     background-position: bottom;
     background-size: cover !important;
-    {% comment %} background: linear-gradient(180deg, rgba(0, 0, 0, 0) 87.36%, #4A061B 106.41%),
-      linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.39) 71.18%),
-      linear-gradient(180deg, rgba(73, 30, 10, 0) -52.11%, #4A060A 100%),url("{% static '\img\footer_bg.jpg' %}"); {% endcomment %}
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 10.11%, #4A061B 106.41%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.03) 200.18%),
+    linear-gradient(177.84deg, rgba(56, 14, 1, 0) 45.84%, #4A060A 129.11%),
+    linear-gradient(180deg, #FDF7E7 0%, rgba(253, 247, 231, 0.1) 44.5%),url("/static/img/FOOTERBG.jpg")
 
   }
   
 </style>  
 
-<div class="container-fluid footer_head">
-  <div class="container p-0 text-center aos-init aos-animate">
-    <div class="row d-block gy-4 p-0" data-aos="fade-up" data-aos-delay="100">
-          <img class="gpt-god img-fluid" src="/static/img/janaji.png" alt="img">
-      </div>
-    </div>
-  </div>
 
 </div>
 <footer id="footer" class="footer mt-4">
     <div class="container-fluid p-0 footer-top">
-      <div class="container">
-        <div class="row gy-4">
-          <div class="col-lg-5 col-md-5 col-sm-12 footer-about">
-            <a href="index.html" class="logo d-flex align-items-center">
-              <img class="gpt-god img-fluid" src="/static/img/base_logo.png" alt="img">
-              <p class="footer-contact" style="color:white; font-family: Jomhuria; font-size: 70px; font-weight: 400; line-height: 40px; top: 58px; position: relative;">Discover </br> Learn </br>Immerse</p>
-            </a>
-            <div class="footer-contact">
-              <p class="mt-5">Dham offers guided historical tours, room bookings, cultural workshops, local cuisine experiences, and personalized services to enrich your cultural journey.</p>
+      <div class="container-fluid footer_head">
+        <div class="container p-0 text-center aos-init aos-animate">
+          <div class="row d-block gy-4 p-0" data-aos="fade-up" data-aos-delay="100">
+                <img class="gpt-god img-fluid" src="/static/img/janaji.png" alt="img">
             </div>
           </div>
-          <div class="col-lg-4 col-md-4 col-sm-12 footer-links ">
-            <h4 class="footer_titles py-3">Links</h4>
-            <ul>
-              <li><a href="{% url 'faq' %}">FAQ</a></li>
-              <li><a href="{% url 'about_us' %}">About Us</a></li>
-              <li><a href="{% url 'testimonials' %}">Testimonials</a></li>
-              <li><a href="{% url 'contact_us' %}">Contact US</a></li>
-              <li><a href="{% url 'privacy_policy' %}">Privacy policy</a></li>
-              <li><a href="{% url 'terms_condition' %}">Terms and Condition</a></li>
-            </ul>
+        </div>
+      
+      <div class="container">
+        <div class="gy-4 mt-5 pb-lg-5 row">
+          <div class="col-sm-12 col-md-6 col-lg-6">
+            <div class="col-lg-5 col-md-5 col-sm-12 footer-about">
+              <a href="index.html" class="logo d-flex align-items-center">
+                <img class="gpt-god img-fluid" src="/static/img/base_logo.png" alt="img">
+                <p class="footer-contact" style="color: white;
+                  font-family: Jomhuria;
+                  font-size: 46px;
+                  font-weight: 400;
+                  line-height: 24px;
+                  top: 0px;
+                  position: relative;">Discover </br> Learn </br>Immerse</p>
+              </a>
+              <div class="footer-contact d-none">
+                <p class="mt-5">Dham offers guided historical tours, room bookings, cultural workshops, local cuisine experiences, and personalized services to enrich your cultural journey.</p>
+              </div>
+            </div>
           </div>
-          <div class="footer_iocns col-lg-3 col-md-3 col-sm-12 footer-links">
-            <h4 class="footer_titles py-3">Contact</h4>
-            <p><i class="bi bi-geo-alt-fill"></i>Akshya Nagar 1st Block 1st Cross, Rammurthy nagar, Bangalore-560016</p>
-            <p><i class="bi bi-telephone-fill"></i>+91 1234567890</p>
-            <p><i class="bi bi-envelope-fill"></i>Dham@gmail.com</p>
+          <div class="col-sm-12 col-md-6 col-lg-6">
+              <div class="row p-0">
+                <div class="col-sm-12 col-md-6 col-lg-6 footer-links  ">
+                  <h4 class="footer_titles py-3">Links</h4>
+                  <ul>
+                    <li class="d-none"><a href="{% url 'faq' %}">FAQ</a></li>
+                    <li class=""><a href="{% url 'about_us' %}">About Us</a></li>
+                    <li class="d-none"><a href="{% url 'testimonials' %}">Testimonials</a></li>
+                    <li class="d-none"><a href="{% url 'contact_us' %}">Contact US</a></li>
+                    <li class=""><a href="{% url 'privacy_policy' %}">Privacy policy</a></li>
+                    <li class=""><a href="{% url 'terms_condition' %}">Terms and Condition</a></li>
+                  </ul>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-6 footer_iocns footer-links ">
+                  <h4 class="footer_titles py-3">Contact</h4>
+                  <p><i class="bi bi-geo-alt-fill"></i>Akshya Nagar 1st Block 1st Cross, Rammurthy nagar, Bangalore-560016</p>
+                  <p><i class="bi bi-telephone-fill"></i>+91 1234567890</p>
+                  <p><i class="bi bi-envelope-fill"></i>Dham@gmail.com</p>
+                </div>
+              </div>
           </div>
         </div>
       </div>

@@ -256,7 +256,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: #fff;
+    background: var(--background-color);
     border-top: 1px solid #ddd;
     display: flex;
     justify-content: space-around;
@@ -269,15 +269,14 @@
     text-align: center;
     flex-grow: 1;
     font-size: 14px;
-    color: var(--theme-red-color);
+    color: var(--default-color);
     display: inline-grid;
   }
 
   .mobile-nav-bar a img {
-    width: 24px;
-    height: 24px;
+    width: 30px;
+    height: 30px;
     display: block;
-    margin: 0 auto 5px;
   }
   
 }
@@ -352,6 +351,27 @@
   text-align: left;
   color: var(--theme-red-color);
  }
+
+ .home-mob_div a {
+  justify-content: center;
+ }
+ .home-mob-span{
+  border-radius: 130px;
+  width: 50px;
+  height: 50px;
+  background: #fff;
+  box-shadow: 0px 1px 13px 0px #00000052;
+    border: 1px solid #FFEBEF;
+}
+.home-mob-span img{
+  filter: invert(1);
+    margin: 10px 0 0 8px;
+}
+
+  .home-mob_div .bi-person-raised-hand{
+    color: var(--default-color);
+    font-size: 22px;
+  }
 </style>
 
 
@@ -407,22 +427,28 @@
   <!-- Base Heder End -->
 
 <!-- Mobile Bottom Navigation -->
-  <nav class="mobile-nav-bar d-xl-none d-md-none">
+  <nav class="mobile-nav-bar home-mob_div d-xl-none d-md-none">
     <a href="{% url 'accommodation' %}">
-      <span> <i class="bi bi-house-check-fill"></i></span>
-      <span>Accommodation</span>
+      <span><img src="{% static 'img/stay-home.svg' %}"></span>
+      <span class="{% if request.resolver_match.url_name == 'accommodation' %}active{% endif %}">Stay</span>
     </a>
     <a href="{% url 'guide' %}">
-      <span> <i class="bi bi-person-raised-hand"></i></span>
-      <span>Guide</span>
+      <span><i class="bi bi-person-raised-hand"></i></span>
+      <span class="{% if request.resolver_match.url_name == 'guide' %}active{% endif %}">Guide</span>
     </a>
-    <a href="{% url 'live_darshan' %}">
-      <span> <i class="i bi-eye-fill"></i></span>
-      <span>Darshan</span>
+
+    <a href="{% url 'home' %}" class="home-mob">
+      <span class="home-mob-span{% if request.resolver_match.url_name == '' %}active{% endif %}"><img src="{% static 'img/logo_mof.svg' %}"></span>
+      <span></span>
     </a>
+    
     <a href="https://demo.swadeshidiwali.com/">
-      <span> <i class="bi bi-basket2-fill"></i></span>
-      <span>Shop</span>
+      <span><img src="{% static 'img/shopping-bag.svg' %}"></span>
+      <span class="{% if request.resolver_match.url_name == 'https://demo.swadeshidiwali.com/' %}active{% endif %}">Shop</span>
+    </a>
+    <a href="{% url 'e_pooja' %}">
+      <span><img class="m-auto" src="{% static 'img/pray_mo.svg' %}"></span>
+      <span class="{% if request.resolver_match.url_name == 'e_pooja' %}active{% endif %}" >E-Puja</span>
     </a>
   </nav>
   <!-- Mobile Bottom Navigation End -->
@@ -610,9 +636,10 @@
 
     <!-- Preloader -->
     {% comment %} <div id="preloader"></div> {% endcomment %}
-    <div id="preloader">
+
+    {% comment %} <div id="preloader">
       <i class="bi bi-bell"></i>
-    </div>
+    </div> {% endcomment %}
     
 
     <!-- jQuery and Owl Carousel -->

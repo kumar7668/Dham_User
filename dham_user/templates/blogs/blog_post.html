@@ -13,7 +13,7 @@
                         <h2 class="h2_title theme_red">Latest Blog and News</h2>
                         <p class="p-text">Making the Most of Your Travel Experience in 2024</p>
                     </div>
-                    <div class="view_all_div text-center">
+                    <div class="view_all_div ">
                         <a href="{% url 'home' %}" class="view_all_btn"> Know more </a>
                     </div>
                 </div>
@@ -25,13 +25,13 @@
                 <div class="container blog-container">
                     {% if blogs_data %}
                     {% for blog in blogs_data.updatedBlogs %}
-                        <div class="blog-post">
+                        <div class="blog-post {% if forloop.counter > 3 %}d-lg-none d-md-none{% endif %}">
                             <a href="{% url 'blog_detail_page' blog_loc=blog.cityId.name blog_id=blog.id %}" class="clsmanage">
                                 <div class="remder p-0">
                                     {% if blog.first_file_url %}
-                                    <img src="{{ blog.first_file_url }}" alt="Blog Image">
+                                        <img src="{{ blog.first_file_url }}" alt="Blog Image">
                                     {% else %}
-                                    <img src="{% static 'img/blog1.png' %}" alt="Blog Cover">
+                                        <img src="{% static 'img/blog1.png' %}" alt="Blog Cover">
                                     {% endif %}
                                 </div>
                             </a>
@@ -53,6 +53,7 @@
                 </div>   
             </div>
         </div>
+        
         <div class="container p-5 text-center pt-4">
             <div class="row justify-content-center">
                 <a class="read_more_blog big_thmeme_btn" role="button" href="{% url 'blogs' %}">Read More Blogs</a>

@@ -1,85 +1,175 @@
 
 {% load static %}
 {% if top_destinations_data %}
-    <section id="top-destinations class_for_all_sections" class="class_for_all_sections comman_car_list top-destinations" data-aos="fade-up" data-aos-delay="100" >
-        <div class="container ">
-            <div class=" container-fluid mb-5 p-0"  data-aos="fade-up">
-                <div class="d-dm-flex d-lg-flex justify-content-between title-h2-div">
-                    <div class="p-0">
-                        <h2 class="h2_title">Plan your best experience ever !</h2>
-                        <p class="p-text">Making the Most of Your Travel Experience in 2024</p>
-                    </div>
-                    <div class="view_all_div text-center">
-                        <a href="{% url 'home' %}" class="view_all_btn"> View All Destination </a>
-                    </div>
-                </div>
-            </div>    
-            <div class="owl-carousel owl-theme" data-aos="fade-up" data-aos-delay="100">
-                {% for data in top_destinations_data.TopDestinations %}
-                    <div class="item">
-                        <div class="card" data-aos="fade-up" data-aos-delay="200">
-                            <span class="badge">{% if data.type == 'tour' %}Tour{% endif %}</span>
-                            
-                            {% for url in data.files %}
-                                {% if forloop.first %}
-                                    <img src="{{ url.Url }}" class="card-img-top" alt="{{ data.title }}">
-                                {% endif %}
-                            {% endfor %}
-                            
-                            <div class="overlay">
-                                <div class="property_title">{{data.title}}</div>
-                                <div class="tour_event_info"><i class="bi bi-calendar2-heart"></i> Starting from {{data.formatted_start_from}} to {{data.formatted_end_at}}</div>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
+<style>
+        
+    .top_destinations_car .owl-carousel .item {
+        position: relative;
+        border-radius: 26px; 
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        object-fit: cover;
+        {% comment %} height: 275px; /* Fixed height */ {% endcomment %}
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
+        aspect-ratio: 1 / 1;
+    }
+
+    .top_destinations_car .owl-carousel .item img {
+        border-radius: 26px; 
+        width: 100%;
+        height: 100%; 
+        object-fit: cover; 
+    }
+    .top_destinations_car{
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 19.36px;
+    text-align: left;
+    color:#ffffff;
+
+    }
+    .overlay {
+        
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%; /* Overlay matches image size */
+        padding: 10px;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0) 67.1%, rgba(0, 0, 0, 0.59) 81.16%, #000000 106.82%);
+        color: #fff;
+        text-align: center;
+        border-radius: 0 0 8px 8px; /* Round the bottom corners */
+        z-index: 1; /* Ensure overlay is on top */
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end; /* Align text at the bottom */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Bottom box shadow */
+    }
+    
+
+    .overlay-x .property_title{
+        letter-spacing: 0.5px;
+        font-weight: 500;
+        color: var(--default-color);
+        font-family: var(--heading-font);
+        font-size: 28px;
+        line-height:19px;
+
+    }
+    .overlay-x .state-city,{
+        color: var(--default-color);
+        font-family: var(--default-font);
+        font-size: 12px;
+
+    }
+    .top_destinations_car .p-text,  .overlay-x .state-city{
+        color: var(--default-color) !important;
+     
+    }
+
+    @media (max-width: 992px) {
+        /* Styles for tablets */
+        .top_destinations_car .owl-carousel .item {
+            width: 100%;
+            margin: 0 auto;
+        }
+    }
+
+    @media (min-width: 992px) {
+        .top_destinations_car .owl-carousel .owl-item {
+            flex: 0 0 auto;
+            margin-right: 5px; /* Reduce gap between items */
+        }
+    }
+
+    @media (max-width: 556px) {
+    .top_destinations_car .owl-carousel .item {
+        height: 300px; 
+    }
+    }
+
+
+    .top_destinations_car .owl-carousel .owl-stage {
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+   
+</style>
+
+<section id="section_top_reated" class="section_top_reated top_destinations_car" data-aos="fade-up" data-aos-delay="100" >
+    <div class="container pt-3 pb-5"  data-aos="fade-up" >
+        <div class="d-dm-flex d-lg-flex justify-content-between title-h2-div">
+            <div class="p-0">
+                <h2 class="h2_title theme_red">Top Locations to Explore</h2>
+                <p class="p-text">Here are some of the most visited places in 2023</p>
+            </div>
+            <div class="view_all_div">
+                <a href="{% url 'home' %}" class="view_all_btn"> View All Destination </a>
             </div>
         </div>
-    </section>
+    </div> 
+    <div class="container" data-aos="fade-up" data-aos-delay="100">  
+        <div class="container top_destinations_car">  
+            <div class="owl-carousel owl-theme">
+                
+                {% for data in top_destinations_data.TopDestinations %}
+                <a href="#" class="clsmanage">
+                {% comment %} <a href="{% url 'property_by_city' property_city=city.name property_city_id=city.id %}" class="clsmanage"> {% endcomment %}
 
-    <script>
-        //this will handel all carousel
-        $(document).ready(function(){
-            $('.comman_car_list .owl-carousel').owlCarousel({
-                loop: true,
-                margin: 10, 
-                autoplay: true, // Enable auto-loop
-                autoplayTimeout: 3000, // Time between each auto-slide (in milliseconds, e.g., 3000ms = 3 seconds)
-                autoplayHoverPause: true, // Pause on hover
-                responsive: {
-                    0: {
-                        items: 1.5, // 2 cards on small screens (phones)
-                        stagePadding: 10, // Show part of the next card
-                        margin: 10,
-                        
-                    },
-                    449: {
-                        items: 1.8, // 2 cards on small screens (phones)
-                        stagePadding: 10, // Show part of the next card
-                        margin: 10,
-                    },
-                    689: {
-                        items: 2.5, // 3 cards on small tablets
-                        stagePadding: 10,// Show part of the next card
-                        margin: 10,
-                    },
-                    992: {
-                        items: 3, // 4 cards on tablets
-                        stagePadding: 20, // Show part of the next card
-                        margin: 10,
-                    },
-                    1200: {
-                        items: 4, // 5 cards on large screens (desktops)
-                        stagePadding: 20, // Show part of the next card
-                        margin: 10, // Margin between cards
-                    },
-                    1300: {
-                        items: 4.4, // 5 cards on large screens (desktops)
-                        stagePadding: 20, // Show part of the next card
-                        margin: 10, // Margin between cards
-                    }
+                    <div class="item">
+                        {% for url in data.files %}
+                            {% if forloop.first %}
+                                <img src="{{ url.Url }}" class="img-fluid" alt="{{ data.title }}">
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="overlay-x pt-3">
+                        <div class="state-city">Noida, Uttarpardesh</div>
+                        <div class="property_title pt-2">{{data.title}}</div>
+                    </div>
+                </a>
+                {% endfor %}
+                
+            </div>
+        </div> 
+    </div>   
+</section>
+
+<script>
+    $(document).ready(function(){
+        $('.top_destinations_car .owl-carousel').owlCarousel({
+            loop: true,
+            margin: 20,
+            items: 1,
+            autoplay: false,                // Enable auto scroll
+            autoplayTimeout: 3000,         // Set the auto scroll interval (in milliseconds)
+            autoplayHoverPause: true,      // Pause auto scroll on hover
+            responsive: {
+                0: {
+                    items: 1,
+                    margin: 20,
+                },
+                500: {
+                    items: 2,
+                    margin: 20,
+                },
+                999: {
+                    items: 3,  // Show 3 images on large screens
+                    stagePadding: 0,  // Adjust stage padding for large screens
+                    margin: 20,
+                },
+                1280: {
+                    items: 4,  // Show 4 images on large screens
+                    stagePadding: 0,  // Adjust stage padding for large screens
+                    margin: 20,
                 }
-            });
+            }
         });
-    </script>
+    });
+</script>
+
 {%endif%}

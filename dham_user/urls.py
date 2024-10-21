@@ -20,7 +20,8 @@ urlpatterns = [
     path('e-pooja', views.e_pooja, name="e_pooja"),
     path('e-pooja-detial', views.e_pooja_detail, name="e_pooja_detial"),
 
-    
+    #evnetandtour detail
+    path('event-detail', views.eventAndTourDetail, name="event-detail" ),
 
 
     # Hotels Listing or Details Routes 
