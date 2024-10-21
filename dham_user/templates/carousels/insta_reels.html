@@ -11,16 +11,20 @@
         .reels_car .owl-carousel .card video {
             width: 100%;
             height: 100%; /* Ensure the video takes the full height of the card */
-            object-fit: cover; /* Ensure the video covers the card fully */
+            {% comment %} object-fit: cover; /* Ensure the video covers the card fully */ {% endcomment %}
+            osition: fixed;
+            object-fit: initial;
         }
     
         .reels_car .owl-carousel .card .property_title {
-            font-size: 1.2rem;
-            font-weight: bold;
+            font-size: 14px;
+            font-weight: 400;
+            font-famly:var(--default-font);
         }
     
         .reels_car .owl-carousel .card .tour_event_info {
-            font-size: 0.9rem;
+            font-size: 12px;
+            font-famly:var(--default-font);
         }
 
         .reels_car .owl-carousel .video-slide,  .reels_car .owl-carousel .item, .owl-carousel .reels_car .card{
@@ -30,7 +34,7 @@
 
         @media only screen and (max-width: 556px) {
             .reels_car .owl-carousel .owl-item .item .card {
-                height: 610px; !important;
+                height: 550px; !important;
         }
     }
 </style>
@@ -54,12 +58,64 @@
                 <div class="card" data-aos="fade-up" data-aos-delay="200">
                     <span class="badge">Tour</span>
                     <video class="video-slide" autoplay muted loop playsinline>
-                        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                        <source src="https://dham-bkt.s3.amazonaws.com/lv_0_20241016002439+(1)+(1).mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                     <div class="overlay">
                         <div class="property_title">Destination 1</div>
-                        <div class="tour_event_info"><i class="bi bi-calendar2-heart"></i> Starting from Jan 1, 2024 to Jan 10, 2024</div>
+                        <div class="tour_event_info"><i class="bi bi-calendar2-heart"></i> Jan 15, 2024</div>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="card" data-aos="fade-up" data-aos-delay="200">
+                    <span class="badge">Tour</span>
+                    <video class="video-slide" autoplay muted loop playsinline>
+                        <source src="https://dham-bkt.s3.amazonaws.com/lv_0_20240926194928.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="overlay">
+                        <div class="property_title">Destination 1</div>
+                        <div class="tour_event_info"><i class="bi bi-calendar2-heart"></i> Jan 15, 2024</div>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="card" data-aos="fade-up" data-aos-delay="200">
+                    <span class="badge">Tour</span>
+                    <video class="video-slide" autoplay muted loop playsinline>
+                        <source src="https://dham-bkt.s3.amazonaws.com/Masroor+Temple+(1)+(1).mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="overlay">
+                        <div class="property_title">Destination 1</div>
+                        <div class="tour_event_info"><i class="bi bi-calendar2-heart"></i> Jan 15, 2024</div>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="card" data-aos="fade-up" data-aos-delay="200">
+                    <span class="badge">Tour</span>
+                    <video class="video-slide" autoplay muted loop playsinline>
+                        <source src="https://dham-bkt.s3.amazonaws.com/IMG_6029+(1).mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="overlay">
+                        <div class="property_title">Destination 1</div>
+                        <div class="tour_event_info"><i class="bi bi-calendar2-heart"></i> Jan 15, 2024</div>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="card" data-aos="fade-up" data-aos-delay="200">
+                    <span class="badge">Tour</span>
+                    <video class="video-slide" autoplay muted loop playsinline>
+                        <source src="https://dham-bkt.s3.amazonaws.com/lolark+Temple+(1)+(1).mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="overlay">
+                        <div class="property_title">Destination 1</div>
+                        <div class="tour_event_info"><i class="bi bi-calendar2-heart"></i> Jan 15, 2024</div>
                     </div>
                 </div>
             </div>
@@ -74,7 +130,7 @@
 
         $('.reels_car .owl-carousel').owlCarousel({
             loop: true,
-            margin: 10,
+            margin: 15,
             autoplay: !isManualPlay, // Set autoplay based on the variable
             autoplayTimeout: 5000, // Adjust the delay between slides
             autoplayHoverPause: true, // Pause on hover
@@ -82,22 +138,22 @@
                 0: {
                     items: 1, 
                     stagePadding: 0, 
-                    margin: 10
+                    margin: 15
                 },
                 768: {
-                    items: 3.3, 
-                    stagePadding: 30, 
-                    margin: 10
+                    items: 2.2, 
+                    stagePadding: 0, 
+                    margin: 15
                 },
                 992: {
-                    items: 3, 
-                    stagePadding: 100, 
-                    margin: 10
+                    items: 3.3, 
+                    stagePadding: 0, 
+                    margin: 15
                 },
                 1200: {
                     items: 4.2, 
-                    stagePadding: 50,
-                    margin: 10
+                    stagePadding: 0,
+                    margin: 15
                 }
             }
         });

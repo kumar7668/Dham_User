@@ -267,7 +267,9 @@ h6 {
 /* Index Page Header on Scroll
 ------------------------------*/
 .index-page.scrolled .header {
-  background: var(--background-color);
+  /* background: var(--background-color); */
+  background: linear-gradient(121.65deg, #E95A1A -16.48%, #4A061B 47.77%);
+
 }
 
 .index-page.scrolled .header {
@@ -278,10 +280,10 @@ h6 {
 }
 
 .index-page.scrolled .navmenu a {
-  color: var(--nav-color);
+  color: #ffffff;
 }
 .index-page.scrolled .navmenu a:hover, .navmenu a:active, .navmenu a:focus {
-  color: var(--theme-red-color);
+  color: var(--theme-hover-color);
 }
 
 /*--------------------------------------------------------------
@@ -507,7 +509,7 @@ h6 {
   .navmenu a:hover,
   .navmenu .active,
   .navmenu .active:focus {
-    color: var(--nav-dropdown-hover-color);
+    color: var(--nav-dropdown-hover-color) !important
   }
 
   .navmenu .active i,
@@ -570,8 +572,8 @@ h6 {
 --------------------------------------------------------------*/
 .footer {
   font-family: var(--default-font);
-  color: var(--footer-text-color);
-  background-color:var(--theme-red-color);
+  color: var(--default-color);
+  background-color:var(--background-color);
   font-size: 14px;
   position: relative;
 }
@@ -585,7 +587,7 @@ h6 {
 }
 
 .footer .footer-about .logo img {
-  max-height: 130px;
+  max-height: 150px;
   margin-right: 6px;
 }
 
@@ -1040,6 +1042,9 @@ section,
 .footer .footer_iocns .bi{
   padding: 0 5px 0 0;
 } 
+.footer .footer_iocns p {
+  color: #fffF;
+}
 
 
 
