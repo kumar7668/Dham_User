@@ -2,7 +2,7 @@
 
 (function() {
     "use strict";
-   // fin1 for blog post
+   // fun-1 for blog post
     document.addEventListener("DOMContentLoaded", function () {
             // Function to truncate text after a specified number of words
             function truncateText(element, wordLimit) {
@@ -53,7 +53,9 @@
             });
     });
 
-    // fun2 for 3 comman carousel
+    
+    // fun2 for all comman carousel
+
     $(document).ready(function(){
         $('.comman_car_list .owl-carousel').owlCarousel({
             loop: true,
@@ -64,28 +66,33 @@
             responsive: {
                 0: {
                     items: 1.5, // 2 cards on small screens (phones)
-                    stagePadding: 0, // Show part of the next card
+                    stagePadding: 10, // Show part of the next card
+                    margin: 10,
+                    
                 },
                 449: {
                     items: 1.8, // 2 cards on small screens (phones)
-                    stagePadding: 5, // Show part of the next card
+                    stagePadding: 10, // Show part of the next card
+                    margin: 10,
                 },
                 689: {
                     items: 2.5, // 3 cards on small tablets
-                    stagePadding: 10 // Show part of the next card
+                    stagePadding: 10, // Show part of the next card
+                    margin: 10,
                 },
                 992: {
                     items: 3, // 4 cards on tablets
-                    stagePadding: 20 // Show part of the next card
+                    stagePadding: 20, // Show part of the next card
+                    margin: 10,
                 },
                 1200: {
                     items: 4, // 5 cards on large screens (desktops)
-                    stagePadding: 2, // Show part of the next card
-                    margin: 5, // Margin between cards
+                    stagePadding: 20, // Show part of the next card
+                    margin: 10, // Margin between cards
                 },
                 1300: {
                     items: 4.4, // 5 cards on large screens (desktops)
-                    stagePadding: 40, // Show part of the next card
+                    stagePadding: 20, // Show part of the next card
                     margin: 10, // Margin between cards
                 }
             }
