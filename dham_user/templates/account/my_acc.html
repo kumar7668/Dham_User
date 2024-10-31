@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+{% block content %}
+    <style>
+        /* Custom Styles */
+        .sidebar {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        .sidebar .nav-link {
+            color: #6c757d;
+            font-weight: 500;
+        }
+        .sidebar .nav-link.active {
+            color: #a52a2a;
+            font-weight: bold;
+        }
+        .profile-content {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .edit-link {
+            color: #a52a2a;
+            font-size: 0.9em;
+            text-align: right;
+            cursor: pointer;
+        }
+        .custom-gender-input {
+            display: none;
+        }
+    </style>
+
+<section id="class_for_all_sections mt-5" class=" class_for_all_sections section"> 
+<div class="container mt-5">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3 mb-4">
+            <div class="sidebar p-3">
+                <h5 class="text-center">Settings</h5>
+                <nav class="nav flex-column nav-pills">
+                    <a class="nav-link active" id="profile-tab" data-bs-toggle="pill" href="#profile-details">Profile Details</a>
+                    <a class="nav-link" id="trips-tab" data-bs-toggle="pill" href="#my-trips">My Trips</a>
+                    <a class="nav-link" id="history-tab" data-bs-toggle="pill" href="#history">History</a>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Profile Content -->
+        <div class="col-md-9">
+            <div class="tab-content">
+                <!-- Profile Details Tab -->
+                <div class="tab-pane fade show active profile-content" id="profile-details">
+                    <h4>Profile Details</h4>
+                    <hr>
+                    <div class="mb-3">
+                        <label class="form-label">Name</label>
+                        <div class="d-flex justify-content-between">
+                            <span id="name-field">Jaxson Siphron</span>
+                            <a href="#" class="edit-link" onclick="makeEditable('name')">Edit</a>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Display Name</label>
+                        <div class="d-flex justify-content-between">
+                            <span id="display-name-field">Jaxson Siphron</span>
+                            <a href="#" class="edit-link" onclick="makeEditable('display-name')">Edit</a>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Gender</label>
+                        <div class="d-flex justify-content-between">
+                            <select class="form-select" id="gender-dropdown" onchange="toggleCustomGenderInput()">
+                                <option value="none" selected>None</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </select>
+                            <input type="text" id="custom-gender" class="form-control custom-gender-input mt-2" placeholder="Specify gender">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Phone Number</label>
+                        <div class="d-flex justify-content-between">
+                            <span id="phone-field">+91 1234567890</span>
+                            <a href="#" class="edit-link" onclick="makeEditable('phone')">Edit</a>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <div class="d-flex justify-content-between">
+                            <span id="email-field">absc23@yopmail.com</span>
+                            <a href="#" class="edit-link" onclick="makeEditable('email')">Edit</a>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Address</label>
+                        <div class="d-flex justify-content-between">
+                            <span id="address-field">abscdsfdsfs</span>
+                            <a href="#" class="edit-link" onclick="makeEditable('address')">Edit</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- My Trips Tab -->
+                <div class="tab-pane fade profile-content" id="my-trips">
+                    <h4>My Trips</h4>
+                    <p>Details about trips will go here.</p>
+                </div>
+
+                <!-- History Tab -->
+                <div class="tab-pane fade profile-content" id="history">
+                    <h4>History</h4>
+                    <p>History details will go here.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+
+<!-- JavaScript for Editability and Gender Selection -->
+<script>
+    function makeEditable(field) {
+        const fieldElement = document.getElementById(field + '-field');
+        const currentValue = fieldElement.textContent;
+        fieldElement.innerHTML = `<input type="text" class="form-control" value="${currentValue}" onblur="saveEdit('${field}', this)">`;
+    }
+
+    function saveEdit(field, input) {
+        const newValue = input.value;
+        const fieldElement = document.getElementById(field + '-field');
+        fieldElement.textContent = newValue;
+    }
+
+    function toggleCustomGenderInput() {
+        const genderDropdown = document.getElementById('gender-dropdown');
+        const customGenderInput = document.getElementById('custom-gender');
+        if (genderDropdown.value === 'other') {
+            customGenderInput.style.display = 'block';
+        } else {
+            customGenderInput.style.display = 'none';
+            customGenderInput.value = ''; // Clear custom input if another option is selected
+        }
+    }
+</script>
+
+{% endblock %}

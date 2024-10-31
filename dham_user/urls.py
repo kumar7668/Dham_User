@@ -12,6 +12,7 @@ urlpatterns = [
     path('login/', views.login_view, name='login'),
     path('logout/',views.dham_logout_view, name='logout'),
     path('verify_otp_view/', views.verify_otp_view, name='verify_otp_view'),
+    path('my-account', views.my_account, name="my_account"),
     path('guide/guide-detail/<str:guideId>/', views.guide_detail, name='guide-detail'),
     path('book_guide/', views.book_guide, name='book-guide'),
 

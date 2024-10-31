@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 import requests
 from dod_api.api_hooks import userRegistration, verifyOtp, userLogin, get_request_data, get_hotel_list_ViaId, get_blog_detail_via_id, get_hotel_detail_ViaId,\
-      post_booking_detail, get_guides_list, get_guides_by_Id, PostGuideToBook
+      post_booking_detail, get_guides_list, get_guides_by_Id, PostGuideToBook, myAccount
 from dod_api.forms.userForms import LoginForm, RegisterForm, BaseOtpForm
 from django.templatetags.static import static
 from django.utils import translation
@@ -32,8 +32,8 @@ def register_view(request):
                 register_response = userRegistration(fname, lname, email, phone)
 
                 if register_response.status_code == 201:
-                    request.session['user_mobile'] = phone
-                    request.session['user_email'] = email
+                    request.session['DHAM_user_mobile'] = phone
+                    request.session['DHAM_user_email'] = email
                     return JsonResponse({'status': 'success', 'message': 'Registration successful! Please check your OTP.'}, status=201)
 
                 elif register_response.status_code == 400:
@@ -76,7 +76,7 @@ def verify_otp_view(request):
 
             if otp_form.is_valid():
                 otp = otp_form.cleaned_data['otp']
-                mobile = request.session.get('user_mobile')  # Get phone from session
+                mobile = request.session.get('DHAM_user_mobile')  # Get phone from session
 
                 try:
                     # Call your OTP verification API
@@ -88,7 +88,7 @@ def verify_otp_view(request):
                         json_data = json.loads(response_content)
 
                         # Store token in session
-                        request.session['token'] = json_data['data']['token']
+                        request.session['DHAM_token'] = json_data['data']['token']
                         
                         # Create a response object
                         response = JsonResponse({
@@ -99,13 +99,13 @@ def verify_otp_view(request):
                         }, status=200)
                         
                         # Set the cookie in the response object
-                        response.set_cookie('user', json_data['data']['customer']['_id'])
+                        response.set_cookie('Dham_user', json_data['data']['customer']['_id'])
 
                         # Set session values
                         request.session['user_authenticated'] = True 
-                        request.session['user_id'] = json_data['data']['customer']['_id']
-                        request.session['user_email'] = json_data['data']['customer']['email']
-                        request.session['user_mobile'] = json_data['data']['customer']['mobile']
+                        request.session['DHAM_user_id'] = json_data['data']['customer']['_id']
+                        request.session['DHAM_user_email'] = json_data['data']['customer']['email']
+                        request.session['DHAM_user_mobile'] = json_data['data']['customer']['mobile']
             
 
                         # Return the response with the cookie set
@@ -156,15 +156,12 @@ def login_view(request):
                 # otp = login_form.cleaned_data['otp']  # Assuming OTP is also submitted via the form
 
                 try:
-                    # # Retrieve the token from the session
-                    # token = request.session.get('token')
-
                     # Call external or custom userLogin function to validate phone + OTP
                     user_login = userLogin(phone)
 
                     # Check if the OTP login was successful
                     if user_login.status_code == 200:
-                        request.session['user_mobile'] = phone
+                        request.session['DHAM_user_mobile'] = phone
                         return JsonResponse({'status': 'success', 'message': 'Verify OTP for Login'}, status=200)
                     else:
                         return JsonResponse({'status': 'error', 'message': 'Invalid OTP or verification failed. Please try again.'}, status=400)
@@ -196,6 +193,15 @@ def dham_logout_view(request):
     return JsonResponse({'success': False, 'error': 'Invalid request method.'})
 
 
+# Usre Profile View
+def my_account(request):
+    #Retrieve the token from the session
+    user_token = request.session.get('DHAM_token')
+    my_acc_data = myAccount(user_token)
+    context={
+        'data':my_acc_data,
+    }
+    return render(request, 'account/my_acc.html', context)
 
 
 

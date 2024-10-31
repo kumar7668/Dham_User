@@ -85,13 +85,8 @@ def verifyOtp(mobile, otp):
 # User Registration function (without OTP verification)
 def userLogin(phone):
     login_data = {
-        'mobile': "+91" + phone
-    }
-    # headers = {
-    #             'Authorization': f'Bearer {token}',
-    #             'Content-Type': 'application/json'
-    #         }
-
+    'mobile': phone if phone.startswith("+91") else "+91" + phone
+    } 
     try:
         # Send POST request to the registration endpoint
         response = requests.post(f"{BASE_URI}/login-customer", json=login_data)
@@ -106,6 +101,19 @@ def userLogin(phone):
     except requests.exceptions.RequestException as e:
         return JsonResponse({'message': 'Error connecting to the third-party service.', 'error': str(e)}, status=500)
 
+def myAccount(user_token):
+    try:
+        # Set headers with Bearer token
+        headers = {
+            'Authorization': f'Bearer {user_token}',
+            'Content-Type': 'application/json'
+        }
+        response = requests.post(f"{BASE_URI}/get-my-profile", headers=headers)
+        response_data = response.json()
+        return response_data
+    except requests.exceptions.RequestException as e:
+        print("Error:", e)
+        return None
 
 
 def get_request_data(api_name):

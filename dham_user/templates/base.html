@@ -652,35 +652,6 @@
         $('#logoutModal').modal('show');
       } {% endcomment %}
 
-      function logOut() {
-        // Make a request to the logout URL
-        fetch(`{% url 'logout' %}`, {  // Ensure this points to the correct logout URL
-            method: 'POST', // Use POST for logout
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': getCookie('csrftoken') // Ensure CSRF token is included
-            }
-        })
-        .then(response => {
-            if (response.ok) {
-                // Remove session data from local storage
-                localStorage.removeItem('cart');
-    
-                // Remove the 'user_session' and 'user' cookies
-                $.removeCookie('user_session', { path: '/' });
-                $.removeCookie('user', { path: '/' });
-    
-                // Reload the page to reflect logout
-                document.location.reload();
-            } else {
-                console.error("Logout failed.");
-            }
-        })
-        .catch(error => {
-            console.error("Error during logout: ", error);
-        });
-    }
-    
     // Helper function to get CSRF token from cookies
     function getCookie(name) {
         let cookieValue = null;
@@ -697,7 +668,38 @@
         }
         return cookieValue;
     }
-    
+
+    // Logout
+    function logOut() {
+      // Make a request to the logout URL
+      fetch(`{% url 'logout' %}`, {  // Ensure this points to the correct logout URL
+          method: 'POST', // Use POST for logout
+          headers: {
+              'Content-Type': 'application/json',
+              'X-CSRFToken': getCookie('csrftoken') // Ensure CSRF token is included
+          }
+      })
+      .then(response => {
+          if (response.ok) {
+              // Remove session data from local storage
+              localStorage.removeItem('cart');
+  
+              // Remove the 'user_session' and 'user' cookies
+              $.removeCookie('user_session', { path: '/' });
+              $.removeCookie('Dham_user', { path: '/' });
+              $.removeCookie('user', { path: '/' });
+  
+              // Redirect to the home page after logout
+              window.location.href = "{% url 'home' %}"; // Ensure 'home' is the name of your home page URL pattern
+          } else {
+              console.error("Logout failed.");
+          }
+        })
+        .catch(error => {
+            console.error("Error during logout: ", error);
+        });
+    }
+  
     
 
         $(document).ready(function() {
@@ -800,7 +802,7 @@
       
                           // Redirect to home after success
                           setTimeout(function() {
-                              window.location.href = '/home'; // Replace '/home' with your actual home URL
+                              window.location.href = "{% url 'my_account' %}"; // Replace '/home' with your actual home URL
                           }, 2000); // Optional delay before redirection
                       }
                   },
@@ -810,7 +812,7 @@
               });
           });
       
-          // Handle login form submission (second login form)
+          //##2 Handle login form submission (second login form)
           $('#loginForm-2').on('submit', function(event) {
               event.preventDefault(); // Prevent the default form submission
       
@@ -863,7 +865,7 @@
                           }, 1000);
                           // Redirect to home after success
                           setTimeout(function() {
-                            window.location.href = '/contact'; // Replace '/home' with your actual home URL
+                            window.location.href = '/my-account'; // Replace '/home' with your actual home URL
                         }, 1001);
                       } else {
                           // Show error message
@@ -892,7 +894,7 @@
               if (isUserLoggedIn()) {                  
                   // Create the 'My Account' link
                   var myAccountLink = document.createElement('li');
-                  myAccountLink.innerHTML = '<a class="dropdown-item" href="{{ shop_my_account_page_url }}" aria-label="My account">My Account</a>';
+                  myAccountLink.innerHTML = '<a class="dropdown-item" href="{% url 'my_account' %}" aria-label="My account">My Account</a>';
                   menu.appendChild(myAccountLink);
       
                   // Create the 'Sign Out' link
@@ -924,7 +926,7 @@
           var cookies = document.cookie.split(';');
           for (var i = 0; i < cookies.length; i++) {
               var cookie = cookies[i].trim();
-              if (cookie.startsWith('user=')) {
+              if (cookie.startsWith('Dham_user=')) {
                   return true; // User is logged in
               }
           }
