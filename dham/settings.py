@@ -23,13 +23,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-285m^swoa+vf164(t-1wta7)y5ag3j0)%xlbnli%s)zb11&jnl"
 
 CSRF_TRUSTED_ORIGINS = [
+    'https://bharatkedham.com/',
     'https://dham.up.railway.app',  # Your Railway app domain
 ]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['dham.up.railway.app', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['bharatkedham.com','dham.up.railway.app', '127.0.0.1', 'localhost']
 
 # Application definition
 
